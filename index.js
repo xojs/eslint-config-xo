@@ -6,7 +6,7 @@ module.exports = {
 		node: true
 	},
 	rules: {
-		// Posibble Errors
+		// Possible Errors
 		'comma-dangle': [2, 'never'],
 		'no-cond-assign': 2,
 		'no-constant-condition': 2,
@@ -17,7 +17,7 @@ module.exports = {
 		'no-duplicate-case': 2,
 		'no-empty-character-class': 2,
 
-		// disabled because of https://github.com/eslint/eslint/issues/2808
+		// Disabled because of https://github.com/eslint/eslint/issues/2808
 		// 'no-empty': 2,
 		'no-ex-assign': 2,
 		'no-extra-boolean-cast': 2,
@@ -120,7 +120,7 @@ module.exports = {
 		'indent': [2, 'tab', {SwitchCase: 1}],
 		'key-spacing': [2, {beforeColon: false, afterColon: true}],
 
-		// disabled because of problems with object literals: https://github.com/eslint/eslint/issues/2965
+		// Disabled because of problems with object literals: https://github.com/eslint/eslint/issues/2965
 		// 'lines-around-comment': [2, {
 		// 	beforeBlockComment: true,
 		// 	beforeLineComment: true,
