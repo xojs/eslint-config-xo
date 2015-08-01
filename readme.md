@@ -53,7 +53,7 @@ And [`xo/browser`](browser.js) if you're in the browser:
 ## Related
 
 - [eslint-config-xo-space](https://github.com/sindresorhus/eslint-config-xo-space) - ESLint shareable config for XO with 2-space indent
-- [eslint-config-react](https://github.com/sindresorhus/eslint-config-react) - ESLint shareable config for React to be used with this config
+- [eslint-config-xo-react](https://github.com/sindresorhus/eslint-config-xo-react) - ESLint shareable config for React to be used with this config
 
 
 ## License
