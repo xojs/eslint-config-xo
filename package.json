@@ -1,0 +1,61 @@
+{
+  "name": "eslint-config-xo",
+  "version": "0.0.0",
+  "description": "ESLint shareable config for XO",
+  "license": "MIT",
+  "repository": "sindresorhus/eslint-config-xo",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "files": [
+    "index.js",
+    "esnext.js",
+    "browser.js"
+  ],
+  "keywords": [
+    "eslintconfig",
+    "xo",
+    "xoxo",
+    "hugs",
+    "kisses",
+    "happy",
+    "happiness",
+    "code",
+    "quality",
+    "style",
+    "lint",
+    "linter",
+    "jscs",
+    "jshint",
+    "jslint",
+    "eslint",
+    "validate",
+    "code style",
+    "standard",
+    "strict",
+    "check",
+    "checker",
+    "verify",
+    "enforce",
+    "hint",
+    "simple"
+  ],
+  "devDependencies": {
+    "ava": "0.0.4",
+    "clear-require": "^1.0.1",
+    "eslint": "^1.0.0",
+    "is-plain-obj": "^1.0.0",
+    "temp-write": "^1.1.2"
+  },
+  "peerDependencies": {
+    "eslint": ">=1.0.0"
+  }
+}
