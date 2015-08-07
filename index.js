@@ -91,7 +91,8 @@ module.exports = {
 		'yoda': 2,
 
 		// Strict Mode
-		'strict': [2, 'global'],
+		// disabled because of https://github.com/eslint/eslint/issues/3306
+		// 'strict': [2, 'global'],
 
 		// Variables
 		'no-delete-var': 2,
