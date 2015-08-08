@@ -51,11 +51,11 @@
   "devDependencies": {
     "ava": "0.0.4",
     "clear-require": "^1.0.1",
-    "eslint": "^1.0.0",
+    "eslint": "^1.1.0",
     "is-plain-obj": "^1.0.0",
     "temp-write": "^1.1.2"
   },
   "peerDependencies": {
-    "eslint": ">=1.0.0"
+    "eslint": ">=1.1.0"
   }
 }

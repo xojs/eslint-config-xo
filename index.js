@@ -163,6 +163,7 @@ module.exports = {
 		'spaced-comment': [2, 'always'],
 
 		// ES2015
+		'arrow-parens': [2, 'as-needed'],
 		'arrow-spacing': [2, {before: true, after: true}],
 		'constructor-super': 2,
 		'generator-star-spacing': [2, 'before'],
