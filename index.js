@@ -103,7 +103,10 @@ module.exports = {
 		'no-use-before-define': [2, 'nofunc'],
 
 		// Node.js
-		'callback-return': [1, ['cb', 'callback', 'next', 'done']],
+
+		// disabled because of https://github.com/eslint/eslint/issues/3420
+		// 'callback-return': [1, ['cb', 'callback', 'next', 'done']],
+
 		'handle-callback-err': 1,
 		'no-mixed-requires': [2, true],
 		'no-new-require': 2,
