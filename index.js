@@ -118,7 +118,6 @@ module.exports = {
 		'comma-spacing': [2, {before: false, after: true}],
 		'comma-style': [2, 'last'],
 		'computed-property-spacing': [2, 'never'],
-		'consistent-this': [2, 'self'],
 		'eol-last': 2,
 		'indent': [2, 'tab', {SwitchCase: 1}],
 		'key-spacing': [2, {beforeColon: false, afterColon: true}],
