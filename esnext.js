@@ -30,8 +30,10 @@ def.ecmaFeatures = {
 def.env.es6 = true;
 def.rules['no-var'] = 2;
 def.rules['object-shorthand'] = [2, 'always'];
+def.rules['prefer-arrow-callback'] = 2;
 def.rules['prefer-const'] = 2;
-def.rules['prefer-reflect'] = 2;
+def.rules['prefer-reflect'] = [2, {exceptions: ['delete']}];
+def.rules['prefer-template'] = 2;
 def.rules['prefer-spread'] = 2;
 
 module.exports = def;

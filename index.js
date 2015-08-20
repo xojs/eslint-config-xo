@@ -170,6 +170,7 @@ module.exports = {
 		'generator-star-spacing': [2, 'before'],
 		'no-class-assign': 2,
 		'no-const-assign': 2,
+		'no-dupe-class-members': 2,
 		'no-this-before-super': 2
 	}
 };
