@@ -81,6 +81,7 @@ module.exports = {
 		'no-throw-literal': 2,
 		'no-unused-expressions': 2,
 		'no-useless-call': 2,
+		'no-useless-concat': 2,
 		'no-void': 2,
 		'no-warning-comments': 1,
 		'no-with': 2,
