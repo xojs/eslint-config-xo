@@ -5,6 +5,10 @@ var eslint = require('eslint');
 var tempWrite = require('temp-write');
 var clearRequire = require('clear-require');
 
+function clearRequires() {
+	['./', './esnext', './browser'].map(clearRequire);
+}
+
 function runEslint(str, conf) {
 	var linter = new eslint.CLIEngine({
 		useEslintrc: false,
@@ -15,7 +19,7 @@ function runEslint(str, conf) {
 }
 
 test('main', function (t) {
-	clearRequire.all();
+	clearRequires();
 	var conf = require('../');
 
 	t.true(isPlainObj(conf));
@@ -30,7 +34,7 @@ test('main', function (t) {
 });
 
 test('esnext', function (t) {
-	clearRequire.all();
+	clearRequires();
 	var conf = require('../esnext');
 
 	t.true(isPlainObj(conf));
@@ -43,8 +47,23 @@ test('esnext', function (t) {
 	t.end();
 });
 
+test('esnext es2016', function (t) {
+	clearRequires();
+
+	var conf = require('../esnext');
+
+	t.true(isPlainObj(conf));
+	t.true(isPlainObj(conf.env));
+	t.true(isPlainObj(conf.rules));
+
+	var errors = runEslint('const x = {a: 0};\nasync function z() {\n\treturn Promise.resolve({b: 1, ...x});\n}\n', conf);
+	t.is(errors[0].ruleId, 'no-unused-vars');
+
+	t.end();
+});
+
 test('browser', function (t) {
-	clearRequire.all();
+	clearRequires();
 	var conf = require('../browser');
 
 	t.true(isPlainObj(conf));
