@@ -11,6 +11,14 @@ This is for advanced users. You probably want to use XO directly.
 $ npm install --save-dev eslint-config-xo
 ```
 
+For the `esnext` version you'll also need Babel's ESLint [parser](https://github.com/babel/babel-eslint) and [plugin](https://github.com/babel/eslint-plugin-babel):
+
+```
+$ npm install --save-dev babel-eslint eslint-plugin-babel
+```
+
+This will let you use ES2016 features like [`async`/`await`](https://github.com/lukehoban/ecmascript-asyncawait) and [decorators](https://github.com/wycats/javascript-decorators). For a full list of features see [Babel's experimental features](https://babeljs.io/docs/usage/experimental/) and their [Learn ES2015](https://babeljs.io/docs/learn-es2015/).
+
 
 ## Usage
 
@@ -33,7 +41,7 @@ Or to `.eslintrc`:
 }
 ```
 
-This package also exposes [`xo/esnext`](esnext.js) if you want ES2015 support and rules:
+This package also exposes [`xo/esnext`](esnext.js) if you want ES2015+ support and rules:
 
 ```json
 {
