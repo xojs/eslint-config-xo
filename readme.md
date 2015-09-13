@@ -41,7 +41,9 @@ Or to `.eslintrc`:
 }
 ```
 
-This package also exposes [`xo/esnext`](esnext.js) if you want ES2015+ support and rules:
+Supports parsing ES2015, but doesn't enforce it by default.
+
+This package also exposes [`xo/esnext`](esnext.js) if you want ES2015+ rules:
 
 ```json
 {

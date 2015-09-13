@@ -2,37 +2,8 @@
 var def = require('./');
 
 def.parser = 'babel-eslint';
-
 def.plugins = ['babel'];
-
-def.ecmaFeatures = {
-	arrowFunctions: true,
-	binaryLiterals: true,
-	blockBindings: true,
-	classes: true,
-	defaultParams: true,
-	destructuring: true,
-	forOf: true,
-	generators: true,
-	globalReturn: true,
-	modules: true,
-	objectLiteralComputedProperties: true,
-	objectLiteralDuplicateProperties: true,
-	objectLiteralShorthandMethods: true,
-	objectLiteralShorthandProperties: true,
-	octalLiterals: true,
-	regexUFlag: true,
-	regexYFlag: true,
-	restParams: true,
-	spread: true,
-	superInFunctions: true,
-	templateStrings: true,
-	unicodeCodePointEscapes: true,
-	jsx: true,
-	experimentalObjectRestSpread: true
-};
-
-def.env.es6 = true;
+def.ecmaFeatures.globalReturn = true;
 def.rules['no-var'] = 2;
 def.rules['prefer-arrow-callback'] = 2;
 def.rules['prefer-const'] = 2;

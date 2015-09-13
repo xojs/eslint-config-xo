@@ -1,8 +1,14 @@
 'use strict';
 
 module.exports = {
+	ecmaFeatures: {
+		modules: true,
+		jsx: true,
+		experimentalObjectRestSpread: true
+	},
 	env: {
-		node: true
+		node: true,
+		es6: true
 	},
 	rules: {
 		// Possible Errors
