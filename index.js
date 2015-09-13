@@ -153,7 +153,7 @@ module.exports = {
 		'operator-assignment': [2, 'always'],
 		'operator-linebreak': [2, 'after'],
 		'padded-blocks': [2, 'never'],
-		'quote-props': [2, 'consistent-as-needed', {keywords: true}],
+		'quote-props': [2, 'consistent-as-needed'],
 		'quotes': [2, 'single'],
 		'semi-spacing': [2, {before: false, after: true}],
 		'semi': [2, 'always'],
