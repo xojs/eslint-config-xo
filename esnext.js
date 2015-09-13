@@ -12,7 +12,6 @@ def.ecmaFeatures = {
 	classes: true,
 	defaultParams: true,
 	destructuring: true,
-	experimentalObjectRestSpread: true,
 	forOf: true,
 	generators: true,
 	globalReturn: true,
@@ -28,7 +27,9 @@ def.ecmaFeatures = {
 	spread: true,
 	superInFunctions: true,
 	templateStrings: true,
-	unicodeCodePointEscapes: true
+	unicodeCodePointEscapes: true,
+	jsx: true,
+	experimentalObjectRestSpread: true
 };
 
 def.env.es6 = true;
