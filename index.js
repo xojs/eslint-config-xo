@@ -106,6 +106,7 @@ module.exports = {
 
 		// disabled because of https://github.com/eslint/eslint/issues/3420
 		// 'callback-return': [1, ['cb', 'callback', 'next', 'done']],
+		'global-require': 1,
 
 		'handle-callback-err': 1,
 		'no-mixed-requires': [2, true],
@@ -122,6 +123,7 @@ module.exports = {
 		'computed-property-spacing': [2, 'never'],
 		'eol-last': 2,
 		'indent': [2, 'tab', {SwitchCase: 1}],
+		'jsx-quotes': 2,
 		'key-spacing': [2, {beforeColon: false, afterColon: true}],
 
 		// Disabled because of problems with object literals: https://github.com/eslint/eslint/issues/2965
@@ -142,6 +144,7 @@ module.exports = {
 		'no-multiple-empty-lines': [2, {max: 1}],
 		'no-nested-ternary': 2,
 		'no-new-object': 2,
+		'no-restricted-syntax': [2, 'WithStatement'],
 		'no-spaced-func': 2,
 		'no-trailing-spaces': 2,
 		'no-unneeded-ternary': 2,
@@ -155,6 +158,7 @@ module.exports = {
 		'semi-spacing': [2, {before: false, after: true}],
 		'semi': [2, 'always'],
 		'space-after-keywords': [2, 'always'],
+		'space-before-keywords': [2, 'always'],
 		'space-before-blocks': [2, 'always'],
 		'space-before-function-paren': [2, {anonymous: 'always', named: 'never'}],
 		'space-in-parens': [2, 'never'],
