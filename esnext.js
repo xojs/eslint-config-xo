@@ -1,5 +1,8 @@
 'use strict';
+var deepAssign = require('deep-assign');
 var def = require('./');
+
+def = deepAssign({}, def);
 
 def.parser = 'babel-eslint';
 def.plugins = ['babel'];

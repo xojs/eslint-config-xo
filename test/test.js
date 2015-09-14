@@ -3,11 +3,6 @@ var test = require('ava');
 var isPlainObj = require('is-plain-obj');
 var eslint = require('eslint');
 var tempWrite = require('temp-write');
-var clearRequire = require('clear-require');
-
-function clearRequires() {
-	['./', './esnext', './browser'].map(clearRequire);
-}
 
 function runEslint(str, conf) {
 	var linter = new eslint.CLIEngine({
@@ -19,7 +14,6 @@ function runEslint(str, conf) {
 }
 
 test('main', function (t) {
-	clearRequires();
 	var conf = require('../');
 
 	t.true(isPlainObj(conf));
@@ -34,7 +28,6 @@ test('main', function (t) {
 });
 
 test('esnext', function (t) {
-	clearRequires();
 	var conf = require('../esnext');
 
 	t.true(isPlainObj(conf));
@@ -48,8 +41,6 @@ test('esnext', function (t) {
 });
 
 test('esnext es2016', function (t) {
-	clearRequires();
-
 	var conf = require('../esnext');
 
 	t.true(isPlainObj(conf));
@@ -63,7 +54,6 @@ test('esnext es2016', function (t) {
 });
 
 test('browser', function (t) {
-	clearRequires();
 	var conf = require('../browser');
 
 	t.true(isPlainObj(conf));
