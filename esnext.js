@@ -6,7 +6,6 @@ def = deepAssign({}, def);
 
 def.parser = 'babel-eslint';
 def.plugins = ['babel'];
-def.ecmaFeatures.globalReturn = true;
 def.rules['no-var'] = 2;
 def.rules['prefer-arrow-callback'] = 2;
 def.rules['prefer-const'] = 2;
