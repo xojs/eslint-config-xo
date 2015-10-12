@@ -149,6 +149,7 @@ module.exports = {
 		'no-mixed-spaces-and-tabs': 2,
 		'no-multiple-empty-lines': [2, {max: 1}],
 		'no-nested-ternary': 2,
+		'no-negated-condition': 2,
 		'no-new-object': 2,
 		'no-restricted-syntax': [2, 'WithStatement'],
 		'no-spaced-func': 2,
