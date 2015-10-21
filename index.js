@@ -174,7 +174,7 @@ module.exports = {
 		'space-infix-ops': 2,
 		'space-return-throw-case': 2,
 		'space-unary-ops': 2,
-		'spaced-comment': [2, 'always'],
+		'spaced-comment': [2, 'always', {markers: ['!']}],
 
 		// ES2015
 		'arrow-parens': [2, 'as-needed'],
