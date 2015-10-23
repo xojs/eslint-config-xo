@@ -117,7 +117,6 @@ module.exports = {
 
 		// disabled because of https://github.com/eslint/eslint/issues/3420
 		// 'callback-return': [1, ['cb', 'callback', 'next', 'done']],
-		'global-require': 1,
 
 		'handle-callback-err': 1,
 		'no-mixed-requires': [2, {grouping: true}],
