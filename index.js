@@ -22,7 +22,7 @@ module.exports = {
 		'no-duplicate-case': 2,
 		'no-empty-character-class': 2,
 
-		// Disabled because of https://github.com/eslint/eslint/issues/2808
+		// disabled because of https://github.com/eslint/eslint/issues/2808
 		// 'no-empty': 2,
 		'no-ex-assign': 2,
 		'no-extra-boolean-cast': 2,
@@ -71,7 +71,10 @@ module.exports = {
 		'no-labels': 2,
 		'no-lone-blocks': 2,
 		'no-loop-func': 2,
-		'no-magic-numbers': [2, {detectObjects: true}],
+
+		// disabled because of https://github.com/eslint/eslint/issues/4236
+		// 'no-magic-numbers': [1, {ignore: [-1, 0, 1, 60, 1000], detectObjects: true}],
+
 		'no-multi-spaces': 2,
 		'no-multi-str': 2,
 		'no-native-reassign': 2,
