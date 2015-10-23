@@ -50,17 +50,17 @@
     "simple"
   ],
   "dependencies": {
-    "deep-assign": "^1.0.0"
+    "deep-assign": "^2.0.0"
   },
   "devDependencies": {
     "ava": "*",
-    "eslint": "^1.7.1",
+    "eslint": "^1.7.3",
     "is-plain-obj": "^1.0.0",
     "temp-write": "^1.1.2",
     "babel-eslint": "^4.1.0",
     "eslint-plugin-babel": "^2.1.1"
   },
   "peerDependencies": {
-    "eslint": ">=1.7.1"
+    "eslint": ">=1.7.3"
   }
 }
