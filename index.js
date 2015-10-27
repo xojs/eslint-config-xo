@@ -135,16 +135,6 @@ module.exports = {
 		'indent': [2, 'tab', {SwitchCase: 1}],
 		'jsx-quotes': 2,
 		'key-spacing': [2, {beforeColon: false, afterColon: true}],
-		'lines-around-comment': [2, {
-			beforeBlockComment: true,
-			beforeLineComment: true,
-			allowBlockStart: true,
-			allowBlockEnd: true,
-			allowObjectStart: true,
-			allowObjectEnd: true,
-			allowArrayStart: true,
-			allowArrayEnd: true
-		}],
 		'linebreak-style': [2, 'unix'],
 		'max-nested-callbacks': [1, 4],
 		'new-cap': [2, {newIsCap: true, capIsNew: true}],
