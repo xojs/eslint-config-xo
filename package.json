@@ -54,13 +54,13 @@
   },
   "devDependencies": {
     "ava": "*",
-    "eslint": "^1.8.0",
+    "eslint": "^1.9.0",
     "is-plain-obj": "^1.0.0",
     "temp-write": "^1.1.2",
     "babel-eslint": "^4.1.0",
     "eslint-plugin-babel": "^2.1.1"
   },
   "peerDependencies": {
-    "eslint": ">=1.8.0"
+    "eslint": ">=1.9.0"
   }
 }
