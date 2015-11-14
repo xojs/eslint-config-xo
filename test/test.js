@@ -47,7 +47,7 @@ test('esnext es2016', function (t) {
 	t.true(isPlainObj(conf.env));
 	t.true(isPlainObj(conf.rules));
 
-	var errors = runEslint('const x = {a: 0};\nasync function z() {\n\treturn Promise.resolve({b: 1, ...x});\n}\n', conf);
+	var errors = runEslint('let unused; const x = async () => {\n\tawait Promise.resolve({b: 1, ...x});\n};\n', conf);
 	t.is(errors[0].ruleId, 'no-unused-vars');
 
 	t.end();
