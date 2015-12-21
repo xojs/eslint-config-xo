@@ -172,7 +172,6 @@ module.exports = {
 		'spaced-comment': [2, 'always', {markers: ['!']}],
 
 		// ES2015
-		'arrow-body-style': [2, 'as-needed'],
 		'arrow-parens': [2, 'as-needed'],
 		'arrow-spacing': [2, {before: true, after: true}],
 		'constructor-super': 2,
