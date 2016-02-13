@@ -1,10 +1,13 @@
 'use strict';
 
 module.exports = {
-	ecmaFeatures: {
-		modules: true,
-		jsx: true,
-		experimentalObjectRestSpread: true
+	parserOptions: {
+		ecmaVersion: 6,
+		sourceType: 'module',
+		ecmaFeatures: {
+			jsx: true,
+			experimentalObjectRestSpread: true
+		}
 	},
 	env: {
 		node: true,
@@ -45,6 +48,7 @@ module.exports = {
 
 		// Best Practices
 		'accessor-pairs': 2,
+		'array-callback-return': 2,
 		'block-scoped-var': 2,
 		'consistent-return': 2,
 		'curly': 2,
@@ -63,9 +67,11 @@ module.exports = {
 		'no-eval': 2,
 		'no-extend-native': 2,
 		'no-extra-bind': 2,
+		'no-extra-label': 2,
 		'no-fallthrough': 2,
 		'no-floating-decimal': 2,
 		'no-implicit-coercion': 2,
+		'no-implicit-globals': 2,
 		'no-implied-eval': 2,
 		'no-iterator': 2,
 		'no-labels': 2,
@@ -87,6 +93,7 @@ module.exports = {
 		'no-redeclare': 2,
 		'no-return-assign': [2, 'always'],
 		'no-script-url': 2,
+		'no-self-assign': 2,
 		'no-self-compare': 2,
 		'no-sequences': 2,
 		'no-throw-literal': 2,
@@ -122,7 +129,8 @@ module.exports = {
 		'no-mixed-requires': [2, {grouping: true}],
 		'no-new-require': 2,
 		'no-path-concat': 2,
-		'no-restricted-modules': [2, 'domain', 'freelist', 'smalloc', 'sys'],
+		'no-restricted-imports': [2, 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
+		'no-restricted-modules': [2, 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
 
 		// Stylistic Issues
 		'array-bracket-spacing': [2, 'never'],
@@ -140,6 +148,7 @@ module.exports = {
 		'max-nested-callbacks': [1, 4],
 		'new-cap': [2, {newIsCap: true, capIsNew: true}],
 		'new-parens': 2,
+		'newline-per-chained-call': 2,
 		'no-array-constructor': 2,
 		'no-lonely-if': 2,
 		'no-mixed-spaces-and-tabs': 2,
@@ -175,6 +184,7 @@ module.exports = {
 		'no-class-assign': 2,
 		'no-const-assign': 2,
 		'no-dupe-class-members': 2,
+		'no-new-symbol': 2,
 		'no-this-before-super': 2
 	}
 };
