@@ -1,26 +1,30 @@
 'use strict';
-var deepAssign = require('deep-assign');
-var def = require('./');
+var path = require('path');
 
-def = deepAssign({}, def);
+module.exports = {
+	extends: path.join(__dirname, 'index.js'),
+	parser: 'babel-eslint',
+	plugins: ['babel'],
+	rules: {
+		'no-var': 2,
+		'prefer-arrow-callback': 2,
+		'prefer-const': 2,
 
-def.parser = 'babel-eslint';
-def.plugins = ['babel'];
-def.rules['no-var'] = 2;
-def.rules['prefer-arrow-callback'] = 2;
-def.rules['prefer-const'] = 2;
-// disabled since latest Node.js LTS doesn't yet support it
-// def.rules['prefer-reflect'] = [2, {exceptions: ['delete']}];
-// def.rules['prefer-rest-params'] = 2;
-def.rules['prefer-template'] = 2;
-def.rules['prefer-spread'] = 2;
-def.rules['babel/object-shorthand'] = [2, 'always'];
-def.rules['babel/generator-star-spacing'] = def.rules['generator-star-spacing'];
-def.rules['babel/arrow-parens'] = def.rules['arrow-parens'];
-def.rules['babel/object-curly-spacing'] = def.rules['object-curly-spacing'];
-def.rules['object-shorthand'] = 0;
-def.rules['generator-star-spacing'] = 0;
-def.rules['arrow-parens'] = 0;
-def.rules['object-curly-spacing'] = 0;
+		// disabled since latest Node.js LTS doesn't yet support it
+		// 'prefer-reflect': [2, {exceptions: ['delete']}],
+		// 'prefer-rest-params': 2,
+		'prefer-template': 2,
+		'prefer-spread': 2,
 
-module.exports = def;
+		// disable builtin rules that are incompatible with Babel plugin ones
+		'object-shorthand': 0,
+		'generator-star-spacing': 0,
+		'arrow-parens': 0,
+		'object-curly-spacing': 0,
+
+		'babel/object-shorthand': [2, 'always'],
+		'babel/generator-star-spacing': [2, 'both'],
+		'babel/arrow-parens': [2, 'as-needed'],
+		'babel/object-curly-spacing': [2, 'never']
+	}
+};

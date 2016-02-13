@@ -49,9 +49,6 @@
     "hint",
     "simple"
   ],
-  "dependencies": {
-    "deep-assign": "^1.0.0"
-  },
   "devDependencies": {
     "ava": "*",
     "babel-eslint": "^4.1.0",

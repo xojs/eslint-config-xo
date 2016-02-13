@@ -1,10 +1,10 @@
 'use strict';
-var deepAssign = require('deep-assign');
-var def = require('./');
+var path = require('path');
 
-def = deepAssign({}, def);
-
-def.env.browser = true;
-def.env.node = false;
-
-module.exports = def;
+module.exports = {
+	extends: path.join(__dirname, 'index.js'),
+	env: {
+		node: false,
+		browser: true
+	}
+};

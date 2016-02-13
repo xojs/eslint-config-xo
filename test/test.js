@@ -16,7 +16,6 @@ test('main', t => {
 	const conf = require('../');
 
 	t.true(isPlainObj(conf));
-	t.true(isPlainObj(conf.env));
 	t.true(isPlainObj(conf.rules));
 
 	const errors = runEslint('\'use strict\';\nconsole.log("unicorn")\n', conf);
@@ -29,18 +28,16 @@ test('esnext', t => {
 	const conf = require('../esnext');
 
 	t.true(isPlainObj(conf));
-	t.true(isPlainObj(conf.env));
 	t.true(isPlainObj(conf.rules));
 
-	const errors = runEslint('class Foo {}\n', conf);
-	t.is(errors[0].ruleId, 'no-unused-vars');
+	const errors = runEslint('var foo = true;\n', conf);
+	t.is(errors[0].ruleId, 'no-var');
 });
 
 test('esnext es2016', t => {
 	const conf = require('../esnext');
 
 	t.true(isPlainObj(conf));
-	t.true(isPlainObj(conf.env));
 	t.true(isPlainObj(conf.rules));
 
 	const errors = runEslint('let unused; const x = async () => {\n\tawait Promise.resolve({b: 1, ...x});\n};\n', conf);
@@ -51,8 +48,6 @@ test('browser', t => {
 	const conf = require('../browser');
 
 	t.true(isPlainObj(conf));
-	t.true(isPlainObj(conf.env));
-	t.true(isPlainObj(conf.rules));
 
 	const errors = runEslint('\'use strict\';\nprocess.exit();\n', conf);
 	t.is(errors[0].ruleId, 'no-undef');
