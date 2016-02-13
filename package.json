@@ -50,7 +50,7 @@
     "simple"
   ],
   "dependencies": {
-    "deep-assign": "^2.0.0"
+    "deep-assign": "^1.0.0"
   },
   "devDependencies": {
     "ava": "*",

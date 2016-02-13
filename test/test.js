@@ -20,8 +20,9 @@ test('main', t => {
 	t.true(isPlainObj(conf.rules));
 
 	const errors = runEslint('\'use strict\';\nconsole.log("unicorn")\n', conf);
-	t.is(errors[0].ruleId, 'quotes');
-	t.is(errors[1].ruleId, 'semi');
+	// TODO: enable again when `quotes` rule is re-enabled
+	// t.is(errors[0].ruleId, 'quotes');
+	t.is(errors[0].ruleId, 'semi');
 });
 
 test('esnext', t => {

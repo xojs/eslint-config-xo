@@ -1,10 +1,13 @@
 'use strict';
 
 module.exports = {
-	ecmaFeatures: {
-		modules: true,
-		jsx: true,
-		experimentalObjectRestSpread: true
+	parserOptions: {
+		ecmaVersion: 6,
+		sourceType: 'module',
+		ecmaFeatures: {
+			jsx: true,
+			experimentalObjectRestSpread: true
+		}
 	},
 	env: {
 		node: true,
@@ -45,6 +48,7 @@ module.exports = {
 
 		// Best Practices
 		'accessor-pairs': 2,
+		'array-callback-return': 2,
 		'block-scoped-var': 2,
 		'consistent-return': 2,
 		'curly': 2,
@@ -63,9 +67,11 @@ module.exports = {
 		'no-eval': 2,
 		'no-extend-native': 2,
 		'no-extra-bind': 2,
+		'no-extra-label': 2,
 		'no-fallthrough': 2,
 		'no-floating-decimal': 2,
 		'no-implicit-coercion': 2,
+		'no-implicit-globals': 2,
 		'no-implied-eval': 2,
 		'no-iterator': 2,
 		'no-labels': 2,
@@ -87,10 +93,13 @@ module.exports = {
 		'no-redeclare': 2,
 		'no-return-assign': [2, 'always'],
 		'no-script-url': 2,
+		'no-self-assign': 2,
 		'no-self-compare': 2,
 		'no-sequences': 2,
 		'no-throw-literal': 2,
+		'no-unmodified-loop-condition': 2,
 		'no-unused-expressions': 2,
+		'no-unused-labels': 2,
 		'no-useless-call': 2,
 		'no-useless-concat': 2,
 		'no-void': 2,
@@ -119,10 +128,11 @@ module.exports = {
 		// 'callback-return': [1, ['cb', 'callback', 'next', 'done']],
 
 		'handle-callback-err': 1,
-		'no-mixed-requires': [2, {grouping: true}],
+		'no-mixed-requires': [2, {grouping: true, allowCall: true}],
 		'no-new-require': 2,
 		'no-path-concat': 2,
-		'no-restricted-modules': [2, 'domain', 'freelist', 'smalloc', 'sys'],
+		'no-restricted-imports': [2, 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
+		'no-restricted-modules': [2, 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
 
 		// Stylistic Issues
 		'array-bracket-spacing': [2, 'never'],
@@ -148,16 +158,19 @@ module.exports = {
 		'no-negated-condition': 2,
 		'no-new-object': 2,
 		'no-restricted-syntax': [2, 'WithStatement'],
+		'no-whitespace-before-property': 2,
 		'no-spaced-func': 2,
 		'no-trailing-spaces': 2,
 		'no-unneeded-ternary': 2,
 		'object-curly-spacing': [2, 'never'],
 		'one-var': [2, 'never'],
+		'one-var-declaration-per-line': 2,
 		'operator-assignment': [2, 'always'],
 		'operator-linebreak': [2, 'after'],
 		'padded-blocks': [2, 'never'],
 		'quote-props': [2, 'consistent-as-needed'],
-		'quotes': [2, 'single'],
+		// disabled because of https://github.com/eslint/eslint/issues/5234
+		// 'quotes': [2, 'single'],
 		'semi-spacing': [2, {before: false, after: true}],
 		'semi': [2, 'always'],
 		'space-before-blocks': [2, 'always'],
@@ -175,6 +188,10 @@ module.exports = {
 		'no-class-assign': 2,
 		'no-const-assign': 2,
 		'no-dupe-class-members': 2,
-		'no-this-before-super': 2
+		'no-new-symbol': 2,
+		'no-this-before-super': 2,
+		'no-useless-constructor': 2,
+		'template-curly-spacing': 2,
+		'yield-star-spacing': [2, 'both']
 	}
 };

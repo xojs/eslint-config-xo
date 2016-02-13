@@ -9,8 +9,9 @@ def.plugins = ['babel'];
 def.rules['no-var'] = 2;
 def.rules['prefer-arrow-callback'] = 2;
 def.rules['prefer-const'] = 2;
-// disabled since latest Node.js doesn't yet support it
+// disabled since latest Node.js LTS doesn't yet support it
 // def.rules['prefer-reflect'] = [2, {exceptions: ['delete']}];
+// def.rules['prefer-rest-params'] = 2;
 def.rules['prefer-template'] = 2;
 def.rules['prefer-spread'] = 2;
 def.rules['babel/object-shorthand'] = [2, 'always'];
