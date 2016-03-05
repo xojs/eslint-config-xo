@@ -115,6 +115,7 @@ module.exports = {
 		// Variables
 		'no-delete-var': 2,
 		'no-label-var': 2,
+		'no-restricted-globals': [2, 'event'],
 		'no-shadow-restricted-names': 2,
 		'no-undef-init': 2,
 		'no-undef': [2, {typeof: true}],
