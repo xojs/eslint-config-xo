@@ -149,6 +149,7 @@ module.exports = {
 		'keyword-spacing': 2,
 		'linebreak-style': [2, 'unix'],
 		'max-nested-callbacks': [1, 4],
+		'max-statements-per-line': 2,
 		'new-cap': [2, {newIsCap: true, capIsNew: true}],
 		'new-parens': 2,
 		'no-array-constructor': 2,
