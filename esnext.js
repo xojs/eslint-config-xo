@@ -8,7 +8,7 @@ module.exports = {
 	rules: {
 		'no-var': 2,
 		'prefer-arrow-callback': 2,
-		'prefer-const': 2,
+		'prefer-const': [2, {destructuring: 'all'}],
 
 		// disabled since latest Node.js LTS doesn't yet support it
 		// 'prefer-reflect': [2, {exceptions: ['delete']}],
