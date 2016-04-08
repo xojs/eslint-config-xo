@@ -109,10 +109,6 @@ module.exports = {
 		'wrap-iife': [2, 'inside'],
 		'yoda': 2,
 
-		// Strict Mode
-		// disabled because of https://github.com/eslint/eslint/issues/3306
-		// 'strict': [2, 'global'],
-
 		// Variables
 		'no-delete-var': 2,
 		'no-label-var': 2,
