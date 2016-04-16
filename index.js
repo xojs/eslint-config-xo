@@ -167,8 +167,7 @@ module.exports = {
 		'operator-linebreak': [2, 'after'],
 		'padded-blocks': [2, 'never'],
 		'quote-props': [2, 'consistent-as-needed'],
-		// disabled because of https://github.com/eslint/eslint/issues/5234
-		// 'quotes': [2, 'single'],
+		'quotes': [2, 'single', {allowTemplateLiterals: true}],
 		'semi-spacing': [2, {before: false, after: true}],
 		'semi': [2, 'always'],
 		'space-before-blocks': [2, 'always'],
