@@ -24,9 +24,7 @@ module.exports = {
 		'no-dupe-keys': 2,
 		'no-duplicate-case': 2,
 		'no-empty-character-class': 2,
-
-		// disabled because of https://github.com/eslint/eslint/issues/2808
-		// 'no-empty': 2,
+		'no-empty': [2, {allowEmptyCatch: true}],
 		'no-ex-assign': 2,
 		'no-extra-boolean-cast': 2,
 		'no-extra-parens': [2, 'all', {nestedBinaryExpressions: false}],
