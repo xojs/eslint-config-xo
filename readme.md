@@ -4,6 +4,8 @@
 
 This is for advanced users. You probably want to use XO directly.
 
+See [eslint-plugin-xo](https://github.com/sindresorhus/eslint-plugin-xo) for some additional useful rules.
+
 
 ## Install
 
