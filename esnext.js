@@ -14,7 +14,7 @@ module.exports = {
 		// 'prefer-reflect': [2, {exceptions: ['delete']}],
 		// 'prefer-rest-params': 2,
 		'prefer-template': 2,
-		'prefer-spread': 2,
+		// 'prefer-spread': 2,
 
 		// disable builtin rules that are incompatible with Babel plugin ones
 		'generator-star-spacing': 0,

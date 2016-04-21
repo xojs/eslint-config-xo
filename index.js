@@ -14,7 +14,6 @@ module.exports = {
 		es6: true
 	},
 	rules: {
-		// Possible Errors
 		'comma-dangle': [2, 'never'],
 		'no-cond-assign': 2,
 		'no-constant-condition': 2,
@@ -41,8 +40,6 @@ module.exports = {
 		'use-isnan': 2,
 		'valid-typeof': 2,
 		'no-unexpected-multiline': 2,
-
-		// Best Practices
 		'accessor-pairs': 2,
 		'array-callback-return': 2,
 		'block-scoped-var': 2,
@@ -100,8 +97,6 @@ module.exports = {
 		'radix': 2,
 		'wrap-iife': [2, 'inside'],
 		'yoda': 2,
-
-		// Variables
 		'no-delete-var': 2,
 		'no-label-var': 2,
 		'no-restricted-globals': [2, 'event'],
@@ -110,20 +105,14 @@ module.exports = {
 		'no-undef': [2, {typeof: true}],
 		'no-unused-vars': 2,
 		'no-use-before-define': [2, 'nofunc'],
-
-		// Node.js
-
 		// disabled because of https://github.com/eslint/eslint/issues/3420
 		// 'callback-return': [1, ['cb', 'callback', 'next', 'done']],
-
 		'handle-callback-err': 1,
 		'no-mixed-requires': [2, {grouping: true, allowCall: true}],
 		'no-new-require': 2,
 		'no-path-concat': 2,
 		'no-restricted-imports': [2, 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
 		'no-restricted-modules': [2, 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
-
-		// Stylistic Issues
 		'array-bracket-spacing': [2, 'never'],
 		'brace-style': [2, '1tbs', {allowSingleLine: false}],
 		'camelcase': [2, {properties: 'always'}],
@@ -168,8 +157,6 @@ module.exports = {
 		'space-infix-ops': 2,
 		'space-unary-ops': 2,
 		'spaced-comment': [2, 'always', {markers: ['!']}],
-
-		// ES2015
 		'arrow-parens': [2, 'as-needed'],
 		'arrow-spacing': [2, {before: true, after: true}],
 		'constructor-super': 2,
