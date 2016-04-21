@@ -168,6 +168,7 @@ module.exports = {
 		'no-new-symbol': 2,
 		'no-this-before-super': 2,
 		'no-useless-constructor': 2,
+		'require-yield': 2,
 		'template-curly-spacing': 2,
 		'yield-star-spacing': [2, 'both']
 	}
