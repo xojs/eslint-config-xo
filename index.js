@@ -168,6 +168,7 @@ module.exports = {
 		'no-duplicate-imports': [2, {includeExports: true}],
 		'no-new-symbol': 2,
 		'no-this-before-super': 2,
+		'no-useless-computed-key': 2,
 		'no-useless-constructor': 2,
 		'require-yield': 2,
 		'template-curly-spacing': 2,
