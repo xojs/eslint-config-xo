@@ -37,6 +37,7 @@ module.exports = {
 		'no-regex-spaces': 2,
 		'no-sparse-arrays': 2,
 		'no-unreachable': 2,
+		'no-unsafe-finally': 2,
 		'use-isnan': 2,
 		'valid-typeof': 2,
 		'no-unexpected-multiline': 2,
