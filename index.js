@@ -26,7 +26,8 @@ module.exports = {
 		'no-empty': [2, {allowEmptyCatch: true}],
 		'no-ex-assign': 2,
 		'no-extra-boolean-cast': 2,
-		'no-extra-parens': [2, 'all', {nestedBinaryExpressions: false}],
+		// disabled because of https://github.com/eslint/eslint/issues/6028
+		// 'no-extra-parens': [2, 'all', {nestedBinaryExpressions: false}],
 		'no-extra-semi': 2,
 		'no-func-assign': 2,
 		'no-inner-declarations': 2,
