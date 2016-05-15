@@ -158,7 +158,14 @@ module.exports = {
 		'space-in-parens': [2, 'never'],
 		'space-infix-ops': 2,
 		'space-unary-ops': 2,
-		'spaced-comment': [2, 'always', {markers: ['!']}],
+		'spaced-comment': [2, 'always', {
+			line: {
+				exceptions: ['-']
+			},
+			block: {
+				markers: ['!']
+			}
+		}],
 		'arrow-parens': [2, 'as-needed'],
 		'arrow-spacing': [2, {before: true, after: true}],
 		'constructor-super': 2,
