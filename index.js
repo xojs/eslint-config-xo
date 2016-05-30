@@ -166,6 +166,7 @@ module.exports = {
 				markers: ['!']
 			}
 		}],
+		'unicode-bom': [2, 'never'],
 		'arrow-parens': [2, 'as-needed'],
 		'arrow-spacing': [2, {before: true, after: true}],
 		'constructor-super': 2,
