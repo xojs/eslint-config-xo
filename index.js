@@ -183,6 +183,7 @@ module.exports = {
 		'no-useless-rename': 2,
 		'require-yield': 2,
 		'template-curly-spacing': 2,
-		'yield-star-spacing': [2, 'both']
+		'yield-star-spacing': [2, 'both'],
+		'no-mixed-operators': [2, {'allowSamePrecedence': true}]
 	}
 };
