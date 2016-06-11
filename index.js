@@ -128,6 +128,7 @@ module.exports = {
 		'key-spacing': [2, {beforeColon: false, afterColon: true}],
 		'keyword-spacing': 2,
 		'linebreak-style': [2, 'unix'],
+		'max-depth': 1,
 		'max-nested-callbacks': [1, 4],
 		'max-statements-per-line': 2,
 		'new-cap': [2, {newIsCap: true, capIsNew: true}],
