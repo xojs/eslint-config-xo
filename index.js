@@ -134,6 +134,7 @@ module.exports = {
 		'new-parens': 2,
 		'no-array-constructor': 2,
 		'no-lonely-if': 2,
+		'no-mixed-operators': 2,
 		'no-mixed-spaces-and-tabs': 2,
 		'no-multiple-empty-lines': [2, {max: 1}],
 		'no-nested-ternary': 1,
