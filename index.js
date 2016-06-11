@@ -183,6 +183,7 @@ module.exports = {
 		'no-useless-constructor': 2,
 		'no-useless-rename': 2,
 		'require-yield': 2,
+		'rest-spread-spacing': [2, 'never'],
 		'template-curly-spacing': 2,
 		'yield-star-spacing': [2, 'both']
 	}
