@@ -8,7 +8,9 @@ module.exports = {
 	rules: {
 		'no-var': 2,
 		'prefer-arrow-callback': 2,
-		'prefer-const': [2, {destructuring: 'all'}],
+		'prefer-const': [2, {
+			destructuring: 'all'
+		}],
 
 		// disabled since latest Node.js LTS doesn't yet support it
 		// 'prefer-reflect': [2, {exceptions: ['delete']}],
@@ -25,7 +27,10 @@ module.exports = {
 		'arrow-parens': 0,
 
 		'babel/generator-star-spacing': [2, 'both'],
-		'babel/new-cap': [2, {newIsCap: true, capIsNew: true}],
+		'babel/new-cap': [2, {
+			newIsCap: true,
+			capIsNew: true
+		}],
 		'babel/array-bracket-spacing': [2, 'never'],
 		'babel/object-curly-spacing': [2, 'never'],
 		'babel/object-shorthand': [2, 'always'],
