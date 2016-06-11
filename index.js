@@ -130,6 +130,7 @@ module.exports = {
 		'linebreak-style': [2, 'unix'],
 		'max-depth': 1,
 		'max-nested-callbacks': [1, 4],
+		'max-params': [1, {max: 4}],
 		'max-statements-per-line': 2,
 		'new-cap': [2, {newIsCap: true, capIsNew: true}],
 		'new-parens': 2,
