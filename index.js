@@ -229,6 +229,7 @@ module.exports = {
 		'require-yield': 2,
 		'rest-spread-spacing': [2, 'never'],
 		'template-curly-spacing': 2,
-		'yield-star-spacing': [2, 'both']
+		'yield-star-spacing': [2, 'both'],
+		'no-mixed-operators': [2, {'allowSamePrecedence': true}]
 	}
 };
