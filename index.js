@@ -176,6 +176,7 @@ module.exports = {
 		'no-trailing-spaces': 'error',
 		'no-unneeded-ternary': 'error',
 		'object-curly-spacing': ['error', 'never'],
+		// https://github.com/sindresorhus/eslint-config-xo/issues/27
 		'object-property-newline': 'error',
 		'one-var': ['error', 'never'],
 		'one-var-declaration-per-line': 'error',
