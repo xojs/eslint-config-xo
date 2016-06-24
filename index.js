@@ -138,6 +138,7 @@ module.exports = {
 		'comma-style': ['error', 'last'],
 		'computed-property-spacing': ['error', 'never'],
 		'eol-last': 'error',
+		'func-names': ['error', 'never'],
 		'indent': ['error', 'tab', {
 			SwitchCase: 1
 		}],
