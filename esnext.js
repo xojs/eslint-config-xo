@@ -14,8 +14,12 @@ module.exports = {
 
 		// disabled since latest Node.js LTS doesn't yet support it
 		// 'prefer-reflect': ['error', {exceptions: ['delete']}],
+
 		// 'prefer-rest-params': 'error',
-		'prefer-template': 'error',
+
+		// disabled because of https://github.com/eslint/eslint/issues/6572
+		// 'prefer-template': 'error',
+
 		// 'prefer-spread': 'error',
 
 		// disable builtin rules that are incompatible with Babel plugin ones
