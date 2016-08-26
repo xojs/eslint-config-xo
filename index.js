@@ -44,7 +44,7 @@ module.exports = {
 		'no-unsafe-finally': 'error',
 		'no-unsafe-negation': 'error',
 		'use-isnan': 'error',
-		'valid-typeof': 'error',
+		'valid-typeof': ['error', {requireStringLiterals: true}],
 		'no-unexpected-multiline': 'error',
 		'accessor-pairs': 'error',
 		'array-callback-return': 'error',
