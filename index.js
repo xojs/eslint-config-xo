@@ -231,6 +231,7 @@ module.exports = {
 		'no-useless-rename': 'error',
 		'require-yield': 'error',
 		'rest-spread-spacing': ['error', 'never'],
+		'symbol-description': 'error',
 		'template-curly-spacing': 'error',
 		'yield-star-spacing': ['error', 'both']
 	}
