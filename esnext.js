@@ -11,6 +11,7 @@ module.exports = {
 		'prefer-const': ['error', {
 			destructuring: 'all'
 		}],
+		'prefer-numeric-literals': 2,
 
 		// disabled since latest Node.js LTS doesn't yet support it
 		// 'prefer-reflect': ['error', {exceptions: ['delete']}],
