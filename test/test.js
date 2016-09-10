@@ -3,6 +3,8 @@ import isPlainObj from 'is-plain-obj';
 import eslint from 'eslint';
 import tempWrite from 'temp-write';
 
+const hasRule = (errors, ruleId) => errors.some(x => x.ruleId === ruleId);
+
 function runEslint(str, conf) {
 	const linter = new eslint.CLIEngine({
 		useEslintrc: false,
@@ -19,7 +21,7 @@ test('main', t => {
 	t.true(isPlainObj(conf.rules));
 
 	const errors = runEslint('\'use strict\';\nconsole.log("unicorn")\n', conf);
-	t.is(errors[0].ruleId, 'quotes');
+	t.true(hasRule(errors, 'quotes'));
 });
 
 test('esnext', t => {
@@ -29,7 +31,7 @@ test('esnext', t => {
 	t.true(isPlainObj(conf.rules));
 
 	const errors = runEslint('var foo = true;\n', conf);
-	t.is(errors[0].ruleId, 'no-var');
+	t.true(hasRule(errors, 'no-var'));
 });
 
 test('esnext es2016', t => {
@@ -39,7 +41,7 @@ test('esnext es2016', t => {
 	t.true(isPlainObj(conf.rules));
 
 	const errors = runEslint('let unused; const x = async () => {\n\tawait Promise.resolve({b: 1, ...x});\n};\n', conf);
-	t.is(errors[0].ruleId, 'no-unused-vars');
+	t.true(hasRule(errors, 'no-unused-vars'));
 });
 
 test('browser', t => {
@@ -48,5 +50,5 @@ test('browser', t => {
 	t.true(isPlainObj(conf));
 
 	const errors = runEslint('\'use strict\';\nprocess.exit();\n', conf);
-	t.is(errors[0].ruleId, 'no-undef');
+	t.true(hasRule(errors, 'no-undef'));
 });
