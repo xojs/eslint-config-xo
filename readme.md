@@ -2,7 +2,7 @@
 
 > ESLint [shareable config](http://eslint.org/docs/developer-guide/shareable-configs.html) for [XO](https://github.com/sindresorhus/xo)
 
-This is for advanced users. You probably want to use XO directly.
+This is for advanced users. [You probably want to use XO directly.](#use-the-xo-cli-instead)
 
 See [eslint-plugin-xo](https://github.com/sindresorhus/eslint-plugin-xo) for some additional useful rules.
 
@@ -60,6 +60,25 @@ And [`xo/browser`](browser.js) if you're in the browser:
 	"extends": "xo/browser"
 }
 ```
+
+
+## Use the XO CLI instead
+
+XO is an ESLint wrapper with great defaults.
+
+Here are some reason why you should use the [XO CLI](https://github.com/sindresorhus/xo) instead of this config:
+
+- XO comes bundled with this config.
+- [Beautiful output.](https://github.com/sindresorhus/eslint-formatter-pretty)
+- Bundles many useful plugins, like [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn), [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import), [`eslint-plugin-ava`](https://github.com/avajs/eslint-plugin-ava), and more.
+- No need to specify file paths to lint. It will lint all JS files except [commonly ignored paths](https://github.com/sindresorhus/xo#ignores).
+- Super simple to add XO to a project: `$ xo --init`
+- Specify `indent` and `semicolon` preferences easily without messing with the rule config.
+- Config/rule overrides per files/globs. *(ESLint still doesn't support this)*
+- Can open all files with errors at the correct line in your editor. *(See the `--open` flag)*
+- The [editor plugins](https://github.com/sindresorhus/xo#editor-plugins) are IMHO better than the ESLint ones. *(Subjective)*
+
+tl;dr You miss out on a lot by just using this config.
 
 
 ## Related
