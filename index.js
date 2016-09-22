@@ -169,7 +169,6 @@ module.exports = {
 		'no-multiple-empty-lines': ['error', {
 			max: 1
 		}],
-		'no-nested-ternary': 'warn',
 		'no-negated-condition': 'error',
 		'no-new-object': 'error',
 		'no-restricted-syntax': ['error', 'WithStatement'],
