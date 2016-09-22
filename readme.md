@@ -4,7 +4,7 @@
 
 This is for advanced users. [You probably want to use XO directly.](#use-the-xo-cli-instead)
 
-See [eslint-plugin-xo](https://github.com/sindresorhus/eslint-plugin-xo) for some additional useful rules.
+See [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) for some additional useful rules.
 
 
 ## Install
