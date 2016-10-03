@@ -183,7 +183,7 @@ module.exports = {
 		'operator-assignment': ['error', 'always'],
 		'operator-linebreak': ['error', 'after'],
 		'padded-blocks': ['error', 'never'],
-		'quote-props': ['error', 'consistent-as-needed'],
+		'quote-props': ['error', 'as-needed'],
 		'quotes': ['error', 'single', {
 			allowTemplateLiterals: true
 		}],
