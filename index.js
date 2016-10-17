@@ -102,7 +102,7 @@ module.exports = {
 		'no-warning-comments': 'warn',
 		'no-with': 'error',
 		'radix': 'error',
-		'wrap-iife': ['error', 'inside'],
+		'wrap-iife': ['error', 'inside', {functionPrototypeMethods: true}],
 		'yoda': 'error',
 		'no-delete-var': 'error',
 		'no-label-var': 'error',
