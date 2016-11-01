@@ -144,7 +144,18 @@ module.exports = {
 		'func-name-matching': 'error',
 		'func-names': ['error', 'never'],
 		'indent': ['error', 'tab', {
-			SwitchCase: 1
+			SwitchCase: 1,
+			FunctionDeclaration: {
+				parameters: 1,
+				body: 1
+			},
+			FunctionExpression: {
+				parameters: 1,
+				body: 1
+			},
+			CallExpression: {
+				arguments: 1
+			}
 		}],
 		'jsx-quotes': 'error',
 		'key-spacing': ['error', {
