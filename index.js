@@ -49,12 +49,12 @@ module.exports = {
 		'accessor-pairs': 'error',
 		'array-callback-return': 'error',
 		'block-scoped-var': 'error',
-		'complexity': 'warn',
-		'curly': 'error',
+		complexity: 'warn',
+		curly: 'error',
 		'default-case': 'error',
 		'dot-notation': 'error',
 		'dot-location': ['error', 'property'],
-		'eqeqeq': 'error',
+		eqeqeq: 'error',
 		'guard-for-in': 'error',
 		'no-alert': 'error',
 		'no-caller': 'error',
@@ -102,9 +102,9 @@ module.exports = {
 		'no-void': 'error',
 		'no-warning-comments': 'warn',
 		'no-with': 'error',
-		'radix': 'error',
+		radix: 'error',
 		'wrap-iife': ['error', 'inside', {functionPrototypeMethods: true}],
-		'yoda': 'error',
+		yoda: 'error',
 		'no-delete-var': 'error',
 		'no-label-var': 'error',
 		'no-restricted-globals': ['error', 'event'],
@@ -130,7 +130,7 @@ module.exports = {
 		'brace-style': ['error', '1tbs', {
 			allowSingleLine: false
 		}],
-		'camelcase': ['error', {
+		camelcase: ['error', {
 			properties: 'always'
 		}],
 		'comma-spacing': ['error', {
@@ -143,7 +143,7 @@ module.exports = {
 		'func-call-spacing': ['error', 'never'],
 		'func-name-matching': 'error',
 		'func-names': ['error', 'never'],
-		'indent': ['error', 'tab', {
+		indent: ['error', 'tab', {
 			SwitchCase: 1,
 			FunctionDeclaration: {
 				parameters: 1,
@@ -197,14 +197,14 @@ module.exports = {
 		'operator-linebreak': ['error', 'after'],
 		'padded-blocks': ['error', 'never'],
 		'quote-props': ['error', 'as-needed'],
-		'quotes': ['error', 'single', {
+		quotes: ['error', 'single', {
 			allowTemplateLiterals: true
 		}],
 		'semi-spacing': ['error', {
 			before: false,
 			after: true
 		}],
-		'semi': ['error', 'always'],
+		semi: ['error', 'always'],
 		'space-before-blocks': ['error', 'always'],
 		'space-before-function-paren': ['error', {
 			anonymous: 'always',
