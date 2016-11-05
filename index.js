@@ -113,7 +113,7 @@ module.exports = {
 		'no-undef': ['error', {
 			typeof: true
 		}],
-		'no-unused-vars': ['error', {varsIgnorePattern: '^_$'}],
+		'no-unused-vars': 'error',
 		'no-use-before-define': ['error', 'nofunc'],
 		// disabled because of https://github.com/eslint/eslint/issues/3420
 		// 'callback-return': ['warn', ['cb', 'callback', 'next', 'done']],
