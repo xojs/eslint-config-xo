@@ -28,7 +28,7 @@ module.exports = {
 		}],
 		'no-ex-assign': 'error',
 		'no-extra-boolean-cast': 'error',
-		// disabled because of https://github.com/eslint/eslint/issues/6028
+		// Disabled because of https://github.com/eslint/eslint/issues/6028
 		// 'no-extra-parens': [2, 'all', {nestedBinaryExpressions: false}],
 		'no-extra-semi': 'error',
 		'no-func-assign': 'error',
@@ -116,7 +116,7 @@ module.exports = {
 		}],
 		'no-unused-vars': 'error',
 		'no-use-before-define': ['error', 'nofunc'],
-		// disabled because of https://github.com/eslint/eslint/issues/3420
+		// Disabled because of https://github.com/eslint/eslint/issues/3420
 		// 'callback-return': ['warn', ['cb', 'callback', 'next', 'done']],
 		'handle-callback-err': 'warn',
 		'no-mixed-requires': ['error', {
@@ -133,6 +133,12 @@ module.exports = {
 		}],
 		camelcase: ['error', {
 			properties: 'always'
+		}],
+		'capitalized-comments': ['error', 'always', {
+			// You can also ignore this rule by wrapping the first word in quotes
+			ignorePattern: 'pragma|ignore',
+			ignoreInlineComments: true,
+			ignoreConsecutiveComments: true
 		}],
 		'comma-spacing': ['error', {
 			before: false,
@@ -190,7 +196,7 @@ module.exports = {
 		'no-trailing-spaces': 'error',
 		'no-unneeded-ternary': 'error',
 		'object-curly-spacing': ['error', 'never'],
-		// disabled because of https://github.com/sindresorhus/eslint-config-xo/issues/27
+		// Disabled because of https://github.com/sindresorhus/eslint-config-xo/issues/27
 		// 'object-property-newline': 'error',
 		'one-var': ['error', 'never'],
 		'one-var-declaration-per-line': 'error',

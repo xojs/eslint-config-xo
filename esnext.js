@@ -12,7 +12,7 @@ module.exports = {
 		}],
 		'prefer-numeric-literals': 2
 
-		// disabled since latest Node.js LTS doesn't yet support it
+		// Disabled since latest Node.js LTS doesn't yet support it
 		// 'prefer-reflect': ['error', {exceptions: ['delete']}],
 
 		// 'prefer-rest-params': 'error',
