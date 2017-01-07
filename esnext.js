@@ -14,12 +14,16 @@ module.exports = {
 
 		// Disabled since latest Node.js LTS doesn't yet support it
 		// 'prefer-reflect': ['error', {exceptions: ['delete']}],
-
 		// 'prefer-rest-params': 'error',
-
-		// disabled because of https://github.com/eslint/eslint/issues/6572
-		// 'prefer-template': 'error',
-
 		// 'prefer-spread': 'error',
+		// 'prefer-destructuring': ['error', {
+		// 	array: true,
+		// 	object: true
+		// }, {
+		// 	enforceForRenamedProperties: true
+		// }]
+
+		// Disabled because of https://github.com/eslint/eslint/issues/6572
+		// 'prefer-template': 'error'
 	}
 };
