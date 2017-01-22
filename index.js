@@ -104,6 +104,7 @@ module.exports = {
 		'no-void': 'error',
 		'no-warning-comments': 'warn',
 		'no-with': 'error',
+		'prefer-promise-reject-errors': ['error', {allowEmptyReject: true}],
 		radix: 'error',
 		'wrap-iife': ['error', 'inside', {functionPrototypeMethods: true}],
 		yoda: 'error',
