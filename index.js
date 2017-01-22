@@ -30,7 +30,10 @@ module.exports = {
 		'no-ex-assign': 'error',
 		'no-extra-boolean-cast': 'error',
 		// Disabled because of https://github.com/eslint/eslint/issues/6028
-		// 'no-extra-parens': [2, 'all', {nestedBinaryExpressions: false}],
+		// 'no-extra-parens': [2, 'all', {
+		// 	nestedBinaryExpressions: false,
+		// 	ignoreJSX: 'multi-line'
+		// }],
 		'no-extra-semi': 'error',
 		'no-func-assign': 'error',
 		'no-inner-declarations': 'error',
