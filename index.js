@@ -251,9 +251,12 @@ module.exports = {
 		'no-class-assign': 'error',
 		'no-const-assign': 'error',
 		'no-dupe-class-members': 'error',
-		'no-duplicate-imports': ['error', {
-			includeExports: true
-		}],
+		// disabled in favor of import/no-duplicates
+		// due to https://github.com/babel/eslint-plugin-babel/issues/59
+		// see https://github.com/sindresorhus/xo/pull/193
+		// 'no-duplicate-imports': ['error', {
+		// 	includeExports: true
+		// }],
 		'no-new-symbol': 'error',
 		'no-this-before-super': 'error',
 		'no-useless-computed-key': 'error',
