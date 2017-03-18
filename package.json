@@ -53,7 +53,7 @@
     "ava": "*",
     "eslint": "^3.17.0",
     "is-plain-obj": "^1.0.0",
-    "temp-write": "^2.1.0"
+    "temp-write": "^3.1.0"
   },
   "peerDependencies": {
     "eslint": ">=3.17.0"
