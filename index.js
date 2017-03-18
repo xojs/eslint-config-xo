@@ -168,9 +168,10 @@ module.exports = {
 				parameters: 1,
 				body: 1
 			},
-			CallExpression: {
-				arguments: 1
-			}
+			// Disabled because of https://github.com/sindresorhus/xo/issues/197
+			// CallExpression: {
+			// 	arguments: 1
+			// }
 		}],
 		'jsx-quotes': 'error',
 		'key-spacing': ['error', {
