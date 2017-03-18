@@ -251,9 +251,6 @@ module.exports = {
 		'no-class-assign': 'error',
 		'no-const-assign': 'error',
 		'no-dupe-class-members': 'error',
-		'no-duplicate-imports': ['error', {
-			includeExports: true
-		}],
 		'no-new-symbol': 'error',
 		'no-this-before-super': 'error',
 		'no-useless-computed-key': 'error',
