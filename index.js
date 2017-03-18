@@ -31,10 +31,10 @@ module.exports = {
 		'no-ex-assign': 'error',
 		'no-extra-boolean-cast': 'error',
 		// Disabled because of https://github.com/eslint/eslint/issues/6028
-  		// 'no-extra-parens': [2, 'all', {
-  		// 	nestedBinaryExpressions: false,
-  		// 	ignoreJSX: 'multi-line'
-  		// }],
+		// 'no-extra-parens': [2, 'all', {
+		// 	nestedBinaryExpressions: false,
+		// 	ignoreJSX: 'multi-line'
+		// }],
 		'no-extra-semi': 'error',
 		'no-func-assign': 'error',
 		'no-inner-declarations': 'error',
@@ -251,12 +251,6 @@ module.exports = {
 		'no-class-assign': 'error',
 		'no-const-assign': 'error',
 		'no-dupe-class-members': 'error',
-		// disabled in favor of import/no-duplicates
-		// due to https://github.com/babel/eslint-plugin-babel/issues/59
-		// see https://github.com/sindresorhus/xo/pull/193
-		// 'no-duplicate-imports': ['error', {
-		// 	includeExports: true
-		// }],
 		'no-new-symbol': 'error',
 		'no-this-before-super': 'error',
 		'no-useless-computed-key': 'error',
