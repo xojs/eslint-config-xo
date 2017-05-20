@@ -178,7 +178,6 @@ module.exports = {
 			afterColon: true
 		}],
 		'keyword-spacing': 'error',
-		'linebreak-style': ['error', 'unix'],
 		'max-depth': 'warn',
 		'max-nested-callbacks': ['warn', 4],
 		'max-params': ['warn', {
