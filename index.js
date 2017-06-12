@@ -241,6 +241,10 @@ module.exports = {
 				balanced: true
 			}
 		}],
+		'switch-colon-spacing': ['error', {
+			after: true,
+			before: false
+		}],
 		'template-tag-spacing': ['error', 'never'],
 		'unicode-bom': ['error', 'never'],
 		'arrow-parens': ['error', 'as-needed'],
