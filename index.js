@@ -220,6 +220,7 @@ module.exports = {
 			before: false,
 			after: true
 		}],
+		'semi-style': ['error', 'last'],
 		semi: ['error', 'always'],
 		'space-before-blocks': ['error', 'always'],
 		'space-before-function-paren': ['error', {
