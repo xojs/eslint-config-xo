@@ -127,6 +127,7 @@ module.exports = {
 		// Disabled because of https://github.com/eslint/eslint/issues/3420
 		// 'callback-return': ['warn', ['cb', 'callback', 'next', 'done']],
 		'handle-callback-err': 'warn',
+		'no-buffer-constructor': 'error',
 		'no-mixed-requires': ['error', {
 			grouping: true,
 			allowCall: true
