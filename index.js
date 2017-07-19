@@ -9,6 +9,9 @@ module.exports = {
 			experimentalObjectRestSpread: true
 		}
 	},
+	plugins: [
+		'html'
+	],
 	env: {
 		node: true,
 		es6: true
