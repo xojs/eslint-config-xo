@@ -57,5 +57,8 @@
   },
   "peerDependencies": {
     "eslint": ">=4"
+  },
+  "dependencies": {
+    "eslint-plugin-html": "*"
   }
 }
