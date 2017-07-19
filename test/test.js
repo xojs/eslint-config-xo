@@ -5,13 +5,13 @@ import tempWrite from 'temp-write';
 
 const hasRule = (errors, ruleId) => errors.some(x => x.ruleId === ruleId);
 
-function runEslint(str, conf) {
+function runEslint(str, conf, filePath) {
 	const linter = new eslint.CLIEngine({
 		useEslintrc: false,
 		configFile: tempWrite.sync(JSON.stringify(conf))
 	});
 
-	return linter.executeOnText(str).results[0].messages;
+	return linter.executeOnText(str, filePath).results[0].messages;
 }
 
 test('main', t => {
@@ -51,4 +51,14 @@ test('browser', t => {
 
 	const errors = runEslint('\'use strict\';\nprocess.exit();\n', conf);
 	t.true(hasRule(errors, 'no-undef'));
+});
+
+test('Vue component', t => {
+	const conf = require('../');
+
+	t.true(isPlainObj(conf));
+	t.true(isPlainObj(conf.rules));
+
+	const errors = runEslint('<script>\n\'use strict\';\nconsole.log("unicorn")\n</script>\n', conf, 'testcase.vue');
+	t.true(hasRule(errors, 'quotes'));
 });
