@@ -160,6 +160,7 @@ module.exports = {
 		'func-call-spacing': ['error', 'never'],
 		'func-name-matching': 'error',
 		'func-names': ['error', 'never'],
+		'function-paren-newline': ['error', 'multiline'],
 		indent: ['error', 'tab', {
 			SwitchCase: 1,
 			FunctionDeclaration: {
