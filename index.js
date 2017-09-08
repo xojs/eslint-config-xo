@@ -238,10 +238,12 @@ module.exports = {
 		'space-unary-ops': 'error',
 		'spaced-comment': ['error', 'always', {
 			line: {
-				exceptions: ['-']
+				exceptions: ['-', '+', '*'],
+				markers: ['!', '/']
 			},
 			block: {
-				markers: ['!'],
+				exceptions: ['-', '+', '*'],
+				markers: ['!', '*'],
 				balanced: true
 			}
 		}],
