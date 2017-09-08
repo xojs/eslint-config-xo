@@ -122,7 +122,8 @@ module.exports = {
 			typeof: true
 		}],
 		'no-unused-vars': ['error', {
-			ignoreRestSiblings: true
+			ignoreRestSiblings: true,
+			argsIgnorePattern: '^_$'
 		}],
 		'no-use-before-define': ['error', 'nofunc'],
 		// Disabled because of https://github.com/eslint/eslint/issues/3420
