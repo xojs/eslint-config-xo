@@ -164,18 +164,13 @@ module.exports = {
 		'function-paren-newline': ['error', 'multiline'],
 		indent: ['error', 'tab', {
 			SwitchCase: 1,
-			FunctionDeclaration: {
-				parameters: 1,
-				body: 1
-			},
-			FunctionExpression: {
-				parameters: 1,
-				body: 1
-			},
-			// Disabled because of https://github.com/sindresorhus/xo/issues/197
-			// CallExpression: {
-			// 	arguments: 1
-			// }
+			ignoredNodes: [
+				// We ignore this as it requires weird indentation in some cases:
+				// https://gist.github.com/sindresorhus/282415ce6ca759a63c185f58db7bf2c3
+				// TODO: Somebody please open an issue on ESLint about this.
+				// I'm not going to, as I have wasted to much time on their issue tracker.
+				'CallExpression'
+			]
 		}],
 		'jsx-quotes': 'error',
 		'key-spacing': ['error', {
