@@ -140,6 +140,7 @@ module.exports = {
 		'no-path-concat': 'error',
 		'no-restricted-imports': ['error', 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
 		'no-restricted-modules': ['error', 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
+		'array-bracket-newline': ['error', 'consistent'],
 		'array-bracket-spacing': ['error', 'never'],
 		'brace-style': ['error', '1tbs', {
 			allowSingleLine: false
