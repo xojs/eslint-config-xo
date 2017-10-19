@@ -179,6 +179,7 @@ module.exports = {
 		}],
 		'keyword-spacing': 'error',
 		'linebreak-style': ['error', 'unix'],
+		'lines-between-class-members': ['error', 'always'],
 		'max-depth': 'warn',
 		'max-nested-callbacks': ['warn', 4],
 		'max-params': ['warn', {
