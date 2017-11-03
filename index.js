@@ -51,7 +51,7 @@ module.exports = {
 		'no-unsafe-finally': 'error',
 		'no-unsafe-negation': 'error',
 		'use-isnan': 'error',
-		'valid-typeof': ['error', {requireStringLiterals: true}],
+		'valid-typeof': ['error', {requireStringLiterals: false}],
 		'no-unexpected-multiline': 'error',
 		'accessor-pairs': 'error',
 		'array-callback-return': 'error',
@@ -67,7 +67,9 @@ module.exports = {
 		'no-caller': 'error',
 		'no-case-declarations': 'error',
 		'no-div-regex': 'error',
-		'no-else-return': 'error',
+		'no-else-return': ['error', {
+			allowElseIf: false
+		}],
 		'no-empty-pattern': 'error',
 		'no-eq-null': 'error',
 		'no-eval': 'error',
@@ -122,7 +124,8 @@ module.exports = {
 			typeof: true
 		}],
 		'no-unused-vars': ['error', {
-			ignoreRestSiblings: true
+			ignoreRestSiblings: true,
+			argsIgnorePattern: '^_$'
 		}],
 		'no-use-before-define': ['error', 'nofunc'],
 		// Disabled because of https://github.com/eslint/eslint/issues/3420
@@ -137,6 +140,7 @@ module.exports = {
 		'no-path-concat': 'error',
 		'no-restricted-imports': ['error', 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
 		'no-restricted-modules': ['error', 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
+		'array-bracket-newline': ['error', 'consistent'],
 		'array-bracket-spacing': ['error', 'never'],
 		'brace-style': ['error', '1tbs', {
 			allowSingleLine: false
@@ -163,18 +167,13 @@ module.exports = {
 		'function-paren-newline': ['error', 'multiline'],
 		indent: ['error', 'tab', {
 			SwitchCase: 1,
-			FunctionDeclaration: {
-				parameters: 1,
-				body: 1
-			},
-			FunctionExpression: {
-				parameters: 1,
-				body: 1
-			},
-			// Disabled because of https://github.com/sindresorhus/xo/issues/197
-			// CallExpression: {
-			// 	arguments: 1
-			// }
+			ignoredNodes: [
+				// We ignore this as it requires weird indentation in some cases:
+				// https://gist.github.com/sindresorhus/282415ce6ca759a63c185f58db7bf2c3
+				// TODO: Somebody please open an issue on ESLint about this.
+				// I'm not going to, as I have wasted to much time on their issue tracker.
+				'CallExpression'
+			]
 		}],
 		'jsx-quotes': 'error',
 		'key-spacing': ['error', {
@@ -182,6 +181,8 @@ module.exports = {
 			afterColon: true
 		}],
 		'keyword-spacing': 'error',
+    'linebreak-style': [(process.platform === 'win32' ? 'off' : 'error'), 'unix'],
+		'lines-between-class-members': ['error', 'always'],
 		'max-depth': 'warn',
 		'max-nested-callbacks': ['warn', 4],
 		'max-params': ['warn', {
@@ -236,10 +237,12 @@ module.exports = {
 		'space-unary-ops': 'error',
 		'spaced-comment': ['error', 'always', {
 			line: {
-				exceptions: ['-']
+				exceptions: ['-', '+', '*'],
+				markers: ['!', '/']
 			},
 			block: {
-				markers: ['!'],
+				exceptions: ['-', '+', '*'],
+				markers: ['!', '*'],
 				balanced: true
 			}
 		}],

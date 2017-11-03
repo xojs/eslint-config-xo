@@ -1,6 +1,6 @@
 {
 	"name": "eslint-config-xo",
-	"version": "0.18.2",
+	"version": "0.19.0",
 	"description": "ESLint shareable config for XO",
 	"license": "MIT",
 	"repository": "sindresorhus/eslint-config-xo",
@@ -51,11 +51,11 @@
 	],
 	"devDependencies": {
 		"ava": "*",
-		"eslint": "^4.6.0",
+		"eslint": "^4.9.0",
 		"is-plain-obj": "^1.0.0",
 		"temp-write": "^3.1.0"
 	},
 	"peerDependencies": {
-		"eslint": ">=4.6.0"
+		"eslint": ">=4.9.0"
 	}
 }
