@@ -181,7 +181,7 @@ module.exports = {
 			afterColon: true
 		}],
 		'keyword-spacing': 'error',
-		'linebreak-style': ['error', 'unix'],
+		'linebreak-style': [(process.platform === 'win32' ? 'off' : 'error'), 'unix'],
 		'lines-between-class-members': ['error', 'always'],
 		'max-depth': 'warn',
 		'max-nested-callbacks': ['warn', 4],
