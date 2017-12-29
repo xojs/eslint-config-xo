@@ -146,7 +146,7 @@ module.exports = {
 			allowSingleLine: false
 		}],
 		camelcase: ['error', {
-			properties: 'always'
+			properties: 'never'
 		}],
 		'capitalized-comments': ['error', 'always', {
 			// You can also ignore this rule by wrapping the first word in quotes
