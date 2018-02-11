@@ -164,7 +164,7 @@ module.exports = {
 		'func-call-spacing': ['error', 'never'],
 		'func-name-matching': 'error',
 		'func-names': ['error', 'never'],
-		'function-paren-newline': ['error', 'multiline'],
+		'function-paren-newline': ['error', 'consistent'],
 		indent: ['error', 'tab', {
 			SwitchCase: 1,
 			ignoredNodes: [
