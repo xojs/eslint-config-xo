@@ -3,7 +3,7 @@
 	"version": "0.19.0",
 	"description": "ESLint shareable config for XO",
 	"license": "MIT",
-	"repository": "sindresorhus/eslint-config-xo",
+	"repository": "xojs/eslint-config-xo",
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",
