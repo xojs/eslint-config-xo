@@ -165,14 +165,7 @@ module.exports = {
 		'func-name-matching': 'error',
 		'func-names': ['error', 'never'],
 		indent: ['error', 'tab', {
-			SwitchCase: 1,
-			ignoredNodes: [
-				// We ignore this as it requires weird indentation in some cases:
-				// https://gist.github.com/sindresorhus/282415ce6ca759a63c185f58db7bf2c3
-				// TODO: Somebody please open an issue on ESLint about this.
-				// I'm not going to, as I have wasted to much time on their issue tracker.
-				'CallExpression'
-			]
+			SwitchCase: 1
 		}],
 		'jsx-quotes': 'error',
 		'key-spacing': ['error', {
