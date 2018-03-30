@@ -275,33 +275,7 @@ module.exports = {
 		'valid-jsdoc': ['warn', {
 			'requireReturn': false,
 			'requireParamDescription': true,
-			'requireReturnDescription': true,
-			'prefer': {
-				'arg': 'param',
-				'argument': 'param',
-				'arguments': 'extends',
-				'const': 'constant',
-				'defaultvalue': 'default',
-				'desc': 'description',
-				'exception': 'throws',
-				'file': 'overview',
-				'fileoverview': 'overview',
-				'fires': 'emits',
-				'func': 'function',
-				'prop': 'property',
-				'return': 'returns',
-				'virtual': 'abstract',
-				'yeld': 'yelds'
-			},
-			'preferType': {
-				'array': 'Array',
-				'Boolean': 'boolean',
-				'date': 'Date',
-				'Number': 'number',
-				'object': 'Object',
-				'regex': 'RegExp',
-				'String': 'string'
-			}
+			'requireReturnDescription': true
 		}]
 	}
 };
