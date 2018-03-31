@@ -6,7 +6,7 @@ module.exports = {
 	rules: {
 		'no-var': 'error',
 		'object-shorthand': ['error', 'always'],
-		'prefer-arrow-callback': 'error',
+		'prefer-arrow-callback': ['error', {allowNamedFunctions: true}],
 		'prefer-const': ['error', {
 			destructuring: 'all'
 		}],
