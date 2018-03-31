@@ -263,6 +263,11 @@ module.exports = {
 		'rest-spread-spacing': ['error', 'never'],
 		'symbol-description': 'error',
 		'template-curly-spacing': 'error',
-		'yield-star-spacing': ['error', 'both']
+		'yield-star-spacing': ['error', 'both'],
+		'valid-jsdoc': ['warn', {
+			'requireReturn': false,
+			'requireParamDescription': true,
+			'requireReturnDescription': true
+		}]
 	}
 };
