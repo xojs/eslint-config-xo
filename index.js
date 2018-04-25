@@ -150,7 +150,7 @@ module.exports = {
 		}],
 		'capitalized-comments': ['error', 'always', {
 			// You can also ignore this rule by wrapping the first word in quotes
-			ignorePattern: 'pragma|ignore',
+			ignorePattern: 'pragma|ignore|prettier-ignore',
 			ignoreInlineComments: true,
 			ignoreConsecutiveComments: true
 		}],
