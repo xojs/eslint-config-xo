@@ -14,7 +14,6 @@ module.exports = {
 			}
 		],
 		'prefer-numeric-literals': 2,
-		'prefer-reflect': ['error', {exceptions: ['delete']}],
 		'prefer-rest-params': 'error',
 		'prefer-spread': 'error',
 		'prefer-destructuring': [
