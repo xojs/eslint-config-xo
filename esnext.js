@@ -19,7 +19,10 @@ module.exports = {
 		'prefer-destructuring': [
 			'error',
 			{
-				array: true,
+				// Disabled because it forces destructuring on
+				// stupid stuff like `foo.bar = process.argv[2];`
+				// TODO: Open ESLint issue about this
+				// array: true,
 				object: true
 			}
 		]
