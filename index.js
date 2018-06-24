@@ -162,7 +162,7 @@ module.exports = {
 		'computed-property-spacing': ['error', 'never'],
 		'eol-last': 'error',
 		'func-call-spacing': ['error', 'never'],
-		'func-name-matching': 'error',
+		'func-name-matching': ['error', {considerPropertyDescriptor: true}],
 		'func-names': ['error', 'never'],
 		indent: ['error', 'tab', {
 			SwitchCase: 1
