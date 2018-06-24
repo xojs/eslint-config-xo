@@ -141,6 +141,7 @@ module.exports = {
 		'no-restricted-modules': ['error', 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
 		'array-bracket-newline': ['error', 'consistent'],
 		'array-bracket-spacing': ['error', 'never'],
+		'array-element-newline': ['error', 'consistent'],
 		'brace-style': ['error', '1tbs', {
 			allowSingleLine: false
 		}],
