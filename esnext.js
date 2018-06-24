@@ -13,11 +13,11 @@ module.exports = {
 				destructuring: 'all'
 			}
 		],
-		'prefer-numeric-literals': 2,
+		'prefer-numeric-literals': 'error',
 		'prefer-rest-params': 'error',
 		'prefer-spread': 'error',
 		// TODO: Enable this when targeting Node.js 8
-		// 'prefer-object-spread': 2,
+		// 'prefer-object-spread': 'error',
 		'prefer-destructuring': [
 			'error',
 			{
