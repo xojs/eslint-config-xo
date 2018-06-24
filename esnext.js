@@ -16,6 +16,8 @@ module.exports = {
 		'prefer-numeric-literals': 2,
 		'prefer-rest-params': 'error',
 		'prefer-spread': 'error',
+		// TODO: Enable this when targeting Node.js 8
+		// 'prefer-object-spread': 2,
 		'prefer-destructuring': [
 			'error',
 			{
