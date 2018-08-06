@@ -16,6 +16,7 @@ module.exports = {
 		'comma-dangle': ['error', 'never'],
 		'for-direction': 'error',
 		'getter-return': 'error',
+		'no-async-promise-executor': 'error',
 		'no-await-in-loop': 'error',
 		'no-compare-neg-zero': 'error',
 		'no-cond-assign': 'error',
