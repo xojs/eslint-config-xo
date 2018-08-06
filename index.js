@@ -115,6 +115,7 @@ module.exports = {
 		'no-with': 'error',
 		'prefer-promise-reject-errors': ['error', {allowEmptyReject: true}],
 		radix: 'error',
+		'require-unicode-regexp': 'error',
 		'wrap-iife': ['error', 'inside', {functionPrototypeMethods: true}],
 		yoda: 'error',
 		'no-delete-var': 'error',
