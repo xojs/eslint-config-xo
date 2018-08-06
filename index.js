@@ -115,7 +115,12 @@ module.exports = {
 		'no-with': 'error',
 		'prefer-promise-reject-errors': ['error', {allowEmptyReject: true}],
 		radix: 'error',
-		'require-unicode-regexp': 'error',
+
+		// Disabled for now as it causes too much churn
+		// TODO: Enable it in the future when I have time to deal with
+		// the churn and the rule is stable and has an autofixer
+		// 'require-unicode-regexp': 'error',
+
 		'wrap-iife': ['error', 'inside', {functionPrototypeMethods: true}],
 		yoda: 'error',
 		'no-delete-var': 'error',
