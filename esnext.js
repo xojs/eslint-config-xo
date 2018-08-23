@@ -21,11 +21,23 @@ module.exports = {
 		'prefer-destructuring': [
 			'error',
 			{
-				// Disabled because it forces destructuring on
+				// `array` is disabled because it forces destructuring on
 				// stupid stuff like `foo.bar = process.argv[2];`
 				// TODO: Open ESLint issue about this
-				// array: true,
-				object: true
+				VariableDeclarator: {
+					array: false,
+					object: true
+				},
+				AssignmentExpression: {
+					array: false,
+
+					// Disabled because object assignment destructuring requires parens wrapping:
+					// `let foo; ({foo} = object);`
+					object: false
+				}
+			},
+			{
+				enforceForRenamedProperties: false
 			}
 		]
 	}
