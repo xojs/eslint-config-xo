@@ -218,9 +218,7 @@ module.exports = {
 		'operator-linebreak': ['error', 'after'],
 		'padded-blocks': ['error', 'never'],
 		'quote-props': ['error', 'as-needed'],
-		quotes: ['error', 'single', {
-			allowTemplateLiterals: true
-		}],
+		quotes: ['error', 'single'],
 		'semi-spacing': ['error', {
 			before: false,
 			after: true
