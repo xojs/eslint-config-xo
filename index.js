@@ -135,7 +135,6 @@ module.exports = {
 			ignoreRestSiblings: true,
 			argsIgnorePattern: '^_$'
 		}],
-		'no-use-before-define': ['error', 'nofunc'],
 		// Disabled because of https://github.com/eslint/eslint/issues/3420
 		// 'callback-return': ['warn', ['cb', 'callback', 'next', 'done']],
 		'handle-callback-err': 'warn',
