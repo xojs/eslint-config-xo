@@ -13,7 +13,10 @@ module.exports = {
 		es6: true
 	},
 	rules: {
-		'comma-dangle': ['error', 'never'],
+		'comma-dangle': [
+			'error',
+			'never'
+		],
 		'for-direction': 'error',
 		'getter-return': 'error',
 		'no-async-promise-executor': 'error',
@@ -27,9 +30,12 @@ module.exports = {
 		'no-dupe-keys': 'error',
 		'no-duplicate-case': 'error',
 		'no-empty-character-class': 'error',
-		'no-empty': ['error', {
-			allowEmptyCatch: true
-		}],
+		'no-empty': [
+			'error',
+			{
+				allowEmptyCatch: true
+			}
+		],
 		'no-ex-assign': 'error',
 		'no-extra-boolean-cast': 'error',
 		// Disabled because of https://github.com/eslint/eslint/issues/6028
@@ -53,7 +59,12 @@ module.exports = {
 		'no-unsafe-negation': 'error',
 		'require-atomic-updates': 'error',
 		'use-isnan': 'error',
-		'valid-typeof': ['error', {requireStringLiterals: false}],
+		'valid-typeof': [
+			'error',
+			{
+				requireStringLiterals: false
+			}
+		],
 		'no-unexpected-multiline': 'error',
 		'accessor-pairs': 'error',
 		'array-callback-return': 'error',
@@ -62,16 +73,22 @@ module.exports = {
 		curly: 'error',
 		'default-case': 'error',
 		'dot-notation': 'error',
-		'dot-location': ['error', 'property'],
+		'dot-location': [
+			'error',
+			'property'
+		],
 		eqeqeq: 'error',
 		'guard-for-in': 'error',
 		'no-alert': 'error',
 		'no-caller': 'error',
 		'no-case-declarations': 'error',
 		'no-div-regex': 'error',
-		'no-else-return': ['error', {
-			allowElseIf: false
-		}],
+		'no-else-return': [
+			'error',
+			{
+				allowElseIf: false
+			}
+		],
 		'no-empty-pattern': 'error',
 		'no-eq-null': 'error',
 		'no-eval': 'error',
@@ -96,10 +113,18 @@ module.exports = {
 		'no-octal': 'error',
 		'no-proto': 'error',
 		'no-redeclare': 'error',
-		'no-return-assign': ['error', 'always'],
+		'no-return-assign': [
+			'error',
+			'always'
+		],
 		'no-return-await': 'error',
 		'no-script-url': 'error',
-		'no-self-assign': ['error', {props: true}],
+		'no-self-assign': [
+			'error',
+			{
+				props: true
+			}
+		],
 		'no-self-compare': 'error',
 		'no-sequences': 'error',
 		'no-throw-literal': 'error',
@@ -113,7 +138,12 @@ module.exports = {
 		'no-void': 'error',
 		'no-warning-comments': 'warn',
 		'no-with': 'error',
-		'prefer-promise-reject-errors': ['error', {allowEmptyReject: true}],
+		'prefer-promise-reject-errors': [
+			'error',
+			{
+				allowEmptyReject: true
+			}
+		],
 		radix: 'error',
 		'require-await': 'error',
 
@@ -122,142 +152,318 @@ module.exports = {
 		// the churn and the rule is stable and has an autofixer
 		// 'require-unicode-regexp': 'error',
 
-		'wrap-iife': ['error', 'inside', {functionPrototypeMethods: true}],
+		'wrap-iife': [
+			'error',
+			'inside',
+			{
+				functionPrototypeMethods: true
+			}
+		],
 		yoda: 'error',
 		'no-delete-var': 'error',
 		'no-label-var': 'error',
-		'no-restricted-globals': ['error', 'event'],
+		'no-restricted-globals': [
+			'error',
+			'event'
+		],
 		'no-shadow-restricted-names': 'error',
 		'no-undef-init': 'error',
-		'no-undef': ['error', {
-			typeof: true
-		}],
-		'no-unused-vars': ['error', {
-			ignoreRestSiblings: true,
-			argsIgnorePattern: '^_$'
-		}],
+		'no-undef': [
+			'error',
+			{
+				typeof: true
+			}
+		],
+		'no-unused-vars': [
+			'error',
+			{
+				ignoreRestSiblings: true,
+				argsIgnorePattern: '^_$'
+			}
+		],
 		// Disabled because of https://github.com/eslint/eslint/issues/3420
 		// 'callback-return': ['warn', ['cb', 'callback', 'next', 'done']],
 		'handle-callback-err': 'warn',
 		'no-buffer-constructor': 'error',
-		'no-mixed-requires': ['error', {
-			grouping: true,
-			allowCall: true
-		}],
+		'no-mixed-requires': [
+			'error',
+			{
+				grouping: true,
+				allowCall: true
+			}
+		],
 		'no-new-require': 'error',
 		'no-path-concat': 'error',
-		'no-restricted-imports': ['error', 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
-		'no-restricted-modules': ['error', 'domain', 'freelist', 'smalloc', 'sys', 'colors'],
-		'array-bracket-newline': ['error', 'consistent'],
-		'array-bracket-spacing': ['error', 'never'],
-		'array-element-newline': ['error', 'consistent'],
-		'brace-style': ['error', '1tbs', {
-			allowSingleLine: false
-		}],
-		camelcase: ['error', {
-			properties: 'always'
-		}],
-		'capitalized-comments': ['error', 'always', {
-			// You can also ignore this rule by wrapping the first word in quotes
-			ignorePattern: 'pragma|ignore|prettier-ignore',
-			ignoreInlineComments: true,
-			ignoreConsecutiveComments: true
-		}],
-		'comma-spacing': ['error', {
-			before: false,
-			after: true
-		}],
-		'comma-style': ['error', 'last'],
-		'computed-property-spacing': ['error', 'never'],
+		'no-restricted-imports': [
+			'error',
+			'domain',
+			'freelist',
+			'smalloc',
+			'sys',
+			'colors'
+		],
+		'no-restricted-modules': [
+			'error',
+			'domain',
+			'freelist',
+			'smalloc',
+			'sys',
+			'colors'
+		],
+		'array-bracket-newline': [
+			'error',
+			'consistent'
+		],
+		'array-bracket-spacing': [
+			'error',
+			'never'
+		],
+		'array-element-newline': [
+			'error',
+			'consistent'
+		],
+		'brace-style': [
+			'error',
+			'1tbs',
+			{
+				allowSingleLine: false
+			}
+		],
+		camelcase: [
+			'error',
+			{
+				properties: 'always'
+			}
+		],
+		'capitalized-comments': [
+			'error',
+			'always',
+			{
+				// You can also ignore this rule by wrapping the first word in quotes
+				ignorePattern: 'pragma|ignore|prettier-ignore',
+				ignoreInlineComments: true,
+				ignoreConsecutiveComments: true
+			}
+		],
+		'comma-spacing': [
+			'error',
+			{
+				before: false,
+				after: true
+			}
+		],
+		'comma-style': [
+			'error',
+			'last'
+		],
+		'computed-property-spacing': [
+			'error',
+			'never'
+		],
 		'eol-last': 'error',
-		'func-call-spacing': ['error', 'never'],
-		'func-name-matching': ['error', {considerPropertyDescriptor: true}],
-		'func-names': ['error', 'never'],
-		indent: ['error', 'tab', {
-			SwitchCase: 1
-		}],
+		'func-call-spacing': [
+			'error',
+			'never'
+		],
+		'func-name-matching': [
+			'error',
+			{
+				considerPropertyDescriptor: true
+			}
+		],
+		'func-names': [
+			'error',
+			'never'
+		],
+		indent: [
+			'error',
+			'tab',
+			{
+				SwitchCase: 1
+			}
+		],
 		'jsx-quotes': 'error',
-		'key-spacing': ['error', {
-			beforeColon: false,
-			afterColon: true
-		}],
+		'key-spacing': [
+			'error',
+			{
+				beforeColon: false,
+				afterColon: true
+			}
+		],
 		'keyword-spacing': 'error',
-		'linebreak-style': [(process.platform === 'win32' ? 'off' : 'error'), 'unix'],
-		'lines-between-class-members': ['error', 'always'],
+		'linebreak-style': [
+			process.platform === 'win32' ? 'off' : 'error',
+			'unix'
+		],
+		'lines-between-class-members': [
+			'error',
+			'always'
+		],
 		'max-depth': 'warn',
-		'max-nested-callbacks': ['warn', 4],
-		'max-params': ['warn', {
-			max: 4
-		}],
+		'max-nested-callbacks': [
+			'warn',
+			4
+		],
+		'max-params': [
+			'warn',
+			{
+				max: 4
+			}
+		],
 		'max-statements-per-line': 'error',
-		'new-cap': ['error', {
-			newIsCap: true,
-			capIsNew: true
-		}],
+		'new-cap': [
+			'error',
+			{
+				newIsCap: true,
+				capIsNew: true
+			}
+		],
 		'new-parens': 'error',
 		'no-array-constructor': 'error',
 		'no-lonely-if': 'error',
 		'no-mixed-operators': 'error',
 		'no-mixed-spaces-and-tabs': 'error',
 		'no-multi-assign': 'error',
-		'no-multiple-empty-lines': ['error', {
-			max: 1
-		}],
+		'no-multiple-empty-lines': [
+			'error',
+			{
+				max: 1
+			}
+		],
 		'no-negated-condition': 'error',
 		'no-new-object': 'error',
-		'no-restricted-syntax': ['error', 'WithStatement'],
+		'no-restricted-syntax': [
+			'error',
+			'WithStatement'
+		],
 		'no-whitespace-before-property': 'error',
 		'no-trailing-spaces': 'error',
 		'no-unneeded-ternary': 'error',
-		'object-curly-spacing': ['error', 'never'],
+		'object-curly-spacing': [
+			'error',
+			'never'
+		],
 		// Disabled because of https://github.com/xojs/eslint-config-xo/issues/27
 		// 'object-property-newline': 'error',
-		'one-var': ['error', 'never'],
+		'one-var': [
+			'error',
+			'never'
+		],
 		'one-var-declaration-per-line': 'error',
-		'operator-assignment': ['error', 'always'],
-		'operator-linebreak': ['error', 'after'],
-		'padded-blocks': ['error', 'never'],
-		'quote-props': ['error', 'as-needed'],
-		quotes: ['error', 'single'],
-		'semi-spacing': ['error', {
-			before: false,
-			after: true
-		}],
-		'semi-style': ['error', 'last'],
-		semi: ['error', 'always'],
-		'space-before-blocks': ['error', 'always'],
-		'space-before-function-paren': ['error', {
-			anonymous: 'always',
-			named: 'never',
-			asyncArrow: 'always'
-		}],
-		'space-in-parens': ['error', 'never'],
+		'operator-assignment': [
+			'error',
+			'always'
+		],
+		'operator-linebreak': [
+			'error',
+			'after'
+		],
+		'padded-blocks': [
+			'error',
+			'never'
+		],
+		'quote-props': [
+			'error',
+			'as-needed'
+		],
+		quotes: [
+			'error',
+			'single'
+		],
+		'semi-spacing': [
+			'error',
+			{
+				before: false,
+				after: true
+			}
+		],
+		'semi-style': [
+			'error',
+			'last'
+		],
+		semi: [
+			'error',
+			'always'
+		],
+		'space-before-blocks': [
+			'error',
+			'always'
+		],
+		'space-before-function-paren': [
+			'error',
+			{
+				anonymous: 'always',
+				named: 'never',
+				asyncArrow: 'always'
+			}
+		],
+		'space-in-parens': [
+			'error',
+			'never'
+		],
 		'space-infix-ops': 'error',
 		'space-unary-ops': 'error',
-		'spaced-comment': ['error', 'always', {
-			line: {
-				exceptions: ['-', '+', '*'],
-				markers: ['!', '/', '=>']
-			},
-			block: {
-				exceptions: ['-', '+', '*'],
-				markers: ['!', '*'],
-				balanced: true
+		'spaced-comment': [
+			'error',
+			'always',
+			{
+				line: {
+					exceptions: [
+						'-',
+						'+',
+						'*'
+					],
+					markers: [
+						'!',
+						'/',
+						'=>'
+					]
+				},
+				block: {
+					exceptions: [
+						'-',
+						'+',
+						'*'
+					],
+					markers: [
+						'!',
+						'*'
+					],
+					balanced: true
+				}
 			}
-		}],
-		'switch-colon-spacing': ['error', {
-			after: true,
-			before: false
-		}],
-		'template-tag-spacing': ['error', 'never'],
-		'unicode-bom': ['error', 'never'],
-		'arrow-parens': ['error', 'as-needed'],
-		'arrow-spacing': ['error', {
-			before: true,
-			after: true
-		}],
+		],
+		'switch-colon-spacing': [
+			'error',
+			{
+				after: true,
+				before: false
+			}
+		],
+		'template-tag-spacing': [
+			'error',
+			'never'
+		],
+		'unicode-bom': [
+			'error',
+			'never'
+		],
+		'arrow-parens': [
+			'error',
+			'as-needed'
+		],
+		'arrow-spacing': [
+			'error',
+			{
+				before: true,
+				after: true
+			}
+		],
 		'constructor-super': 'error',
-		'generator-star-spacing': ['error', 'both'],
+		'generator-star-spacing': [
+			'error',
+			'both'
+		],
 		'no-class-assign': 'error',
 		'no-const-assign': 'error',
 		'no-dupe-class-members': 'error',
@@ -267,14 +473,23 @@ module.exports = {
 		'no-useless-constructor': 'error',
 		'no-useless-rename': 'error',
 		'require-yield': 'error',
-		'rest-spread-spacing': ['error', 'never'],
+		'rest-spread-spacing': [
+			'error',
+			'never'
+		],
 		'symbol-description': 'error',
 		'template-curly-spacing': 'error',
-		'yield-star-spacing': ['error', 'both'],
-		'valid-jsdoc': ['warn', {
-			'requireReturn': false,
-			'requireParamDescription': true,
-			'requireReturnDescription': true
-		}]
+		'yield-star-spacing': [
+			'error',
+			'both'
+		],
+		'valid-jsdoc': [
+			'warn',
+			{
+				requireReturn: false,
+				requireParamDescription: true,
+				requireReturnDescription: true
+			}
+		]
 	}
 };

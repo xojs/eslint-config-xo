@@ -50,7 +50,7 @@
 		"simple"
 	],
 	"devDependencies": {
-		"ava": "*",
+		"ava": "^0.25.0",
 		"eslint": "^5.3.0",
 		"is-plain-obj": "^1.0.0",
 		"temp-write": "^3.1.0"

@@ -5,8 +5,16 @@ module.exports = {
 	extends: path.join(__dirname, 'index.js'),
 	rules: {
 		'no-var': 'error',
-		'object-shorthand': ['error', 'always'],
-		'prefer-arrow-callback': ['error', {allowNamedFunctions: true}],
+		'object-shorthand': [
+			'error',
+			'always'
+		],
+		'prefer-arrow-callback': [
+			'error',
+			{
+				allowNamedFunctions: true
+			}
+		],
 		'prefer-const': [
 			'error',
 			{
