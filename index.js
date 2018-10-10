@@ -237,7 +237,7 @@ module.exports = {
 		'spaced-comment': ['error', 'always', {
 			line: {
 				exceptions: ['-', '+', '*'],
-				markers: ['!', '/']
+				markers: ['!', '/', '=>']
 			},
 			block: {
 				exceptions: ['-', '+', '*'],
