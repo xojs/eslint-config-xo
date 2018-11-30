@@ -145,7 +145,6 @@ module.exports = {
 			}
 		],
 		radix: 'error',
-		'require-await': 'error',
 
 		// Disabled for now as it causes too much churn
 		// TODO: Enable it in the future when I have time to deal with
