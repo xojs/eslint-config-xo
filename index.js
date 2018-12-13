@@ -361,6 +361,14 @@ module.exports = {
 			'error',
 			'never'
 		],
+		'padding-line-between-statements': [
+			'error',
+			{
+				blankLine: 'always',
+				prev: 'multiline-block-like',
+				next: '*'
+			}
+		],
 		'quote-props': [
 			'error',
 			'as-needed'
