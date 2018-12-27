@@ -48,5 +48,8 @@ module.exports = {
 				enforceForRenamedProperties: false
 			}
 		]
+
+		// TODO: Enable this when targeting Node.js 10
+		// 'no-useless-catch': 'error'
 	}
 };

@@ -50,12 +50,12 @@
 		"simple"
 	],
 	"devDependencies": {
-		"ava": "^0.25.0",
-		"eslint": "^5.3.0",
+		"ava": "^1.0.1",
+		"eslint": "^5.11.1",
 		"is-plain-obj": "^1.0.0",
 		"temp-write": "^3.1.0"
 	},
 	"peerDependencies": {
-		"eslint": ">=5.3.0"
+		"eslint": ">=5.11.1"
 	}
 }
