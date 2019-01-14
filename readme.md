@@ -6,6 +6,7 @@ This is for advanced users. [You probably want to use XO directly.](#use-the-xo-
 
 See [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) for some additional useful rules.
 
+**Use the [XO issue tracker](https://github.com/xojs/xo/issues) instead of this one.**
 
 ## Install
 
