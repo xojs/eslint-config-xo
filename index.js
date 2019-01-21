@@ -176,8 +176,12 @@ module.exports = {
 		'no-unused-vars': [
 			'error',
 			{
+				vars: 'all',
+				args: 'after-used',
 				ignoreRestSiblings: true,
-				argsIgnorePattern: '^_$'
+				argsIgnorePattern: '^_$',
+				caughtErrors: 'all',
+				caughtErrorsIgnorePattern: '^_$'
 			}
 		],
 		// Disabled because of https://github.com/eslint/eslint/issues/3420
