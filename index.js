@@ -82,7 +82,6 @@ module.exports = {
 		'no-alert': 'error',
 		'no-caller': 'error',
 		'no-case-declarations': 'error',
-		'no-div-regex': 'error',
 		'no-else-return': [
 			'error',
 			{
