@@ -362,7 +362,10 @@ module.exports = {
 		],
 		'padded-blocks': [
 			'error',
-			'never'
+			'never',
+			{
+				allowSingleLineBlocks: false
+			}
 		],
 		'padding-line-between-statements': [
 			'error',
