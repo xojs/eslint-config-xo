@@ -2,7 +2,7 @@
 
 module.exports = {
 	parserOptions: {
-		ecmaVersion: 2019,
+		ecmaVersion: 2020,
 		sourceType: 'module',
 		ecmaFeatures: {
 			jsx: true
@@ -279,6 +279,10 @@ module.exports = {
 		'func-names': [
 			'error',
 			'never'
+		],
+		'function-call-argument-newline': [
+			'error',
+			'consistent'
 		],
 		indent: [
 			'error',
