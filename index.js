@@ -12,6 +12,7 @@ module.exports = {
 		node: true,
 		es6: true
 	},
+	reportUnusedDisableDirectives: true,
 	rules: {
 		'comma-dangle': [
 			'error',
@@ -502,14 +503,6 @@ module.exports = {
 		'yield-star-spacing': [
 			'error',
 			'both'
-		],
-		'valid-jsdoc': [
-			'warn',
-			{
-				requireReturn: false,
-				requireParamDescription: true,
-				requireReturnDescription: true
-			}
 		]
 	}
 };
