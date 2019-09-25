@@ -79,6 +79,7 @@ module.exports = {
 		complexity: 'warn',
 		curly: 'error',
 		'default-case': 'error',
+		'default-param-last': 'error',
 		'dot-notation': 'error',
 		'dot-location': [
 			'error',
