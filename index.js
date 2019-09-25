@@ -150,6 +150,7 @@ module.exports = {
 				allowEmptyReject: true
 			}
 		],
+		'prefer-regex-literals': 'error',
 		radix: 'error',
 
 		// Disabled for now as it causes too much churn
