@@ -73,7 +73,12 @@ module.exports = {
 			}
 		],
 		'no-unexpected-multiline': 'error',
-		'accessor-pairs': 'error',
+		'accessor-pairs': [
+			'error',
+			{
+				enforceForClassMembers: true
+			}
+		],
 		'array-callback-return': 'error',
 		'block-scoped-var': 'error',
 		complexity: 'warn',
@@ -267,7 +272,10 @@ module.exports = {
 		],
 		'computed-property-spacing': [
 			'error',
-			'never'
+			'never',
+			{
+				enforceForClassMembers: true
+			}
 		],
 		'eol-last': 'error',
 		'func-call-spacing': [
