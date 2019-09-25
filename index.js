@@ -318,7 +318,12 @@ module.exports = {
 		],
 		'lines-between-class-members': [
 			'error',
-			'always'
+			'always',
+			{
+				// Workaround to allow class fields to not have lines between them.
+				// TODO: Get ESLint to add an option to ignore class fields.
+				exceptAfterSingleLine: true
+			}
 		],
 		'max-depth': 'warn',
 		'max-nested-callbacks': [
