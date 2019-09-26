@@ -65,7 +65,7 @@ Here are some reason why you should use the [XO CLI](https://github.com/xojs/xo)
 - [Beautiful output.](https://github.com/sindresorhus/eslint-formatter-pretty)
 - Bundles many useful plugins, like [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn), [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import), [`eslint-plugin-ava`](https://github.com/avajs/eslint-plugin-ava), and more.
 - No need to specify file paths to lint. It will lint all JS files except [commonly ignored paths](https://github.com/xojs/xo#ignores).
-- Super simple to add XO to a project: `$ xo --init`
+- Super simple to add XO to a project with [`$ npm init xo`](https://github.com/xojs/create-xo).
 - Specify `indent` and `semicolon` preferences easily without messing with the rule config.
 - Config/rule overrides per files/globs. *(ESLint still doesn't support this)*
 - Can open all files with errors at the correct line in your editor. *(See the `--open` flag)*
