@@ -49,6 +49,9 @@
 		"hint",
 		"simple"
 	],
+	"dependencies": {
+		"confusing-browser-globals": "^1.0.9"
+	},
 	"devDependencies": {
 		"ava": "^2.3.0",
 		"eslint": "^6.4.0",
