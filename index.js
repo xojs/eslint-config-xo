@@ -64,7 +64,6 @@ module.exports = {
 		'no-unreachable': 'error',
 		'no-unsafe-finally': 'error',
 		'no-unsafe-negation': 'error',
-		'require-atomic-updates': 'error',
 		'use-isnan': 'error',
 		'valid-typeof': [
 			'error',
