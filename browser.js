@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-const restrictedGlobals = require('confusing-browser-globals');
+const confusingBrowserGlobals = require('confusing-browser-globals');
 
 module.exports = {
 	extends: path.join(__dirname, 'index.js'),
@@ -9,6 +9,9 @@ module.exports = {
 		browser: true
 	},
 	rules: {
-		'no-restricted-globals': ['error'].concat(restrictedGlobals)
+		'no-restricted-globals': [
+			'error',
+			...confusingBrowserGlobals
+		]
 	}
 };
