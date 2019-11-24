@@ -513,7 +513,12 @@ module.exports = {
 		'no-dupe-class-members': 'error',
 		'no-new-symbol': 'error',
 		'no-this-before-super': 'error',
-		'no-useless-computed-key': 'error',
+		'no-useless-computed-key': [
+			'error',
+			{
+				enforceForClassMembers: true
+			}
+		],
 		'no-useless-constructor': 'error',
 		'no-useless-rename': 'error',
 		'require-yield': 'error',
