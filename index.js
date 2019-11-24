@@ -405,6 +405,7 @@ module.exports = {
 				next: '*'
 			}
 		],
+		'prefer-exponentiation-operator': 'error',
 		'quote-props': [
 			'error',
 			'as-needed'
