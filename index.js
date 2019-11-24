@@ -98,6 +98,7 @@ module.exports = {
 		'no-alert': 'error',
 		'no-caller': 'error',
 		'no-case-declarations': 'error',
+		'no-constructor-return': 'error',
 		'no-else-return': [
 			'error',
 			{
