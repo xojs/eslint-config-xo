@@ -90,6 +90,10 @@ module.exports = {
 			'property'
 		],
 		eqeqeq: 'error',
+		'grouped-accessor-pairs': [
+			'error',
+			'getBeforeSet'
+		],
 		'guard-for-in': 'error',
 		'no-alert': 'error',
 		'no-caller': 'error',
