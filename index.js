@@ -198,9 +198,9 @@ module.exports = {
 				vars: 'all',
 				args: 'after-used',
 				ignoreRestSiblings: true,
-				argsIgnorePattern: '^_$',
+				argsIgnorePattern: /^_$/.source,
 				caughtErrors: 'all',
-				caughtErrorsIgnorePattern: '^_$'
+				caughtErrorsIgnorePattern: /^_$/.source
 			}
 		],
 		'handle-callback-err': 'warn',
@@ -260,7 +260,7 @@ module.exports = {
 			'always',
 			{
 				// You can also ignore this rule by wrapping the first word in quotes
-				ignorePattern: 'pragma|ignore|prettier-ignore',
+				ignorePattern: /pragma|ignore|prettier-ignore/.source,
 				ignoreInlineComments: true,
 				ignoreConsecutiveComments: true
 			}

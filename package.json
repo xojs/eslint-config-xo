@@ -4,6 +4,7 @@
 	"description": "ESLint shareable config for XO",
 	"license": "MIT",
 	"repository": "xojs/eslint-config-xo",
+	"funding": "https://github.com/sponsors/sindresorhus",
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",

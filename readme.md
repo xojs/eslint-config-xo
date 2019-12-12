@@ -14,7 +14,6 @@ See [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicor
 $ npm install --save-dev eslint-config-xo
 ```
 
-
 ## Usage
 
 Add some ESLint config to your `package.json`:
@@ -54,7 +53,6 @@ And [`xo/browser`](browser.js) if you're in the browser:
 }
 ```
 
-
 ## Use the XO CLI instead
 
 XO is an ESLint wrapper with great defaults.
@@ -73,14 +71,8 @@ Here are some reason why you should use the [XO CLI](https://github.com/xojs/xo)
 
 tl;dr You miss out on a lot by just using this config.
 
-
 ## Related
 
 - [eslint-config-xo-space](https://github.com/xojs/eslint-config-xo-space) - ESLint shareable config for XO with 2-space indent
 - [eslint-config-xo-react](https://github.com/xojs/eslint-config-xo-react) - ESLint shareable config for React to be used with this config
 - [eslint-config-xo-typescript](https://github.com/xojs/eslint-config-xo-typescript) - ESLint shareable config for TypeScript to be used with this config
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)
