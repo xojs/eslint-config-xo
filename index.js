@@ -259,7 +259,7 @@ module.exports = {
 			'error',
 			'always',
 			{
-				// You can also ignore this rule by wrapping the first word in quotes
+				// You can also ignore this rule by wrapping the first word in quotes.
 				ignorePattern: /pragma|ignore|prettier-ignore/.source,
 				ignoreInlineComments: true,
 				ignoreConsecutiveComments: true

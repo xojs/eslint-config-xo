@@ -47,8 +47,7 @@ module.exports = {
 				enforceForRenamedProperties: false
 			}
 		],
-		// TODO: Enable these when targeting Node.js 10
-		// 'no-useless-catch': 'error',
-		// 'prefer-named-capture-group': 'error'
+		'no-useless-catch': 'error',
+		'prefer-named-capture-group': 'error'
 	}
 };
