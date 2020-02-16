@@ -48,6 +48,8 @@ module.exports = {
 			}
 		],
 		'no-useless-catch': 'error',
-		'prefer-named-capture-group': 'error'
+
+		// Disabled for now as Firefox doesn't support named capture groups and I'm tired of getting issues about the use of named capture groups...
+		// 'prefer-named-capture-group': 'error'
 	}
 };
