@@ -16,7 +16,7 @@ module.exports = {
 	rules: {
 		'comma-dangle': [
 			'error',
-			'never'
+			'always-multiline'
 		],
 		'for-direction': 'error',
 		'getter-return': 'error',
