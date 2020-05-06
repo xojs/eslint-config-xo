@@ -80,7 +80,12 @@ module.exports = {
 				enforceForClassMembers: true
 			}
 		],
-		'array-callback-return': 'error',
+		'array-callback-return': [
+			'error',
+			{
+				allowImplicit: true
+			}
+		],
 		'block-scoped-var': 'error',
 		complexity: 'warn',
 		curly: 'error',
