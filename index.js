@@ -208,26 +208,8 @@ module.exports = {
 				caughtErrorsIgnorePattern: /^_$/.source
 			}
 		],
-		'handle-callback-err': 'warn',
 		'no-buffer-constructor': 'error',
-		'no-mixed-requires': [
-			'error',
-			{
-				grouping: true,
-				allowCall: true
-			}
-		],
-		'no-new-require': 'error',
-		'no-path-concat': 'error',
 		'no-restricted-imports': [
-			'error',
-			'domain',
-			'freelist',
-			'smalloc',
-			'sys',
-			'colors'
-		],
-		'no-restricted-modules': [
 			'error',
 			'domain',
 			'freelist',
