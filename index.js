@@ -247,7 +247,7 @@ module.exports = {
 			'always',
 			{
 				// You can also ignore this rule by wrapping the first word in quotes.
-				ignorePattern: /pragma|ignore|prettier-ignore|webpack/.source,
+				ignorePattern: /pragma|ignore|prettier-ignore|webpack\w+:/.source,
 				ignoreInlineComments: true,
 				ignoreConsecutiveComments: true
 			}
