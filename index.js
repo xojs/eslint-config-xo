@@ -206,7 +206,7 @@ module.exports = {
 				vars: 'all',
 				args: 'after-used',
 				ignoreRestSiblings: true,
-				argsIgnorePattern: /^_$/.source,
+				argsIgnorePattern: /^_/.source,
 				caughtErrors: 'all',
 				caughtErrorsIgnorePattern: /^_$/.source
 			}
