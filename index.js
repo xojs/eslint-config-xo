@@ -64,6 +64,12 @@ module.exports = {
 		'no-regex-spaces': 'error',
 		'no-setter-return': 'error',
 		'no-sparse-arrays': 'error',
+		'no-tabs': [
+			'error',
+			{
+				allowIndentationTabs: true
+			}
+		],
 		'no-template-curly-in-string': 'error',
 		'no-unreachable': 'error',
 		'no-unreachable-loop': 'error',
