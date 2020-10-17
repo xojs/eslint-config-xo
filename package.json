@@ -54,12 +54,12 @@
 		"confusing-browser-globals": "1.0.9"
 	},
 	"devDependencies": {
-		"ava": "^2.3.0",
-		"eslint": "^7.3.1",
-		"is-plain-obj": "^2.0.0",
+		"ava": "^2.4.0",
+		"eslint": "^7.11.0",
+		"is-plain-obj": "^3.0.0",
 		"temp-write": "^4.0.0"
 	},
 	"peerDependencies": {
-		"eslint": ">=7.3.1"
+		"eslint": ">=7.11.0"
 	}
 }
