@@ -134,6 +134,7 @@ module.exports = {
 		'no-multi-str': 'error',
 		'no-new-func': 'error',
 		'no-new-wrappers': 'error',
+		'no-nonoctal-decimal-escape': 'error',
 		'no-new': 'error',
 		'no-octal-escape': 'error',
 		'no-octal': 'error',
