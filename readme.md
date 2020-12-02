@@ -1,4 +1,4 @@
-# eslint-config-xo [![Build Status](https://travis-ci.org/xojs/eslint-config-xo.svg?branch=master)](https://travis-ci.org/xojs/eslint-config-xo)
+# eslint-config-xo
 
 > ESLint [shareable config](https://eslint.org/docs/developer-guide/shareable-configs.html) for [XO](https://github.com/xojs/xo)
 
