@@ -51,15 +51,15 @@
 		"simple"
 	],
 	"dependencies": {
-		"confusing-browser-globals": "1.0.9"
+		"confusing-browser-globals": "1.0.10"
 	},
 	"devDependencies": {
 		"ava": "^2.4.0",
-		"eslint": "^7.14.0",
+		"eslint": "^7.17.0",
 		"is-plain-obj": "^3.0.0",
 		"temp-write": "^4.0.0"
 	},
 	"peerDependencies": {
-		"eslint": ">=7.14.0"
+		"eslint": ">=7.17.0"
 	}
 }
