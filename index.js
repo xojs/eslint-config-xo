@@ -69,6 +69,7 @@ module.exports = {
 		'no-unreachable-loop': 'error',
 		'no-unsafe-finally': 'error',
 		'no-unsafe-negation': 'error',
+		'no-useless-backreference': 'error',
 		'use-isnan': 'error',
 		'valid-typeof': [
 			'error',
