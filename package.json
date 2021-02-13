@@ -22,7 +22,6 @@
 		"browser.js"
 	],
 	"keywords": [
-		"❤️",
 		"eslintconfig",
 		"xo",
 		"xoxo",
@@ -55,11 +54,11 @@
 	},
 	"devDependencies": {
 		"ava": "^2.4.0",
-		"eslint": "^7.17.0",
+		"eslint": "^7.20.0",
 		"is-plain-obj": "^3.0.0",
 		"temp-write": "^4.0.0"
 	},
 	"peerDependencies": {
-		"eslint": ">=7.17.0"
+		"eslint": ">=7.20.0"
 	}
 }

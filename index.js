@@ -164,7 +164,12 @@ module.exports = {
 		'no-sequences': 'error',
 		'no-throw-literal': 'error',
 		'no-unmodified-loop-condition': 'error',
-		'no-unused-expressions': 'error',
+		'no-unused-expressions': [
+			'error',
+			{
+				enforceForJSX: true
+			}
+		],
 		'no-unused-labels': 'error',
 		'no-useless-call': 'error',
 		'no-useless-concat': 'error',
