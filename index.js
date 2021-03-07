@@ -369,10 +369,6 @@ module.exports = {
 		],
 		'no-negated-condition': 'error',
 		'no-new-object': 'error',
-		'no-restricted-syntax': [
-			'error',
-			'WithStatement'
-		],
 		'no-whitespace-before-property': 'error',
 		'no-trailing-spaces': 'error',
 		'no-unneeded-ternary': 'error',
