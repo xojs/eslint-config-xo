@@ -18,7 +18,6 @@
 	},
 	"files": [
 		"index.js",
-		"esnext.js",
 		"browser.js"
 	],
 	"keywords": [

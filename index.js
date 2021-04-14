@@ -172,12 +172,17 @@ module.exports = {
 		],
 		'no-unused-labels': 'error',
 		'no-useless-call': 'error',
+		'no-useless-catch': 'error',
 		'no-useless-concat': 'error',
 		'no-useless-escape': 'error',
 		'no-useless-return': 'error',
 		'no-void': 'error',
 		'no-warning-comments': 'warn',
 		'no-with': 'error',
+
+		// Disabled for now as Firefox doesn't support named capture groups and I'm tired of getting issues about the use of named capture groups...
+		// 'prefer-named-capture-group': 'error'
+
 		'prefer-promise-reject-errors': [
 			'error',
 			{
@@ -410,6 +415,7 @@ module.exports = {
 			}
 		],
 		'prefer-exponentiation-operator': 'error',
+		'prefer-object-spread': 'error',
 		'quote-props': [
 			'error',
 			'as-needed'
@@ -525,6 +531,48 @@ module.exports = {
 		],
 		'no-useless-constructor': 'error',
 		'no-useless-rename': 'error',
+		'no-var': 'error',
+		'object-shorthand': [
+			'error',
+			'always'
+		],
+		'prefer-arrow-callback': [
+			'error',
+			{
+				allowNamedFunctions: true
+			}
+		],
+		'prefer-const': [
+			'error',
+			{
+				destructuring: 'all'
+			}
+		],
+		'prefer-destructuring': [
+			'error',
+			{
+				// `array` is disabled because it forces destructuring on
+				// stupid stuff like `foo.bar = process.argv[2];`
+				// TODO: Open ESLint issue about this
+				VariableDeclarator: {
+					array: false,
+					object: true
+				},
+				AssignmentExpression: {
+					array: false,
+
+					// Disabled because object assignment destructuring requires parens wrapping:
+					// `let foo; ({foo} = object);`
+					object: false
+				}
+			},
+			{
+				enforceForRenamedProperties: false
+			}
+		],
+		'prefer-numeric-literals': 'error',
+		'prefer-rest-params': 'error',
+		'prefer-spread': 'error',
 		'require-yield': 'error',
 		'rest-spread-spacing': [
 			'error',
