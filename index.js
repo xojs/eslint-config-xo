@@ -189,7 +189,8 @@ module.exports = {
 
 		// Disabled for now as it causes too much churn
 		// TODO: Enable it in the future when I have time to deal with
-		// the churn and the rule is stable and has an autofixer
+		// the churn and the rule is stable and has an autofixer.
+		// Still doesn't have a fixer as of ESLint 7.24.0.
 		// 'require-unicode-regexp': 'error',
 
 		'wrap-iife': [
@@ -231,7 +232,9 @@ module.exports = {
 			'domain',
 			'freelist',
 			'smalloc',
+			'punycode',
 			'sys',
+			'querystring',
 			'colors'
 		],
 		'array-bracket-newline': [
