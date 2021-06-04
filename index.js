@@ -397,7 +397,7 @@ module.exports = {
 		],
 		'operator-linebreak': [
 			'error',
-			'after'
+			'before'
 		],
 		'padded-blocks': [
 			'error',
