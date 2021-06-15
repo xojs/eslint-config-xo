@@ -502,6 +502,7 @@ module.exports = {
 			'error',
 			'never'
 		],
+		'arrow-body-style': 'error',
 		'arrow-parens': [
 			'error',
 			'as-needed'
