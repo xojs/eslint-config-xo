@@ -68,7 +68,12 @@ module.exports = {
 		'no-unreachable': 'error',
 		'no-unreachable-loop': 'error',
 		'no-unsafe-finally': 'error',
-		'no-unsafe-negation': 'error',
+		'no-unsafe-negation': [
+			'error',
+			{
+				enforceForOrderingRelations: true
+			}
+		],
 		'no-unsafe-optional-chaining': [
 			'error',
 			{
