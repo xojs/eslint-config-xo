@@ -370,6 +370,7 @@ module.exports = {
 		],
 		'new-parens': 'error',
 		'no-array-constructor': 'error',
+		'no-bitwise': 'error',
 		'no-lonely-if': 'error',
 		'no-mixed-operators': 'error',
 		'no-mixed-spaces-and-tabs': 'error',
