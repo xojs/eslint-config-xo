@@ -35,8 +35,6 @@ Or to `.eslintrc`:
 }
 ```
 
-Supports parsing ES2015+, but doesn't enforce it by default.
-
 This package also exposes [`xo/browser`](browser.js) if you're in the browser:
 
 ```json
