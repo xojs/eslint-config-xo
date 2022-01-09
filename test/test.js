@@ -1,34 +1,35 @@
 import test from 'ava';
 import isPlainObj from 'is-plain-obj';
-import eslint from 'eslint';
-import tempWrite from 'temp-write';
+import {ESLint} from 'eslint';
 
-const hasRule = (errors, ruleId) => errors.some(x => x.ruleId === ruleId);
+const hasRule = (errors, ruleId) => errors.some(error => error.ruleId === ruleId);
 
-function runEslint(str, conf) {
-	const linter = new eslint.CLIEngine({
+async function runEslint(string, config) {
+	const eslint = new ESLint({
 		useEslintrc: false,
-		configFile: tempWrite.sync(JSON.stringify(conf)),
+		overrideConfig: config,
 	});
 
-	return linter.executeOnText(str).results[0].messages;
+	const [firstResult] = await eslint.lintText(string);
+
+	return firstResult.messages;
 }
 
-test('main', t => {
-	const conf = require('../');
+test('main', async t => {
+	const config = require('../index.js');
 
-	t.true(isPlainObj(conf));
-	t.true(isPlainObj(conf.rules));
+	t.true(isPlainObj(config));
+	t.true(isPlainObj(config.rules));
 
-	const errors = runEslint('\'use strict\';\nconsole.log("unicorn")\n', conf);
-	t.true(hasRule(errors, 'quotes'));
+	const errors = await runEslint('\'use strict\';\nconsole.log("unicorn")\n', config);
+	t.true(hasRule(errors, 'quotes'), JSON.stringify(errors));
 });
 
-test('browser', t => {
-	const conf = require('../browser');
+test('browser', async t => {
+	const config = require('../browser.js');
 
-	t.true(isPlainObj(conf));
+	t.true(isPlainObj(config));
 
-	const errors = runEslint('\'use strict\';\nprocess.exit();\n', conf);
-	t.true(hasRule(errors, 'no-undef'));
+	const errors = await runEslint('\'use strict\';\nprocess.exit();\n', config);
+	t.true(hasRule(errors, 'no-undef'), JSON.stringify(errors));
 });
