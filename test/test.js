@@ -8,7 +8,7 @@ const hasRule = (errors, ruleId) => errors.some(x => x.ruleId === ruleId);
 function runEslint(str, conf) {
 	const linter = new eslint.CLIEngine({
 		useEslintrc: false,
-		configFile: tempWrite.sync(JSON.stringify(conf))
+		configFile: tempWrite.sync(JSON.stringify(conf)),
 	});
 
 	return linter.executeOnText(str).results[0].messages;
