@@ -542,6 +542,9 @@ module.exports = {
 		'object-shorthand': [
 			'error',
 			'always',
+			{
+				avoidExplicitReturnArrows: true,
+			}
 		],
 		'prefer-arrow-callback': [
 			'error',
