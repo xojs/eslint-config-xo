@@ -5,18 +5,18 @@ module.exports = {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
 		ecmaFeatures: {
-			jsx: true
-		}
+			jsx: true,
+		},
 	},
 	env: {
 		es2021: true,
-		node: true
+		node: true,
 	},
 	reportUnusedDisableDirectives: true,
 	rules: {
 		'comma-dangle': [
 			'error',
-			'always-multiline'
+			'always-multiline',
 		],
 		'for-direction': 'error',
 		'getter-return': 'error',
@@ -35,8 +35,8 @@ module.exports = {
 		'no-empty': [
 			'error',
 			{
-				allowEmptyCatch: true
-			}
+				allowEmptyCatch: true,
+			},
 		],
 		'no-ex-assign': 'error',
 		'no-extra-boolean-cast': 'error',
@@ -71,35 +71,35 @@ module.exports = {
 		'no-unsafe-negation': [
 			'error',
 			{
-				enforceForOrderingRelations: true
-			}
+				enforceForOrderingRelations: true,
+			},
 		],
 		'no-unsafe-optional-chaining': [
 			'error',
 			{
-				disallowArithmeticOperators: true
-			}
+				disallowArithmeticOperators: true,
+			},
 		],
 		'no-useless-backreference': 'error',
 		'use-isnan': 'error',
 		'valid-typeof': [
 			'error',
 			{
-				requireStringLiterals: false
-			}
+				requireStringLiterals: false,
+			},
 		],
 		'no-unexpected-multiline': 'error',
 		'accessor-pairs': [
 			'error',
 			{
-				enforceForClassMembers: true
-			}
+				enforceForClassMembers: true,
+			},
 		],
 		'array-callback-return': [
 			'error',
 			{
-				allowImplicit: true
-			}
+				allowImplicit: true,
+			},
 		],
 		'block-scoped-var': 'error',
 		complexity: 'warn',
@@ -110,12 +110,12 @@ module.exports = {
 		'dot-notation': 'error',
 		'dot-location': [
 			'error',
-			'property'
+			'property',
 		],
 		eqeqeq: 'error',
 		'grouped-accessor-pairs': [
 			'error',
-			'getBeforeSet'
+			'getBeforeSet',
 		],
 		'guard-for-in': 'error',
 		'no-alert': 'error',
@@ -125,8 +125,8 @@ module.exports = {
 		'no-else-return': [
 			'error',
 			{
-				allowElseIf: false
-			}
+				allowElseIf: false,
+			},
 		],
 		'no-empty-pattern': 'error',
 		'no-eq-null': 'error',
@@ -155,15 +155,15 @@ module.exports = {
 		'no-redeclare': 'error',
 		'no-return-assign': [
 			'error',
-			'always'
+			'always',
 		],
 		'no-return-await': 'error',
 		'no-script-url': 'error',
 		'no-self-assign': [
 			'error',
 			{
-				props: true
-			}
+				props: true,
+			},
 		],
 		'no-self-compare': 'error',
 		'no-sequences': 'error',
@@ -172,8 +172,8 @@ module.exports = {
 		'no-unused-expressions': [
 			'error',
 			{
-				enforceForJSX: true
-			}
+				enforceForJSX: true,
+			},
 		],
 		'no-unused-labels': 'error',
 		'no-useless-call': 'error',
@@ -191,8 +191,8 @@ module.exports = {
 		'prefer-promise-reject-errors': [
 			'error',
 			{
-				allowEmptyReject: true
-			}
+				allowEmptyReject: true,
+			},
 		],
 		'prefer-regex-literals': 'error',
 		radix: 'error',
@@ -207,23 +207,23 @@ module.exports = {
 			'error',
 			'inside',
 			{
-				functionPrototypeMethods: true
-			}
+				functionPrototypeMethods: true,
+			},
 		],
 		yoda: 'error',
 		'no-delete-var': 'error',
 		'no-label-var': 'error',
 		'no-restricted-globals': [
 			'error',
-			'event'
+			'event',
 		],
 		'no-shadow-restricted-names': 'error',
 		'no-undef-init': 'error',
 		'no-undef': [
 			'error',
 			{
-				typeof: true
-			}
+				typeof: true,
+			},
 		],
 		'no-unused-vars': [
 			'error',
@@ -233,8 +233,8 @@ module.exports = {
 				ignoreRestSiblings: true,
 				argsIgnorePattern: /^_/.source,
 				caughtErrors: 'all',
-				caughtErrorsIgnorePattern: /^_$/.source
-			}
+				caughtErrorsIgnorePattern: /^_$/.source,
+			},
 		],
 		'no-buffer-constructor': 'error',
 		'no-restricted-imports': [
@@ -245,32 +245,32 @@ module.exports = {
 			'punycode',
 			'sys',
 			'querystring',
-			'colors'
+			'colors',
 		],
 		'array-bracket-newline': [
 			'error',
-			'consistent'
+			'consistent',
 		],
 		'array-bracket-spacing': [
 			'error',
-			'never'
+			'never',
 		],
 		'array-element-newline': [
 			'error',
-			'consistent'
+			'consistent',
 		],
 		'brace-style': [
 			'error',
 			'1tbs',
 			{
-				allowSingleLine: false
-			}
+				allowSingleLine: false,
+			},
 		],
 		camelcase: [
 			'error',
 			{
-				properties: 'always'
-			}
+				properties: 'always',
+			},
 		],
 		'capitalized-comments': [
 			'error',
@@ -280,65 +280,65 @@ module.exports = {
 				// c8 => https://github.com/bcoe/c8
 				ignorePattern: /pragma|ignore|prettier-ignore|webpack\w+:|c8/.source,
 				ignoreInlineComments: true,
-				ignoreConsecutiveComments: true
-			}
+				ignoreConsecutiveComments: true,
+			},
 		],
 		'comma-spacing': [
 			'error',
 			{
 				before: false,
-				after: true
-			}
+				after: true,
+			},
 		],
 		'comma-style': [
 			'error',
-			'last'
+			'last',
 		],
 		'computed-property-spacing': [
 			'error',
 			'never',
 			{
-				enforceForClassMembers: true
-			}
+				enforceForClassMembers: true,
+			},
 		],
 		'eol-last': 'error',
 		'func-call-spacing': [
 			'error',
-			'never'
+			'never',
 		],
 		'func-name-matching': [
 			'error',
 			{
-				considerPropertyDescriptor: true
-			}
+				considerPropertyDescriptor: true,
+			},
 		],
 		'func-names': [
 			'error',
-			'never'
+			'never',
 		],
 		'function-call-argument-newline': [
 			'error',
-			'consistent'
+			'consistent',
 		],
 		indent: [
 			'error',
 			'tab',
 			{
-				SwitchCase: 1
-			}
+				SwitchCase: 1,
+			},
 		],
 		'jsx-quotes': 'error',
 		'key-spacing': [
 			'error',
 			{
 				beforeColon: false,
-				afterColon: true
-			}
+				afterColon: true,
+			},
 		],
 		'keyword-spacing': 'error',
 		'linebreak-style': [
 			process.platform === 'win32' ? 'off' : 'error',
-			'unix'
+			'unix',
 		],
 		'lines-between-class-members': [
 			'error',
@@ -346,27 +346,27 @@ module.exports = {
 			{
 				// Workaround to allow class fields to not have lines between them.
 				// TODO: Get ESLint to add an option to ignore class fields.
-				exceptAfterSingleLine: true
-			}
+				exceptAfterSingleLine: true,
+			},
 		],
 		'max-depth': 'warn',
 		'max-nested-callbacks': [
 			'warn',
-			4
+			4,
 		],
 		'max-params': [
 			'warn',
 			{
-				max: 4
-			}
+				max: 4,
+			},
 		],
 		'max-statements-per-line': 'error',
 		'new-cap': [
 			'error',
 			{
 				newIsCap: true,
-				capIsNew: true
-			}
+				capIsNew: true,
+			},
 		],
 		'new-parens': 'error',
 		'no-array-constructor': 'error',
@@ -378,8 +378,8 @@ module.exports = {
 		'no-multiple-empty-lines': [
 			'error',
 			{
-				max: 1
-			}
+				max: 1,
+			},
 		],
 		'no-negated-condition': 'error',
 		'no-new-object': 'error',
@@ -388,78 +388,78 @@ module.exports = {
 		'no-unneeded-ternary': 'error',
 		'object-curly-spacing': [
 			'error',
-			'never'
+			'never',
 		],
 		// Disabled because of https://github.com/xojs/eslint-config-xo/issues/27
 		// 'object-property-newline': 'error',
 		'one-var': [
 			'error',
-			'never'
+			'never',
 		],
 		'one-var-declaration-per-line': 'error',
 		'operator-assignment': [
 			'error',
-			'always'
+			'always',
 		],
 		'operator-linebreak': [
 			'error',
-			'before'
+			'before',
 		],
 		'padded-blocks': [
 			'error',
 			'never',
 			{
-				allowSingleLineBlocks: false
-			}
+				allowSingleLineBlocks: false,
+			},
 		],
 		'padding-line-between-statements': [
 			'error',
 			{
 				blankLine: 'always',
 				prev: 'multiline-block-like',
-				next: '*'
-			}
+				next: '*',
+			},
 		],
 		'prefer-exponentiation-operator': 'error',
 		'prefer-object-spread': 'error',
 		'quote-props': [
 			'error',
-			'as-needed'
+			'as-needed',
 		],
 		quotes: [
 			'error',
-			'single'
+			'single',
 		],
 		'semi-spacing': [
 			'error',
 			{
 				before: false,
-				after: true
-			}
+				after: true,
+			},
 		],
 		'semi-style': [
 			'error',
-			'last'
+			'last',
 		],
 		semi: [
 			'error',
-			'always'
+			'always',
 		],
 		'space-before-blocks': [
 			'error',
-			'always'
+			'always',
 		],
 		'space-before-function-paren': [
 			'error',
 			{
 				anonymous: 'always',
 				named: 'never',
-				asyncArrow: 'always'
-			}
+				asyncArrow: 'always',
+			},
 		],
 		'space-in-parens': [
 			'error',
-			'never'
+			'never',
 		],
 		'space-infix-ops': 'error',
 		'space-unary-ops': 'error',
@@ -471,59 +471,59 @@ module.exports = {
 					exceptions: [
 						'-',
 						'+',
-						'*'
+						'*',
 					],
 					markers: [
 						'!',
 						'/',
-						'=>'
-					]
+						'=>',
+					],
 				},
 				block: {
 					exceptions: [
 						'-',
 						'+',
-						'*'
+						'*',
 					],
 					markers: [
 						'!',
-						'*'
+						'*',
 					],
-					balanced: true
-				}
-			}
+					balanced: true,
+				},
+			},
 		],
 		'switch-colon-spacing': [
 			'error',
 			{
 				after: true,
-				before: false
-			}
+				before: false,
+			},
 		],
 		'template-tag-spacing': [
 			'error',
-			'never'
+			'never',
 		],
 		'unicode-bom': [
 			'error',
-			'never'
+			'never',
 		],
 		'arrow-body-style': 'error',
 		'arrow-parens': [
 			'error',
-			'as-needed'
+			'as-needed',
 		],
 		'arrow-spacing': [
 			'error',
 			{
 				before: true,
-				after: true
-			}
+				after: true,
+			},
 		],
 		'constructor-super': 'error',
 		'generator-star-spacing': [
 			'error',
-			'both'
+			'both',
 		],
 		'no-class-assign': 'error',
 		'no-const-assign': 'error',
@@ -533,27 +533,27 @@ module.exports = {
 		'no-useless-computed-key': [
 			'error',
 			{
-				enforceForClassMembers: true
-			}
+				enforceForClassMembers: true,
+			},
 		],
 		'no-useless-constructor': 'error',
 		'no-useless-rename': 'error',
 		'no-var': 'error',
 		'object-shorthand': [
 			'error',
-			'always'
+			'always',
 		],
 		'prefer-arrow-callback': [
 			'error',
 			{
-				allowNamedFunctions: true
-			}
+				allowNamedFunctions: true,
+			},
 		],
 		'prefer-const': [
 			'error',
 			{
-				destructuring: 'all'
-			}
+				destructuring: 'all',
+			},
 		],
 		'prefer-destructuring': [
 			'error',
@@ -563,19 +563,19 @@ module.exports = {
 				// TODO: Open ESLint issue about this
 				VariableDeclarator: {
 					array: false,
-					object: true
+					object: true,
 				},
 				AssignmentExpression: {
 					array: false,
 
 					// Disabled because object assignment destructuring requires parens wrapping:
 					// `let foo; ({foo} = object);`
-					object: false
-				}
+					object: false,
+				},
 			},
 			{
-				enforceForRenamedProperties: false
-			}
+				enforceForRenamedProperties: false,
+			},
 		],
 		'prefer-numeric-literals': 'error',
 
@@ -587,13 +587,13 @@ module.exports = {
 		'require-yield': 'error',
 		'rest-spread-spacing': [
 			'error',
-			'never'
+			'never',
 		],
 		'symbol-description': 'error',
 		'template-curly-spacing': 'error',
 		'yield-star-spacing': [
 			'error',
-			'both'
-		]
-	}
+			'both',
+		],
+	},
 };
