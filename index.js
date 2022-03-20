@@ -326,7 +326,7 @@ module.exports = {
 				SwitchCase: 1,
 			},
 		],
-		'jsx-quotes': 'error',
+		'jsx-quotes': ['error', 'prefer-single'],
 		'key-spacing': [
 			'error',
 			{
