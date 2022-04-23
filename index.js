@@ -529,6 +529,7 @@ module.exports = {
 		],
 		'no-class-assign': 'error',
 		'no-const-assign': 'error',
+		'no-constant-binary-expression': 'error',
 		'no-dupe-class-members': 'error',
 		'no-new-symbol': 'error',
 		'no-this-before-super': 'error',
