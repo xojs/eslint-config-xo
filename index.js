@@ -277,7 +277,7 @@ module.exports = {
 			{
 				// You can also ignore this rule by wrapping the first word in quotes.
 				// c8 => https://github.com/bcoe/c8
-				ignorePattern: /pragma|ignore|prettier-ignore|webpack\w+:|c8/.source,
+				ignorePattern: /pragma|ignore|prettier-ignore|webpack\w+:|c8|type-coverage:/.source,
 				ignoreInlineComments: true,
 				ignoreConsecutiveComments: true,
 			},
