@@ -351,6 +351,13 @@ module.exports = {
 				exceptAfterSingleLine: true,
 			},
 		],
+		'logical-assignment-operators': [
+			'error',
+			'always',
+			{
+				enforceForIfStatements: true,
+			},
+		],
 		'max-depth': 'warn',
 		'max-nested-callbacks': [
 			'warn',
