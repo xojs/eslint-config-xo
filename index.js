@@ -196,7 +196,7 @@ module.exports = {
 		'prefer-regex-literals': [
 			'error',
 			{
-				"disallowRedundantWrapping": true,
+				disallowRedundantWrapping: true,
 			},
 		],
 		radix: 'error',
