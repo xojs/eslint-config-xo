@@ -38,6 +38,7 @@ module.exports = {
 				allowEmptyCatch: true,
 			},
 		],
+		'no-empty-static-block': 'error',
 		'no-ex-assign': 'error',
 		'no-extra-boolean-cast': 'error',
 		// Disabled because of https://github.com/eslint/eslint/issues/6028
