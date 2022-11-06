@@ -543,7 +543,7 @@ module.exports = {
 		'no-const-assign': 'error',
 		'no-constant-binary-expression': 'error',
 		'no-dupe-class-members': 'error',
-		'no-new-symbol': 'error',
+		'no-new-native-nonconstructor': 'error',
 		'no-this-before-super': 'error',
 		'no-useless-computed-key': [
 			'error',
