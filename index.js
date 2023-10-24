@@ -222,6 +222,10 @@ module.exports = {
 		'no-restricted-globals': [
 			'error',
 			'event',
+			{
+				name: 'Buffer',
+				message: 'Use Uint8Array instead.',
+			},
 		],
 		'no-shadow-restricted-names': 'error',
 		'no-undef-init': 'error',
@@ -252,6 +256,14 @@ module.exports = {
 			'sys',
 			'querystring',
 			'colors',
+			{
+				name: 'buffer',
+				message: 'Use Uint8Array instead.',
+			},
+			{
+				name: 'node:buffer',
+				message: 'Use Uint8Array instead.',
+			},
 		],
 		'array-bracket-newline': [
 			'error',
