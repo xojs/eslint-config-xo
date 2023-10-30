@@ -475,6 +475,12 @@ module.exports = {
 			'error',
 			'always',
 		],
+		'sort-imports': [
+			'error',
+			{
+				ignoreDeclarationSort: true,
+			},
+		],
 		'space-before-blocks': [
 			'error',
 			'always',
