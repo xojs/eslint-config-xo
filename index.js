@@ -420,8 +420,31 @@ module.exports = {
 			'error',
 			'never',
 		],
-		// Disabled because of https://github.com/xojs/eslint-config-xo/issues/27
-		// 'object-property-newline': 'error',
+		'object-curly-newline': [
+			'error',
+			{
+				ObjectExpression: {
+					multiline: true,
+					minProperties: 2,
+					consistent: true,
+				},
+				ObjectPattern: {
+					multiline: true,
+					minProperties: 4,
+					consistent: true,
+				},
+				ImportDeclaration: {
+					multiline: true,
+					minProperties: 4,
+					consistent: true,
+				},
+				ExportDeclaration: {
+					multiline: true,
+					minProperties: 2,
+					consistent: true,
+				},
+			},
+		],
 		'one-var': [
 			'error',
 			'never',
