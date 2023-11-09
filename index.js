@@ -428,7 +428,7 @@ module.exports = {
 					minProperties: 2,
 					consistent: true,
 				},
-				ObjectPattern: "never",
+				ObjectPattern: 'never',
 				ImportDeclaration: {
 					multiline: true,
 					minProperties: 4,
