@@ -10,8 +10,8 @@ See [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicor
 
 ## Install
 
-```
-$ npm install --save-dev eslint-config-xo
+```sh
+npm install --save-dev eslint-config-xo
 ```
 
 ## Usage
