@@ -381,6 +381,14 @@ module.exports = {
 		// ],
 
 		'max-depth': 'warn',
+		'max-len': [
+			'warn',
+			200,
+		],
+		'max-lines': [
+			'warn',
+			1000,
+		],
 		'max-nested-callbacks': [
 			'warn',
 			4,
