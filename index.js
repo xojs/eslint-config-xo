@@ -226,6 +226,14 @@ module.exports = {
 				name: 'Buffer',
 				message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
 			},
+			{
+				name: 'atob',
+				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+			},
+			{
+				name: 'btoa',
+				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+			},
 		],
 		'no-shadow-restricted-names': 'error',
 		'no-undef-init': 'error',
