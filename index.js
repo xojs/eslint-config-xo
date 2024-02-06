@@ -643,10 +643,7 @@ module.exports = {
 			},
 		],
 		'prefer-numeric-literals': 'error',
-
-		// TODO: Enable when targeting Node.js 16.
-		// 'prefer-object-has-own': 'error',
-
+		'prefer-object-has-own': 'error',
 		'prefer-rest-params': 'error',
 		'prefer-spread': 'error',
 		'require-yield': 'error',
