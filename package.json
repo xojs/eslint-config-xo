@@ -12,7 +12,7 @@
 	},
 	"sideEffects": false,
 	"engines": {
-		"node": ">=12"
+		"node": ">=18"
 	},
 	"scripts": {
 		"test": "eslint . && ava"
@@ -54,10 +54,10 @@
 	},
 	"devDependencies": {
 		"ava": "^2.4.0",
-		"eslint": "^8.50.0",
+		"eslint": "^8.56.0",
 		"is-plain-obj": "^3.0.0"
 	},
 	"peerDependencies": {
-		"eslint": ">=8.50.0"
+		"eslint": ">=8.56.0"
 	}
 }

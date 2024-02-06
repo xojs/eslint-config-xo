@@ -222,10 +222,11 @@ module.exports = {
 		'no-restricted-globals': [
 			'error',
 			'event',
-			{
-				name: 'Buffer',
-				message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-			},
+			// TODO: Enable this in 2025.
+			// {
+			// 	name: 'Buffer',
+			// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+			// },
 			{
 				name: 'atob',
 				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
@@ -265,14 +266,15 @@ module.exports = {
 			'sys',
 			'querystring',
 			'colors',
-			{
-				name: 'buffer',
-				message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-			},
-			{
-				name: 'node:buffer',
-				message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-			},
+			// TODO: Enable this in 2025.
+			// {
+			// 	name: 'buffer',
+			// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+			// },
+			// {
+			// 	name: 'node:buffer',
+			// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+			// },
 		],
 		'array-bracket-newline': [
 			'error',
