@@ -379,16 +379,13 @@ module.exports = {
 				exceptAfterSingleLine: true,
 			},
 		],
-
-		// TODO: Enable this again when targeting Node.js 16.
-		// 'logical-assignment-operators': [
-		// 	'error',
-		// 	'always',
-		// 	{
-		// 		enforceForIfStatements: true,
-		// 	},
-		// ],
-
+		'logical-assignment-operators': [
+			'error',
+			'always',
+			{
+				enforceForIfStatements: true,
+			},
+		],
 		'max-depth': 'warn',
 		'max-nested-callbacks': [
 			'warn',
