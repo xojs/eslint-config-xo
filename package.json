@@ -6,7 +6,9 @@
 	"type": "module",
 	"exports": {
 		".": "./index.js",
-		"./browser": "./browser.js"
+		"./browser": "./browser.js",
+		"./space": "./space.js",
+		"./space/browser": "./space-browser.js"
 	},
 	"repository": "xojs/eslint-config-xo",
 	"funding": "https://github.com/sponsors/sindresorhus",
@@ -24,7 +26,9 @@
 	},
 	"files": [
 		"index.js",
-		"browser.js"
+		"browser.js",
+		"space.js",
+		"space-browser.js"
 	],
 	"keywords": [
 		"eslintconfig",

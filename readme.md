@@ -26,7 +26,6 @@ export default [
 ];
 ```
 
-
 This package also exposes [`eslint-config-xo/browser`](browser.js) if you're in the browser:
 
 ```js
@@ -34,6 +33,26 @@ import eslintConfigXoBrowser from 'eslint-config-xo/browser';
 
 export default [
 	...eslintConfigXoBrowser,
+];
+```
+
+This package also exposes [`eslint-config-xo/space`](space.js) if you're in favor of 2-space indent:
+
+```js
+import eslintConfigXoSpace from 'eslint-config-xo/space';
+
+export default [
+	...eslintConfigXoSpace,
+];
+```
+
+This package also exposes [`eslint-config-xo/space`](space-browser.js) if you're in favor of 2-space indent and in browser:
+
+```js
+import eslintConfigXoSpaceBrowser from 'eslint-config-xo/space/browser';
+
+export default [
+	...eslintConfigXoSpaceBrowser,
 ];
 ```
 
