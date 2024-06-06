@@ -1,14 +1,18 @@
-'use strict';
-const path = require('path');
-const confusingBrowserGlobals = require('confusing-browser-globals');
+import globals from 'globals';
+import confusingBrowserGlobals from 'confusing-browser-globals';
+import eslintConfigXo from './index.js';
 
-module.exports = {
-	extends: path.join(__dirname, 'index.js'),
-	env: {
-		node: false,
-		browser: true,
+export default {
+	...eslintConfigXo,
+	languageOptions: {
+		...eslintConfigXo.languageOptions,
+		globals: {
+			...globals.es2021,
+			...globals.browser,
+		},
 	},
 	rules: {
+		...eslintConfigXo.rules,
 		'no-restricted-globals': [
 			'error',
 			...confusingBrowserGlobals,

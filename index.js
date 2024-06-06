@@ -1,18 +1,21 @@
-'use strict';
+import globals from 'globals';
 
-module.exports = {
-	parserOptions: {
-		ecmaVersion: 'latest',
+export default {
+	languageOptions: {
 		sourceType: 'module',
-		ecmaFeatures: {
-			jsx: true,
+		parserOptions: {
+			ecmaFeatures: {
+				jsx: true,
+			},
+		},
+		globals: {
+			...globals.es2021,
+			...globals.node,
 		},
 	},
-	env: {
-		es2021: true,
-		node: true,
+	linterOptions: {
+		reportUnusedDisableDirectives: 'error',
 	},
-	reportUnusedDisableDirectives: true,
 	rules: {
 		'comma-dangle': [
 			'error',

@@ -16,31 +16,25 @@ npm install --save-dev eslint-config-xo
 
 ## Usage
 
-Add some ESLint config to your `package.json`:
+Add some ESLint config to your `eslint.config.js`:
 
-```json
-{
-	"name": "my-awesome-project",
-	"eslintConfig": {
-		"extends": "xo"
-	}
-}
+```js
+import eslintConfigXo from 'eslint-config-xo';
+
+export default [
+	eslintConfigXo,
+];
 ```
 
-Or to `.eslintrc`:
 
-```json
-{
-	"extends": "xo"
-}
-```
+This package also exposes [`eslint-config-xo/browser`](browser.js) if you're in the browser:
 
-This package also exposes [`xo/browser`](browser.js) if you're in the browser:
+```js
+import eslintConfigXoBrowser from 'eslint-config-xo/browser';
 
-```json
-{
-	"extends": "xo/browser"
-}
+export default [
+	eslintConfigXoBrowser,
+];
 ```
 
 ## Use the XO CLI instead

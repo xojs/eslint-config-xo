@@ -1,12 +1,14 @@
 import test from 'ava';
 import isPlainObj from 'is-plain-obj';
 import {ESLint} from 'eslint';
+import eslintConfigXoNode from '../index.js';
+import eslintConfigXoBrowser from '../browser.js';
 
 const hasRule = (errors, ruleId) => errors.some(error => error.ruleId === ruleId);
 
 async function runEslint(string, config) {
 	const eslint = new ESLint({
-		useEslintrc: false,
+		overrideConfigFile: true,
 		overrideConfig: config,
 	});
 
@@ -16,20 +18,16 @@ async function runEslint(string, config) {
 }
 
 test('main', async t => {
-	const config = require('../index.js');
+	t.true(isPlainObj(eslintConfigXoNode));
+	t.true(isPlainObj(eslintConfigXoNode.rules));
 
-	t.true(isPlainObj(config));
-	t.true(isPlainObj(config.rules));
-
-	const errors = await runEslint('\'use strict\';\nconsole.log("unicorn")\n', config);
+	const errors = await runEslint('\'use strict\';\nconsole.log("unicorn")\n', eslintConfigXoNode);
 	t.true(hasRule(errors, 'quotes'), JSON.stringify(errors));
 });
 
 test('browser', async t => {
-	const config = require('../browser.js');
+	t.true(isPlainObj(eslintConfigXoBrowser));
 
-	t.true(isPlainObj(config));
-
-	const errors = await runEslint('\'use strict\';\nprocess.exit();\n', config);
+	const errors = await runEslint('\'use strict\';\nprocess.exit();\n', eslintConfigXoBrowser);
 	t.true(hasRule(errors, 'no-undef'), JSON.stringify(errors));
 });
