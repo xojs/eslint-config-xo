@@ -16,31 +16,44 @@ npm install --save-dev eslint-config-xo
 
 ## Usage
 
-Add some ESLint config to your `package.json`:
+Add some ESLint config to your `eslint.config.js`:
 
-```json
-{
-	"name": "my-awesome-project",
-	"eslintConfig": {
-		"extends": "xo"
-	}
-}
+```js
+import eslintConfigXo from 'eslint-config-xo';
+
+export default [
+	...eslintConfigXo,
+];
 ```
 
-Or to `.eslintrc`:
+This package also exposes [`eslint-config-xo/browser`](browser.js) if you're in the browser:
 
-```json
-{
-	"extends": "xo"
-}
+```js
+import eslintConfigXoBrowser from 'eslint-config-xo/browser';
+
+export default [
+	...eslintConfigXoBrowser,
+];
 ```
 
-This package also exposes [`xo/browser`](browser.js) if you're in the browser:
+This package also exposes [`eslint-config-xo/space`](space.js) if you're in favor of 2-space indent:
 
-```json
-{
-	"extends": "xo/browser"
-}
+```js
+import eslintConfigXoSpace from 'eslint-config-xo/space';
+
+export default [
+	...eslintConfigXoSpace,
+];
+```
+
+This package also exposes [`eslint-config-xo/space/browser`](space-browser.js) if you're in favor of 2-space indent and in browser:
+
+```js
+import eslintConfigXoSpaceBrowser from 'eslint-config-xo/space/browser';
+
+export default [
+	...eslintConfigXoSpaceBrowser,
+];
 ```
 
 ## Use the XO CLI instead
