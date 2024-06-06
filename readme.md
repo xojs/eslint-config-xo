@@ -22,7 +22,7 @@ Add some ESLint config to your `eslint.config.js`:
 import eslintConfigXo from 'eslint-config-xo';
 
 export default [
-	eslintConfigXo,
+	...eslintConfigXo,
 ];
 ```
 
@@ -33,7 +33,7 @@ This package also exposes [`eslint-config-xo/browser`](browser.js) if you're in 
 import eslintConfigXoBrowser from 'eslint-config-xo/browser';
 
 export default [
-	eslintConfigXoBrowser,
+	...eslintConfigXoBrowser,
 ];
 ```
 

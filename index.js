@@ -1,6 +1,6 @@
 import globals from 'globals';
 
-export default {
+const config = {
 	languageOptions: {
 		sourceType: 'module',
 		parserOptions: {
@@ -674,3 +674,5 @@ export default {
 		],
 	},
 };
+
+export default [config];

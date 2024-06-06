@@ -1,5 +1,4 @@
 import test from 'ava';
-import isPlainObj from 'is-plain-obj';
 import {ESLint} from 'eslint';
 import eslintConfigXoNode from '../index.js';
 import eslintConfigXoBrowser from '../browser.js';
@@ -18,15 +17,14 @@ async function runEslint(string, config) {
 }
 
 test('main', async t => {
-	t.true(isPlainObj(eslintConfigXoNode));
-	t.true(isPlainObj(eslintConfigXoNode.rules));
+	t.true(Array.isArray(eslintConfigXoNode));
 
 	const errors = await runEslint('\'use strict\';\nconsole.log("unicorn")\n', eslintConfigXoNode);
 	t.true(hasRule(errors, 'quotes'), JSON.stringify(errors));
 });
 
 test('browser', async t => {
-	t.true(isPlainObj(eslintConfigXoBrowser));
+	t.true(Array.isArray(eslintConfigXoBrowser));
 
 	const errors = await runEslint('\'use strict\';\nprocess.exit();\n', eslintConfigXoBrowser);
 	t.true(hasRule(errors, 'no-undef'), JSON.stringify(errors));
