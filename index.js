@@ -387,7 +387,7 @@ module.exports = {
 		],
 		'max-lines': [
 			'warn',
-			1000,
+			2000,
 		],
 		'max-nested-callbacks': [
 			'warn',
