@@ -40,12 +40,14 @@ module.exports = {
 		],
 		'no-empty-static-block': 'error',
 		'no-ex-assign': 'error',
-		'no-extra-boolean-cast': [
-			'error',
-			{
-				enforceForInnerExpressions: true
-			},
-		],
+		'no-extra-boolean-cast': 'error',
+		// Disabled because of https://github.com/xojs/eslint-config-xo/pull/87
+		// 'no-extra-boolean-cast': [
+		// 	'error',
+		// 	{
+		// 		enforceForInnerExpressions: true
+		// 	},
+		// ],
 		// Disabled because of https://github.com/eslint/eslint/issues/6028
 		// 'no-extra-parens': [
 		// 	'error',
