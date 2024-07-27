@@ -40,7 +40,12 @@ module.exports = {
 		],
 		'no-empty-static-block': 'error',
 		'no-ex-assign': 'error',
-		'no-extra-boolean-cast': 'error',
+		'no-extra-boolean-cast': [
+			'error',
+			{
+				enforceForInnerExpressions: true
+			},
+		],
 		// Disabled because of https://github.com/eslint/eslint/issues/6028
 		// 'no-extra-parens': [
 		// 	'error',
@@ -222,9 +227,18 @@ module.exports = {
 		'no-restricted-globals': [
 			'error',
 			'event',
+			// TODO: Enable this in 2025.
+			// {
+			// 	name: 'Buffer',
+			// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+			// },
 			{
-				name: 'Buffer',
-				message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+				name: 'atob',
+				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+			},
+			{
+				name: 'btoa',
+				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
 			},
 		],
 		'no-shadow-restricted-names': 'error',
@@ -239,6 +253,7 @@ module.exports = {
 			'error',
 			{
 				vars: 'all',
+				varsIgnorePattern: /^_/.source,
 				args: 'after-used',
 				ignoreRestSiblings: true,
 				argsIgnorePattern: /^_/.source,
@@ -256,14 +271,15 @@ module.exports = {
 			'sys',
 			'querystring',
 			'colors',
-			{
-				name: 'buffer',
-				message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-			},
-			{
-				name: 'node:buffer',
-				message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-			},
+			// TODO: Enable this in 2025.
+			// {
+			// 	name: 'buffer',
+			// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+			// },
+			// {
+			// 	name: 'node:buffer',
+			// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+			// },
 		],
 		'array-bracket-newline': [
 			'error',
@@ -363,23 +379,33 @@ module.exports = {
 		],
 		'lines-between-class-members': [
 			'error',
-			'always',
 			{
-				// Workaround to allow class fields to not have lines between them.
-				// TODO: Get ESLint to add an option to ignore class fields.
-				exceptAfterSingleLine: true,
+				enforce: [
+					{
+						blankLine: 'always',
+						prev: '*',
+						next: 'method',
+					},
+					{
+						blankLine: 'always',
+						prev: 'method',
+						next: 'field',
+					},
+					{
+						blankLine: 'never',
+						prev: 'field',
+						next: 'field',
+					},
+				],
 			},
 		],
-
-		// TODO: Enable this again when targeting Node.js 16.
-		// 'logical-assignment-operators': [
-		// 	'error',
-		// 	'always',
-		// 	{
-		// 		enforceForIfStatements: true,
-		// 	},
-		// ],
-
+		'logical-assignment-operators': [
+			'error',
+			'always',
+			{
+				enforceForIfStatements: true,
+			},
+		],
 		'max-depth': 'warn',
 		'max-len': [
 			'warn',
@@ -642,10 +668,7 @@ module.exports = {
 			},
 		],
 		'prefer-numeric-literals': 'error',
-
-		// TODO: Enable when targeting Node.js 16.
-		// 'prefer-object-has-own': 'error',
-
+		'prefer-object-has-own': 'error',
 		'prefer-rest-params': 'error',
 		'prefer-spread': 'error',
 		'require-yield': 'error',
