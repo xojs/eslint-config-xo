@@ -414,7 +414,7 @@ module.exports = {
 			{
 				code: 200,
 				ignoreComments: true,
-				ignoreUrls: true
+				ignoreUrls: true,
 			},
 		],
 		'max-lines': [
