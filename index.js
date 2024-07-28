@@ -409,11 +409,18 @@ module.exports = {
 		'max-depth': 'warn',
 		'max-len': [
 			'warn',
-			200,
+			{
+				code: 200,
+				ignoreComments: true,
+				ignoreUrls: true
+			},
 		],
 		'max-lines': [
 			'warn',
-			2000,
+			{
+				max: 2000,
+				skipComments: true,
+			},
 		],
 		'max-nested-callbacks': [
 			'warn',
