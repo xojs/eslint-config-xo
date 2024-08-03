@@ -330,6 +330,10 @@ const rules = {
 		'error',
 		'never',
 	],
+	'@stylistic/function-paren-newline': [
+		'error',
+		'multiline',
+	],
 	'func-name-matching': [
 		'error',
 		{
