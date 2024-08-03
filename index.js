@@ -691,6 +691,10 @@ const rules = {
 		'error',
 		'both',
 	],
+	'@stylistic/indent-binary-ops': [
+		'error',
+		'tab',
+	],
 };
 
 const config = {
