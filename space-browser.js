@@ -7,7 +7,7 @@ export default [
 		...config,
 		rules: {
 			...config.rules,
-			indent: [
+			'@stylistic/indent': [
 				'error',
 				2,
 				{

@@ -16,43 +16,42 @@ npm install --save-dev eslint-config-xo
 
 ## Usage
 
-Add some ESLint config to your `eslint.config.js`:
-
 ```js
-import eslintConfigXo from 'eslint-config-xo';
+// eslint.config.js
+import xo from 'eslint-config-xo';
 
 export default [
-	...eslintConfigXo,
+	...xo,
 ];
 ```
 
 This package also exposes [`eslint-config-xo/browser`](browser.js) if you're in the browser:
 
 ```js
-import eslintConfigXoBrowser from 'eslint-config-xo/browser';
+import xoBrowser from 'eslint-config-xo/browser';
 
 export default [
-	...eslintConfigXoBrowser,
+	...xoBrowser,
 ];
 ```
 
 This package also exposes [`eslint-config-xo/space`](space.js) if you're in favor of 2-space indent:
 
 ```js
-import eslintConfigXoSpace from 'eslint-config-xo/space';
+import xoSpace from 'eslint-config-xo/space';
 
 export default [
-	...eslintConfigXoSpace,
+	...xoSpace,
 ];
 ```
 
 This package also exposes [`eslint-config-xo/space/browser`](space-browser.js) if you're in favor of 2-space indent and in browser:
 
 ```js
-import eslintConfigXoSpaceBrowser from 'eslint-config-xo/space/browser';
+import xoSpaceBrowser from 'eslint-config-xo/space/browser';
 
 export default [
-	...eslintConfigXoSpaceBrowser,
+	...xoSpaceBrowser,
 ];
 ```
 
@@ -77,5 +76,5 @@ tl;dr You miss out on a lot by just using this config.
 ## Related
 
 - [eslint-config-xo-space](https://github.com/xojs/eslint-config-xo-space) - ESLint shareable config for XO with 2-space indent
-- [eslint-config-xo-react](https://github.com/xojs/eslint-config-xo-react) - ESLint shareable config for React to be used with this config
 - [eslint-config-xo-typescript](https://github.com/xojs/eslint-config-xo-typescript) - ESLint shareable config for TypeScript to be used with this config
+- [eslint-config-xo-react](https://github.com/xojs/eslint-config-xo-react) - ESLint shareable config for React to be used with this config

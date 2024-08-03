@@ -1,9 +1,9 @@
 import test from 'ava';
 import {ESLint} from 'eslint';
-import eslintConfigXoNode from '../index.js';
-import eslintConfigXoBrowser from '../browser.js';
-import eslintConfigXoSpaceNode from '../space.js';
-import eslintConfigXoSpaceBrowser from '../space-browser.js';
+import configXoNode from '../index.js';
+import configXoBrowser from '../browser.js';
+import configXoSpaceNode from '../space.js';
+import configXoSpaceBrowser from '../space-browser.js';
 
 const hasRule = (errors, ruleId) => errors.some(error => error.ruleId === ruleId);
 
@@ -19,17 +19,17 @@ async function runEslint(string, config) {
 }
 
 test('node', async t => {
-	for (const config of [eslintConfigXoNode, eslintConfigXoSpaceNode]) {
+	for (const config of [configXoNode, configXoSpaceNode]) {
 		t.true(Array.isArray(config));
 
 		// eslint-disable-next-line no-await-in-loop
 		const errors = await runEslint('\'use strict\';\nconsole.log("unicorn")\n', config);
-		t.true(hasRule(errors, 'quotes'), JSON.stringify(errors));
+		t.true(hasRule(errors, '@stylistic/quotes'), JSON.stringify(errors));
 	}
 });
 
 test('browser', async t => {
-	for (const config of [eslintConfigXoBrowser, eslintConfigXoSpaceBrowser]) {
+	for (const config of [configXoBrowser, configXoSpaceBrowser]) {
 		t.true(Array.isArray(config));
 
 		// eslint-disable-next-line no-await-in-loop
@@ -50,24 +50,24 @@ export function foo() {
 		config,
 	} of [
 			{
-				config: eslintConfigXoSpaceNode,
+				config: configXoSpaceNode,
 				expected: true,
 			},
 			{
-				config: eslintConfigXoSpaceBrowser,
+				config: configXoSpaceBrowser,
 				expected: true,
 			},
 			{
-				config: eslintConfigXoNode,
+				config: configXoNode,
 				expected: false,
 			},
 			{
-				config: eslintConfigXoBrowser,
+				config: configXoBrowser,
 				expected: false,
 			},
 		]) {
 		// eslint-disable-next-line no-await-in-loop
 		const errors = await runEslint(fixture, config);
-		t.is(hasRule(errors, 'indent'), expected, JSON.stringify(errors));
+		t.is(hasRule(errors, '@stylistic/indent'), expected, JSON.stringify(errors));
 	}
 });
