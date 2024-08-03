@@ -326,7 +326,7 @@ const rules = {
 		},
 	],
 	'@stylistic/eol-last': 'error',
-	'@stylistic/func-call-spacing': [
+	'@stylistic/function-call-spacing': [
 		'error',
 		'never',
 	],
@@ -606,6 +606,10 @@ const rules = {
 			before: true,
 			after: true,
 		},
+	],
+	'@stylistic/block-spacing': [
+		'error',
+		'never',
 	],
 	'constructor-super': 'error',
 	'@stylistic/generator-star-spacing': [
