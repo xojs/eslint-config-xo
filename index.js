@@ -430,6 +430,10 @@ const rules = {
 			capIsNew: true,
 		},
 	],
+	'@stylistic/multiline-ternary': [
+		'error',
+		'always-multiline',
+	],
 	'@stylistic/new-parens': 'error',
 	'no-array-constructor': 'error',
 	'no-bitwise': 'error',
