@@ -104,6 +104,10 @@ const rules = {
 	'default-case': 'error',
 	'default-case-last': 'error',
 	'dot-notation': 'error',
+	'@stylistic/curly-newline': [
+		'error',
+		'always',
+	],
 	'@stylistic/dot-location': [
 		'error',
 		'property',
