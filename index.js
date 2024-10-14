@@ -1,5 +1,6 @@
 import globals from 'globals';
 import stylistic from '@stylistic/eslint-plugin';
+import json from '@eslint/json';
 
 const rules = {
 	'@stylistic/comma-dangle': [
@@ -697,6 +698,21 @@ const rules = {
 	],
 };
 
+const TYPESCRIPT_EXTENSION = [
+	'ts',
+	'tsx',
+	'mts',
+	'cts',
+];
+
+const DEFAULT_EXTENSION = [
+	'js',
+	'jsx',
+	'mjs',
+	'cjs',
+	...TYPESCRIPT_EXTENSION,
+];
+
 const config = {
 	languageOptions: {
 		globals: {
@@ -717,7 +733,54 @@ const config = {
 	plugins: {
 		'@stylistic': stylistic,
 	},
+	files: [
+		`**/*.{${DEFAULT_EXTENSION.join(',')}}`,
+	],
 	rules,
 };
 
-export default [config];
+const jsonRules = {
+	'json/no-duplicate-keys': 'error',
+	'json/no-empty-keys': 'error',
+};
+
+const jsonConfig = {
+	plugins: {
+		json,
+	},
+	files: [
+		'**/*.json',
+	],
+	language: 'json/json',
+	rules: jsonRules,
+};
+
+const jsoncConfig = {
+	plugins: {
+		json,
+	},
+	files: [
+		'**/*.jsonc',
+		'.vscode/*.json',
+	],
+	language: 'json/jsonc',
+	rules: jsonRules,
+};
+
+const json5Config = {
+	plugins: {
+		json,
+	},
+	files: [
+		'**/*.json5',
+	],
+	language: 'json/json5',
+	rules: jsonRules,
+};
+
+export default [
+	config,
+	jsonConfig,
+	jsoncConfig,
+	json5Config,
+];
