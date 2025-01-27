@@ -1,6 +1,7 @@
 import globals from 'globals';
 import stylistic from '@stylistic/eslint-plugin';
 import json from '@eslint/json';
+import css from '@eslint/css';
 
 const rules = {
 	'@stylistic/comma-dangle': [
@@ -733,6 +734,7 @@ const config = {
 	},
 	linterOptions: {
 		reportUnusedDisableDirectives: 'error',
+		reportUnusedInlineConfigs: 'error',
 	},
 	plugins: {
 		'@stylistic': stylistic,
@@ -746,6 +748,8 @@ const config = {
 const jsonRules = {
 	'json/no-duplicate-keys': 'error',
 	'json/no-empty-keys': 'error',
+	'json/no-unsafe-values': 'error',
+	'json/no-unnormalized-keys': 'error',
 };
 
 const jsonConfig = {
@@ -765,9 +769,13 @@ const jsoncConfig = {
 	},
 	files: [
 		'**/*.jsonc',
+		'**/tsconfig.json',
 		'.vscode/*.json',
 	],
 	language: 'json/jsonc',
+	languageOptions: {
+		allowTrailingCommas: true,
+	},
 	rules: jsonRules,
 };
 
@@ -782,9 +790,32 @@ const json5Config = {
 	rules: jsonRules,
 };
 
+const cssRules = {
+	'css/no-duplicate-imports': 'error',
+	'css/no-empty-blocks': 'error',
+	'css/no-invalid-at-rules': 'error',
+	'cs//no-invalid-at-rules': 'error',
+	'css/no-invalid-properties': 'error',
+};
+
+// eslint-disable-next-line no-unused-vars
+const cssConfig = {
+	plugins: {
+		css,
+	},
+	files: [
+		'**/*.css',
+	],
+	language: 'css/css',
+	rules: cssRules,
+};
+
 export default [
 	config,
-	jsonConfig,
 	jsoncConfig,
 	json5Config,
+	jsonConfig, // Placed last so non-standard JSONs match first.
+
+	// Disabled for now until it becomes more stable.
+	// cssConfig,
 ];
