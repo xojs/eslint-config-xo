@@ -632,6 +632,7 @@ const rules = {
 	'no-dupe-class-members': 'error',
 	'no-new-native-nonconstructor': 'error',
 	'no-this-before-super': 'error',
+	'no-unassigned-vars': 'error',
 	'no-useless-computed-key': [
 		'error',
 		{
