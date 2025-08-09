@@ -222,20 +222,25 @@ const rules = {
 	'no-label-var': 'error',
 	'no-restricted-globals': [
 		'error',
-		'event',
-		// TODO: Enable this in 2025.
-		// {
-		// 	name: 'Buffer',
-		// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-		// },
 		{
-			name: 'atob',
-			message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
-		},
-		{
-			name: 'btoa',
-			message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
-		},
+			globals: [
+				'event',
+				// TODO: Enable this in 2025.
+				// {
+				// 	name: 'Buffer',
+				// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+				// },
+				{
+					name: 'atob',
+					message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+				},
+				{
+					name: 'btoa',
+					message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+				},
+			],
+			checkGlobalObject: true,
+		}
 	],
 	'no-shadow-restricted-names': 'error',
 	'no-undef-init': 'error',

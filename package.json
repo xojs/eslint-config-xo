@@ -67,9 +67,9 @@
 	},
 	"devDependencies": {
 		"ava": "^6.2.0",
-		"eslint": "^9.27.0"
+		"eslint": "^9.33.0"
 	},
 	"peerDependencies": {
-		"eslint": ">=9.27.0"
+		"eslint": ">=9.33.0"
 	}
 }
