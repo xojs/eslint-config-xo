@@ -78,6 +78,7 @@ const rules = {
 			disallowArithmeticOperators: true,
 		},
 	],
+	'no-unused-private-class-members': 'error',
 	'no-useless-backreference': 'error',
 	'use-isnan': 'error',
 	'valid-typeof': [
@@ -240,7 +241,7 @@ const rules = {
 				},
 			],
 			checkGlobalObject: true,
-		}
+		},
 	],
 	'no-shadow-restricted-names': 'error',
 	'no-undef-init': 'error',
