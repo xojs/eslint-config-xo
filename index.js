@@ -24,7 +24,7 @@ const rules = {
 	'no-duplicate-imports': [
 		'error',
 		{
-			'allowSeparateTypeImports': true,
+			allowSeparateTypeImports: true,
 		},
 	],
 	'no-empty-character-class': 'error',
