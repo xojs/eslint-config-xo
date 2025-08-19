@@ -800,6 +800,7 @@ const json5Config = {
 const cssRules = {
 	'css/no-duplicate-imports': 'error',
 	'css/no-empty-blocks': 'error',
+	'css/no-invalid-at-rule-placement': 'error',
 	'css/no-invalid-at-rules': 'error',
 	'css/no-invalid-named-grid-areas': 'error',
 	'css/no-invalid-properties': 'error',
