@@ -693,6 +693,7 @@ const rules = {
 	'prefer-object-has-own': 'error',
 	'prefer-rest-params': 'error',
 	'prefer-spread': 'error',
+	'preserve-caught-error': 'error',
 	'require-yield': 'error',
 	'@stylistic/rest-spread-spacing': [
 		'error',
