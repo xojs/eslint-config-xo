@@ -169,7 +169,12 @@ const rules = {
 		},
 	],
 	'no-self-compare': 'error',
-	'no-sequences': 'error',
+	'no-sequences': [
+		'error',
+		{
+			allowInParentheses: false,
+		},
+	],
 	'no-throw-literal': 'error',
 	'no-unmodified-loop-condition': 'error',
 	'no-unused-expressions': [
