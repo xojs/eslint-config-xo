@@ -812,6 +812,7 @@ const cssRules = {
 	'css/no-invalid-at-rules': 'error',
 	'css/no-invalid-named-grid-areas': 'error',
 	'css/no-invalid-properties': 'error',
+	'css/no-unmatchable-selectors': 'error',
 };
 
 // eslint-disable-next-line no-unused-vars
