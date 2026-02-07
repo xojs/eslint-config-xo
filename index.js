@@ -804,6 +804,7 @@ const json5Config = {
 };
 
 const cssRules = {
+	'css/font-family-fallbacks': 'error',
 	'css/no-duplicate-imports': 'error',
 	'css/no-empty-blocks': 'error',
 	'css/no-invalid-at-rule-placement': 'error',
