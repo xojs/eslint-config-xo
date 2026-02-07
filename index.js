@@ -209,13 +209,12 @@ const rules = {
 		},
 	],
 	radix: 'error',
-
-	// Disabled for now as it causes too much churn
-	// TODO: Enable it in the future when I have time to deal with
-	// the churn and the rule is stable and has an autofixer.
-	// Still doesn't have a fixer as of ESLint 7.24.0.
-	// 'require-unicode-regexp': 'error',
-
+	'require-unicode-regexp': [
+		'error',
+		{
+			requireFlag: 'v',
+		},
+	],
 	'@stylistic/wrap-iife': [
 		'error',
 		'inside',
@@ -231,7 +230,7 @@ const rules = {
 		{
 			globals: [
 				'event',
-				// TODO: Enable this in 2025.
+				// TODO: Enable this in 2028.
 				// {
 				// 	name: 'Buffer',
 				// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
@@ -260,12 +259,12 @@ const rules = {
 		'error',
 		{
 			vars: 'all',
-			varsIgnorePattern: /^_/.source,
+			varsIgnorePattern: /^_/v.source,
 			args: 'after-used',
 			ignoreRestSiblings: true,
-			argsIgnorePattern: /^_/.source,
+			argsIgnorePattern: /^_/v.source,
 			caughtErrors: 'all',
-			caughtErrorsIgnorePattern: /^_$/.source,
+			caughtErrorsIgnorePattern: /^_$/v.source,
 		},
 	],
 	'no-buffer-constructor': 'error',
@@ -278,7 +277,7 @@ const rules = {
 		'sys',
 		'querystring',
 		'colors',
-		// TODO: Enable this in 2025.
+		// TODO: Enable this in 2028.
 		// {
 		// 	name: 'buffer',
 		// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
@@ -319,7 +318,7 @@ const rules = {
 		{
 			// You can also ignore this rule by wrapping the first word in quotes.
 			// c8 => https://github.com/bcoe/c8
-			ignorePattern: /pragma|ignore|prettier-ignore|biome-ignore|codespell:ignore|webpack\w+:|c8|v8|type-coverage:/.source,
+			ignorePattern: /pragma|ignore|prettier-ignore|biome-ignore|codespell:ignore|webpack\w+:|c8|v8|type-coverage:/v.source,
 			ignoreInlineComments: true,
 			ignoreConsecutiveComments: true,
 		},
