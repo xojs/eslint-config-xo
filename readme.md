@@ -18,40 +18,30 @@ npm install --save-dev eslint-config-xo
 
 ```js
 // eslint.config.js
-import xo from 'eslint-config-xo';
+import eslintConfigXo from 'eslint-config-xo';
 
 export default [
-	...xo,
+	...eslintConfigXo(),
 ];
 ```
 
-This package also exposes [`eslint-config-xo/browser`](browser.js) if you're in the browser:
+If you're in the browser:
 
 ```js
-import xoBrowser from 'eslint-config-xo/browser';
+import eslintConfigXo from 'eslint-config-xo';
 
 export default [
-	...xoBrowser,
+	...eslintConfigXo({browser: true}),
 ];
 ```
 
-This package also exposes [`eslint-config-xo/space`](space.js) if you're in favor of 2-space indent:
+If you prefer 2-space indent:
 
 ```js
-import xoSpace from 'eslint-config-xo/space';
+import eslintConfigXo from 'eslint-config-xo';
 
 export default [
-	...xoSpace,
-];
-```
-
-This package also exposes [`eslint-config-xo/space/browser`](space-browser.js) if you're in favor of 2-space indent and in browser:
-
-```js
-import xoSpaceBrowser from 'eslint-config-xo/space/browser';
-
-export default [
-	...xoSpaceBrowser,
+	...eslintConfigXo({space: true}),
 ];
 ```
 

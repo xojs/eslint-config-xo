@@ -11,12 +11,7 @@
 		"url": "https://sindresorhus.com"
 	},
 	"type": "module",
-	"exports": {
-		".": "./index.js",
-		"./browser": "./browser.js",
-		"./space": "./space.js",
-		"./space/browser": "./space-browser.js"
-	},
+	"exports": "./index.js",
 	"sideEffects": false,
 	"engines": {
 		"node": ">=20.19"
@@ -25,10 +20,7 @@
 		"test": "eslint && ava"
 	},
 	"files": [
-		"index.js",
-		"browser.js",
-		"space.js",
-		"space-browser.js"
+		"index.js"
 	],
 	"keywords": [
 		"eslintconfig",

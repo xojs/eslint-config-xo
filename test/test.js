@@ -1,9 +1,6 @@
 import test from 'ava';
 import {ESLint} from 'eslint';
-import configXoNode from '../index.js';
-import configXoBrowser from '../browser.js';
-import configXoSpaceNode from '../space.js';
-import configXoSpaceBrowser from '../space-browser.js';
+import eslintConfigXo from '../index.js';
 
 const hasRule = (errors, ruleId) => errors.some(error => error.ruleId === ruleId);
 
@@ -19,7 +16,7 @@ async function runEslint(string, config) {
 }
 
 test('node', async t => {
-	for (const config of [configXoNode, configXoSpaceNode]) {
+	for (const config of [eslintConfigXo(), eslintConfigXo({space: true})]) {
 		t.true(Array.isArray(config));
 
 		// eslint-disable-next-line no-await-in-loop
@@ -29,7 +26,7 @@ test('node', async t => {
 });
 
 test('browser', async t => {
-	for (const config of [configXoBrowser, configXoSpaceBrowser]) {
+	for (const config of [eslintConfigXo({browser: true}), eslintConfigXo({browser: true, space: true})]) {
 		t.true(Array.isArray(config));
 
 		// eslint-disable-next-line no-await-in-loop
@@ -50,19 +47,19 @@ export function foo() {
 		config,
 	} of [
 			{
-				config: configXoSpaceNode,
+				config: eslintConfigXo({space: true}),
 				expected: true,
 			},
 			{
-				config: configXoSpaceBrowser,
+				config: eslintConfigXo({browser: true, space: true}),
 				expected: true,
 			},
 			{
-				config: configXoNode,
+				config: eslintConfigXo(),
 				expected: false,
 			},
 			{
-				config: configXoBrowser,
+				config: eslintConfigXo({browser: true}),
 				expected: false,
 			},
 		]) {

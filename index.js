@@ -1,4 +1,5 @@
 import globals from 'globals';
+import confusingBrowserGlobals from 'confusing-browser-globals';
 import stylistic from '@stylistic/eslint-plugin';
 import json from '@eslint/json';
 import css from '@eslint/css';
@@ -225,28 +226,6 @@ const rules = {
 	yoda: 'error',
 	'no-delete-var': 'error',
 	'no-label-var': 'error',
-	'no-restricted-globals': [
-		'error',
-		{
-			globals: [
-				'event',
-				// TODO: Enable this in 2028.
-				// {
-				// 	name: 'Buffer',
-				// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-				// },
-				{
-					name: 'atob',
-					message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
-				},
-				{
-					name: 'btoa',
-					message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
-				},
-			],
-			checkGlobalObject: true,
-		},
-	],
 	'no-shadow-restricted-names': 'error',
 	'no-undef-init': 'error',
 	'no-undef': [
@@ -730,31 +709,37 @@ const DEFAULT_EXTENSION = [
 	...TYPESCRIPT_EXTENSION,
 ];
 
-const config = {
-	languageOptions: {
-		globals: {
-			...globals.es2021,
-			...globals.nodeBuiltin,
-		},
-		ecmaVersion: 'latest',
-		sourceType: 'module',
-		parserOptions: {
-			ecmaFeatures: {
-				jsx: true,
+const nodeRestrictedGlobals = [
+	'error',
+	{
+		globals: [
+			'event',
+			// TODO: Enable this in 2028.
+			// {
+			// 	name: 'Buffer',
+			// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+			// },
+			{
+				name: 'atob',
+				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
 			},
+			{
+				name: 'btoa',
+				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+			},
+		],
+		checkGlobalObject: true,
+	},
+];
+
+const spaceIndentRules = {
+	'@stylistic/indent': [
+		'error',
+		2,
+		{
+			SwitchCase: 1,
 		},
-	},
-	linterOptions: {
-		reportUnusedDisableDirectives: 'error',
-		reportUnusedInlineConfigs: 'error',
-	},
-	plugins: {
-		'@stylistic': stylistic,
-	},
-	files: [
-		`**/*.{${DEFAULT_EXTENSION.join(',')}}`,
 	],
-	rules,
 };
 
 const jsonRules = {
@@ -826,12 +811,47 @@ const cssConfig = {
 	rules: cssRules,
 };
 
-export default [
-	config,
-	jsoncConfig,
-	json5Config,
-	jsonConfig, // Placed last so non-standard JSONs match first.
+export default function eslintConfigXo({browser = false, space = false} = {}) {
+	const config = {
+		languageOptions: {
+			globals: {
+				...globals.es2021,
+				...(browser ? globals.browser : globals.nodeBuiltin),
+			},
+			ecmaVersion: 'latest',
+			sourceType: 'module',
+			parserOptions: {
+				ecmaFeatures: {
+					jsx: true,
+				},
+			},
+		},
+		linterOptions: {
+			reportUnusedDisableDirectives: 'error',
+			reportUnusedInlineConfigs: 'error',
+		},
+		plugins: {
+			'@stylistic': stylistic,
+		},
+		files: [
+			`**/*.{${DEFAULT_EXTENSION.join(',')}}`,
+		],
+		rules: {
+			...rules,
+			'no-restricted-globals': browser
+				? ['error', ...confusingBrowserGlobals]
+				: nodeRestrictedGlobals,
+			...(space ? spaceIndentRules : {}),
+		},
+	};
 
-	// Disabled for now until it becomes more stable.
-	// cssConfig,
-];
+	return [
+		config,
+		jsoncConfig,
+		json5Config,
+		jsonConfig, // Placed last so non-standard JSONs match first.
+
+		// Disabled for now until it becomes more stable.
+		// cssConfig,
+	];
+}
