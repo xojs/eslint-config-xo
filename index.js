@@ -226,6 +226,12 @@ const rules = {
 	yoda: 'error',
 	'no-delete-var': 'error',
 	'no-label-var': 'error',
+	'no-shadow': [
+		'error',
+		{
+			ignoreOnInitialization: true,
+		},
+	],
 	'no-shadow-restricted-names': 'error',
 	'no-undef-init': 'error',
 	'no-undef': [
