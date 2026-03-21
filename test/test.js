@@ -4,13 +4,13 @@ import eslintConfigXo from '../index.js';
 
 const hasRule = (errors, ruleId) => errors.some(error => error.ruleId === ruleId);
 
-async function runEslint(string, config) {
+async function runEslint(string, config, {filePath} = {}) {
 	const eslint = new ESLint({
 		overrideConfigFile: true,
 		overrideConfig: config,
 	});
 
-	const [firstResult] = await eslint.lintText(string);
+	const [firstResult] = await eslint.lintText(string, {filePath});
 
 	return firstResult.messages;
 }
@@ -33,6 +33,11 @@ test('browser', async t => {
 		const errors = await runEslint('\'use strict\';\nprocess.exit();\n', config);
 		t.true(hasRule(errors, 'no-undef'), JSON.stringify(errors));
 	}
+});
+
+test('typescript', async t => {
+	const errors = await runEslint('const foo: number = 5;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	t.true(hasRule(errors, '@typescript-eslint/no-inferrable-types'), JSON.stringify(errors));
 });
 
 test('space', async t => {
