@@ -4,8 +4,6 @@
 
 This is for advanced users. [You probably want to use XO directly.](#use-the-xo-cli-instead)
 
-See [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn) for some additional useful rules.
-
 **Use the [XO issue tracker](https://github.com/xojs/xo/issues) instead of this one.**
 
 ## Install
@@ -25,25 +23,56 @@ export default [
 ];
 ```
 
-If you're in the browser:
+### Options
+
+#### browser
+
+Type: `boolean`\
+Default: `false`
+
+Use browser globals instead of Node.js globals.
 
 ```js
-import eslintConfigXo from 'eslint-config-xo';
-
 export default [
 	...eslintConfigXo({browser: true}),
 ];
 ```
 
-If you prefer 2-space indent:
+#### space
+
+Type: `boolean | number`\
+Default: `false`
+
+Use spaces for indentation instead of tabs. Set to `true` for 2 spaces, or a number for a custom count.
 
 ```js
-import eslintConfigXo from 'eslint-config-xo';
-
 export default [
 	...eslintConfigXo({space: true}),
 ];
 ```
+
+#### semicolon
+
+Type: `boolean`\
+Default: `true`
+
+Use semicolons at the end of statements. Set to `false` to enforce no semicolons.
+
+```js
+export default [
+	...eslintConfigXo({semicolon: false}),
+];
+```
+
+## Included plugins
+
+- [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn)
+- [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x)
+- [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n)
+- [`eslint-plugin-ava`](https://github.com/avajs/eslint-plugin-ava)
+- [`@eslint-community/eslint-plugin-eslint-comments`](https://github.com/eslint-community/eslint-plugin-eslint-comments)
+- [`@stylistic/eslint-plugin`](https://github.com/eslint-stylistic/eslint-stylistic)
+- [`typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint)
 
 ## Use the XO CLI instead
 
@@ -53,11 +82,11 @@ Here are some reason why you should use the [XO CLI](https://github.com/xojs/xo)
 
 - XO comes bundled with this config.
 - [Beautiful output.](https://github.com/sindresorhus/eslint-formatter-pretty)
-- Bundles many useful plugins, like [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn), [`eslint-plugin-import`](https://github.com/benmosher/eslint-plugin-import), [`eslint-plugin-ava`](https://github.com/avajs/eslint-plugin-ava), and more.
 - No need to specify file paths to lint. It will lint all JS files except [commonly ignored paths](https://github.com/xojs/xo#ignores).
 - Super simple to add XO to a project with [`$ npm init xo`](https://github.com/xojs/create-xo).
-- Specify `indent` and `semicolon` preferences easily without messing with the rule config.
 - Config/rule overrides per files/globs.
+- [Prettier](https://prettier.io) integration.
+- [React](https://github.com/xojs/eslint-config-xo-react) support.
 - Can open all files with errors at the correct line in your editor. *(See the `--open` flag)*
 - The [editor plugins](https://github.com/xojs/xo#editor-plugins) are IMHO better than the ESLint ones. *(Subjective)*
 

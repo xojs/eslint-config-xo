@@ -11,7 +11,10 @@
 		"url": "https://sindresorhus.com"
 	},
 	"type": "module",
-	"exports": "./index.js",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
 	"sideEffects": false,
 	"engines": {
 		"node": ">=20.19"
@@ -21,6 +24,7 @@
 	},
 	"files": [
 		"index.js",
+		"index.d.ts",
 		"source"
 	],
 	"keywords": [
@@ -52,16 +56,22 @@
 		"simple"
 	],
 	"dependencies": {
-		"@eslint/css": "^0.14.1",
-		"@eslint/json": "^1.0.0",
+		"@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
+		"@eslint/compat": "^2.0.2",
+		"@eslint/css": "^1.0.0",
+		"@eslint/json": "^1.2.0",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"confusing-browser-globals": "1.0.11",
-		"globals": "^17.3.0",
-		"typescript-eslint": "^8.57.0"
+		"eslint-plugin-ava": "^16.0.0",
+		"eslint-plugin-import-x": "^4.16.1",
+		"eslint-plugin-n": "^17.24.0",
+		"eslint-plugin-unicorn": "^63.0.0",
+		"globals": "^17.4.0",
+		"typescript-eslint": "^8.57.2"
 	},
 	"devDependencies": {
-		"ava": "^6.4.1",
-		"eslint": "^10.0.0",
+		"ava": "^7.0.0",
+		"eslint": "^10.1.0",
 		"typescript": "^5.9.3"
 	},
 	"peerDependencies": {

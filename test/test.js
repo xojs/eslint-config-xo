@@ -21,7 +21,7 @@ test('node', async t => {
 
 		// eslint-disable-next-line no-await-in-loop
 		const errors = await runEslint('\'use strict\';\nconsole.log("unicorn")\n', config);
-		t.true(hasRule(errors, '@stylistic/quotes'), JSON.stringify(errors));
+		t.true(hasRule(errors, '@stylistic/quotes'));
 	}
 });
 
@@ -31,13 +31,13 @@ test('browser', async t => {
 
 		// eslint-disable-next-line no-await-in-loop
 		const errors = await runEslint('\'use strict\';\nprocess.exit();\n', config);
-		t.true(hasRule(errors, 'no-undef'), JSON.stringify(errors));
+		t.true(hasRule(errors, 'no-undef'));
 	}
 });
 
 test('typescript', async t => {
 	const errors = await runEslint('const foo: number = 5;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
-	t.true(hasRule(errors, '@typescript-eslint/no-inferrable-types'), JSON.stringify(errors));
+	t.true(hasRule(errors, '@typescript-eslint/no-inferrable-types'));
 });
 
 test('space', async t => {
@@ -70,6 +70,6 @@ export function foo() {
 		]) {
 		// eslint-disable-next-line no-await-in-loop
 		const errors = await runEslint(fixture, config);
-		t.is(hasRule(errors, '@stylistic/indent'), expected, JSON.stringify(errors));
+		t.is(hasRule(errors, '@stylistic/indent'), expected);
 	}
 });

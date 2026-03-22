@@ -1,8 +1,22 @@
 import eslintConfigXo from './index.js';
 
+const config = eslintConfigXo();
+
 export default [
-	...eslintConfigXo(),
+	...config,
 	{
-		ignores: ['test/fixture.ts'],
+		ignores: ['test/fixture.ts', 'index.d.ts'],
+	},
+	{
+		files: ['eslint.config.js'],
+		rules: {
+			'import-x/no-anonymous-default-export': 'off',
+		},
+	},
+	{
+		files: ['index.js'],
+		rules: {
+			'n/prefer-global/process': 'off',
+		},
 	},
 ];

@@ -1,4 +1,4 @@
-const getNamingConventionRule = ({isTsx}) => ({
+export const getNamingConventionRule = ({isTsx}) => ({
 	'@typescript-eslint/naming-convention': [
 		'error',
 		{
@@ -428,7 +428,6 @@ export const typescriptRules = {
 		'error',
 		{
 			paths: [
-				'error',
 				'domain',
 				'freelist',
 				'smalloc',
@@ -677,21 +676,19 @@ export const typescriptRules = {
 	'no-undef': 'off',
 
 	// TypeScript might have features not supported in a specific Node.js version.
-	'node/no-unsupported-features/es-syntax': 'off',
-	'node/no-unsupported-features/es-builtins': 'off',
+	'n/no-unsupported-features/es-syntax': 'off',
+	'n/no-unsupported-features/es-builtins': 'off',
 
 	// Even though we already use `@typescript-eslint/no-restricted-types`, `unicorn/no-null` is useful for catching literal usage.
 	// https://github.com/xojs/eslint-config-xo-typescript/issues/69
 	// 'unicorn/no-null': 'off',
 
 	// The rule is buggy with TS and it's not needed as TS already enforces valid imports and references at compile-time.
-	'import/namespace': 'off',
+	'import-x/namespace': 'off',
 
 	// TypeScript already does a better job at this.
-	'import/named': 'off',
+	'import-x/named': 'off',
 
-	// `import/no-duplicates` works better with TypeScript.
+	// `import-x/no-duplicates` works better with TypeScript.
 	'no-duplicate-imports': 'off',
 };
-
-export {getNamingConventionRule};

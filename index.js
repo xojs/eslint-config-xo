@@ -1,135 +1,95 @@
 import globals from 'globals';
 import confusingBrowserGlobals from 'confusing-browser-globals';
 import stylistic from '@stylistic/eslint-plugin';
-import json from '@eslint/json';
-import css from '@eslint/css';
+import css from '@eslint/css'; // eslint-disable-line no-unused-vars
 import typescriptEslint from 'typescript-eslint';
+import pluginUnicorn from 'eslint-plugin-unicorn';
+import pluginImport from 'eslint-plugin-import-x';
+import pluginN from 'eslint-plugin-n';
+import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
+/// import pluginPromise from 'eslint-plugin-promise';
+import pluginAva from 'eslint-plugin-ava';
+import {fixupPluginRules} from '@eslint/compat';
 import {javascriptRules} from './source/javascript-rules.js';
 import {typescriptRules, getNamingConventionRule} from './source/typescript-rules.js';
+import {pluginsRules} from './source/plugins-rules.js';
+import {jsonConfig, json5Config, jsoncConfig} from './source/json.js';
+import noUseExtendNativeRule from './source/rules/no-use-extend-native.js';
 
-const TYPESCRIPT_EXTENSION = [
-	'ts',
-	'tsx',
-	'mts',
-	'cts',
+export const tsExtensions = ['ts', 'tsx', 'mts', 'cts'];
+export const jsExtensions = ['js', 'jsx', 'mjs', 'cjs'];
+export const frameworkExtensions = ['vue', 'svelte', 'astro'];
+export const allExtensions = [...jsExtensions, ...tsExtensions, ...frameworkExtensions];
+
+export const jsFilesGlob = `**/*.{${jsExtensions.join(',')}}`;
+export const tsFilesGlob = `**/*.{${tsExtensions.join(',')}}`;
+export const allFilesGlob = `**/*.{${allExtensions.join(',')}}`;
+
+export const typescriptParser = typescriptEslint.parser;
+
+export const defaultIgnores = [
+	'**/node_modules/**',
+	'**/bower_components/**',
+	'flow-typed/**',
+	'coverage/**',
+	'{tmp,temp}/**',
+	'**/*.min.js',
+	'vendor/**',
+	'dist/**',
+	'tap-snapshots/*.{cjs,js}',
 ];
 
-const DEFAULT_EXTENSION = [
-	'js',
-	'jsx',
-	'mjs',
-	'cjs',
-	...TYPESCRIPT_EXTENSION,
-];
-
-const nodeRestrictedGlobals = [
-	'error',
-	{
-		globals: [
-			'event',
-			// TODO: Enable this in 2028.
-			// {
-			// 	name: 'Buffer',
-			// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-			// },
-			{
-				name: 'atob',
-				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
-			},
-			{
-				name: 'btoa',
-				message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
-			},
-		],
-		checkGlobalObject: true,
+const pluginNoUseExtendNative = {
+	rules: {
+		'no-use-extend-native': noUseExtendNativeRule,
 	},
-];
-
-const spaceIndentRules = {
-	'@stylistic/indent': [
-		'error',
-		2,
-		{
-			SwitchCase: 1,
-		},
-	],
 };
 
-const jsonRules = {
-	'json/no-duplicate-keys': 'error',
-	'json/no-empty-keys': 'error',
-	'json/no-unsafe-values': 'error',
-	'json/no-unnormalized-keys': 'error',
-};
+function getOptionRules({
+	space = false,
+	semicolon = true,
+	typescript = false,
+} = {}) {
+	const rules = {};
 
-const jsonConfig = {
-	plugins: {
-		json,
-	},
-	files: [
-		'**/*.json',
-	],
-	language: 'json/json',
-	rules: jsonRules,
-};
+	if (space) {
+		const spaces = typeof space === 'number' ? space : 2;
+		rules['@stylistic/indent'] = ['error', spaces, {SwitchCase: 1}];
+		rules['@stylistic/indent-binary-ops'] = ['error', spaces];
+	} else if (space === false) {
+		rules['@stylistic/indent'] = ['error', 'tab', {SwitchCase: 1}];
+		rules['@stylistic/indent-binary-ops'] = ['error', 'tab'];
+	}
 
-const jsoncConfig = {
-	plugins: {
-		json,
-	},
-	files: [
-		'**/*.jsonc',
-		'**/tsconfig.json',
-		'.vscode/*.json',
-	],
-	language: 'json/jsonc',
-	languageOptions: {
-		allowTrailingCommas: true,
-	},
-	rules: jsonRules,
-};
+	if (semicolon === false) {
+		rules['@stylistic/semi'] = ['error', 'never'];
+		rules['@stylistic/semi-spacing'] = ['error', {before: false, after: true}];
 
-const json5Config = {
-	plugins: {
-		json,
-	},
-	files: [
-		'**/*.json5',
-	],
-	language: 'json/json5',
-	rules: jsonRules,
-};
+		if (typescript) {
+			rules['@stylistic/member-delimiter-style'] = [
+				'error',
+				{
+					multiline: {delimiter: 'none'},
+					singleline: {delimiter: 'comma', requireLast: false},
+				},
+			];
+		}
+	}
 
-const cssRules = {
-	'css/font-family-fallbacks': 'error',
-	'css/no-duplicate-imports': 'error',
-	'css/no-duplicate-keyframe-selectors': 'error',
-	'css/no-empty-blocks': 'error',
-	'css/no-invalid-at-rule-placement': 'error',
-	'css/no-invalid-at-rules': 'error',
-	'css/no-invalid-named-grid-areas': 'error',
-	'css/no-invalid-properties': 'error',
-	'css/no-unmatchable-selectors': 'error',
-};
+	return rules;
+}
 
-// eslint-disable-next-line no-unused-vars
-const cssConfig = {
-	plugins: {
-		css,
-	},
-	files: [
-		'**/*.css',
-	],
-	language: 'css/css',
-	rules: cssRules,
-};
-
-export default function eslintConfigXo({browser = false, space = false} = {}) {
+export default function eslintConfigXo({
+	browser = false,
+	space = false,
+	semicolon = true,
+} = {}) {
 	const config = {
+		name: 'xo/base',
 		languageOptions: {
 			globals: {
 				...globals.es2021,
-				...(browser ? globals.browser : globals.nodeBuiltin),
+				...(browser ? globals.browser : globals.node),
 			},
 			ecmaVersion: 'latest',
 			sourceType: 'module',
@@ -145,25 +105,70 @@ export default function eslintConfigXo({browser = false, space = false} = {}) {
 		},
 		plugins: {
 			'@stylistic': stylistic,
+			'@typescript-eslint': typescriptEslint.plugin,
+			unicorn: pluginUnicorn,
+			'import-x': pluginImport,
+			'@eslint-community/eslint-comments': pluginComments,
+			'no-use-extend-native': pluginNoUseExtendNative,
+			ava: pluginAva,
+			// TODO: Remove `fixupPluginRules` wrapping when this plugin supports ESLint 10 natively.
+			n: fixupPluginRules(pluginN),
+			/// promise: fixupPluginRules(pluginPromise),
 		},
 		files: [
-			`**/*.{${DEFAULT_EXTENSION.join(',')}}`,
+			`**/*.{${allExtensions.join(',')}}`,
 		],
+		settings: {
+			'import-x/extensions': allExtensions,
+			'import-x/core-modules': [
+				'electron',
+				'atom',
+			],
+			'import-x/parsers': {
+				espree: jsExtensions,
+				'@typescript-eslint/parser': tsExtensions,
+			},
+			'import-x/external-module-folders': [
+				'node_modules',
+				'node_modules/@types',
+			],
+			'import-x/resolver': {
+				node: allExtensions,
+			},
+		},
 		rules: {
+			...pluginsRules,
 			...javascriptRules,
 			'no-restricted-globals': browser
 				? ['error', ...confusingBrowserGlobals]
-				: nodeRestrictedGlobals,
-			...(space ? spaceIndentRules : {}),
+				: [
+					'error',
+					{
+						globals: [
+							'event',
+							// TODO: Enable this in 2028.
+							// {
+							// 	name: 'Buffer',
+							// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
+							// },
+							{
+								name: 'atob',
+								message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+							},
+							{
+								name: 'btoa',
+								message: 'This API is deprecated. Use https://github.com/sindresorhus/uint8array-extras instead.',
+							},
+						],
+						checkGlobalObject: true,
+					},
+				],
+			...getOptionRules({space, semicolon}),
 		},
 	};
 
-	const spaces = typeof space === 'number'
-		? space
-		: 2;
-
 	const typescriptConfig = {
-		files: [`**/*.{${TYPESCRIPT_EXTENSION.join(',')}}`],
+		files: [`**/*.{${tsExtensions.join(',')}}`],
 		plugins: {
 			'@typescript-eslint': typescriptEslint.plugin,
 			'@stylistic': stylistic,
@@ -200,29 +205,50 @@ export default function eslintConfigXo({browser = false, space = false} = {}) {
 		// },
 		rules: {
 			...typescriptRules,
-			...(space
-				? {
-					'@stylistic/indent': [
-						'error',
-						spaces,
-						{
-							SwitchCase: 1,
-						},
-					],
-				}
-				: {}),
+			'unicorn/import-style': 'off',
+			'n/file-extension-in-import': 'off',
+			// Disabled because of https://github.com/benmosher/eslint-plugin-import-x/issues/1590
+			'import-x/export': 'off',
+			// Does not work when the TS definition exports a default const.
+			'import-x/default': 'off',
+			// Disabled as it doesn't work with TypeScript.
+			// This issue and some others: https://github.com/benmosher/eslint-plugin-import-x/issues/1341
+			'import-x/named': 'off',
+			...getOptionRules({space, semicolon, typescript: true}),
 		},
 	};
 
 	return [
+		{
+			ignores: defaultIgnores,
+		},
+		...pluginAva.configs.recommended,
 		config,
-		// `jsonConfig` must come before `jsoncConfig` so that files matching both (e.g. `tsconfig.json`) end up with `language: 'json/jsonc'` instead of `'json/json'`, which would reject the JSONC-only `allowTrailingCommas` option.
 		jsonConfig,
 		json5Config,
 		jsoncConfig,
 
 		// Disabled for now until it becomes more stable.
-		// cssConfig,
+		// {
+		// 	plugins: {
+		// 		css,
+		// 	},
+		// 	files: [
+		// 		'**/*.css',
+		// 	],
+		// 	language: 'css/css',
+		// 	rules: {
+		// 		'css/font-family-fallbacks': 'error',
+		// 		'css/no-duplicate-imports': 'error',
+		// 		'css/no-duplicate-keyframe-selectors': 'error',
+		// 		'css/no-empty-blocks': 'error',
+		// 		'css/no-invalid-at-rule-placement': 'error',
+		// 		'css/no-invalid-at-rules': 'error',
+		// 		'css/no-invalid-named-grid-areas': 'error',
+		// 		'css/no-invalid-properties': 'error',
+		// 		'css/no-unmatchable-selectors': 'error',
+		// 	},
+		// },
 
 		typescriptConfig,
 		{
@@ -242,6 +268,12 @@ export default function eslintConfigXo({browser = false, space = false} = {}) {
 			files: ['**/*.tsx'],
 			rules: {
 				...getNamingConventionRule({isTsx: true}),
+			},
+		},
+		{
+			files: ['xo.config.{js,ts}'],
+			rules: {
+				'import-x/no-anonymous-default-export': 'off',
 			},
 		},
 	];

@@ -363,7 +363,7 @@ export const javascriptRules = {
 	],
 	'@stylistic/keyword-spacing': 'error',
 	'@stylistic/linebreak-style': [
-		process.platform === 'win32' ? 'off' : 'error',
+		process.platform === 'win32' ? 'off' : 'error', // eslint-disable-line n/prefer-global/process
 		'unix',
 	],
 	'@stylistic/lines-between-class-members': [
