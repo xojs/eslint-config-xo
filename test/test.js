@@ -55,6 +55,58 @@ test('restricted imports - typescript', async t => {
 	t.true(hasRule(errors, '@typescript-eslint/no-restricted-imports'));
 });
 
+test('typescript - UPPER_CASE module-level const is allowed', async t => {
+	const errors = await runEslint(
+		'export const SECONDS_PER_DAY = 86_400;\nexport const IS_READY = true;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
+test('typescript - camelCase module-level const is still allowed', async t => {
+	const errors = await runEslint(
+		'export const secondsPerDay = 86_400;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
+test('typescript - non-exported UPPER_CASE module-level const is allowed', async t => {
+	const errors = await runEslint(
+		'const SECONDS_PER_DAY = 86_400;\nvoid SECONDS_PER_DAY;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
+test('typescript - single-word UPPER_CASE module-level const is allowed', async t => {
+	const errors = await runEslint(
+		'export const TIMEOUT = 5000;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
+test('typescript - UPPER_CASE is rejected for local const and non-const', async t => {
+	const localConst = await runEslint(
+		'export function foo() {\n\tconst MAX_VALUE = 100;\n\treturn MAX_VALUE;\n}\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.true(hasRule(localConst, '@typescript-eslint/naming-convention'));
+
+	const letVariable = await runEslint(
+		'export let MAX_VALUE = 100;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.true(hasRule(letVariable, '@typescript-eslint/naming-convention'));
+});
+
 test('space', async t => {
 	const fixture = `
 export function foo() {

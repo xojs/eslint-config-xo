@@ -22,6 +22,26 @@ export const getNamingConventionRule = ({isTsx}) => ({
 			},
 		},
 		{
+			// Also allow UPPER_CASE for module-level `const` variables.
+			// Needs filter + modifiers to outrank the general selector above.
+			selector: 'variable',
+			modifiers: [
+				'const',
+				'global',
+			],
+			format: [
+				'strictCamelCase',
+				isTsx && 'StrictPascalCase',
+				'UPPER_CASE',
+			].filter(Boolean),
+			leadingUnderscore: 'allowSingleOrDouble',
+			trailingUnderscore: 'allow',
+			filter: {
+				regex: '[- ]',
+				match: false,
+			},
+		},
+		{
 			selector: 'typeLike',
 			format: [
 				'StrictPascalCase',
