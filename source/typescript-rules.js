@@ -642,19 +642,15 @@ export const typescriptRules = {
 		'error',
 		'always',
 	],
-
-	// TODO: Reconsider enabling it again in 2023.
-	// NOTE: The rule was complete redone in typescript-eslint v3, so this config needs to be changed before this is enabled.
-	// Disabled for now as it's too strict.
-	// Relevant discussion: https://github.com/sindresorhus/refined-github/pull/2521#discussion_r343013852
-	// '@typescript-eslint/strict-boolean-expressions': [
-	// 	'error',
-	// 	{
-	// 		allowNullable: true,
-	// 		allowSafe: true
-	// 	}
-	// ],
-
+	'@typescript-eslint/strict-boolean-expressions': [
+		'error',
+		{
+			allowNullableBoolean: true,
+			allowNullableObject: true,
+			allowNumber: false,
+			allowString: false,
+		},
+	],
 	'@typescript-eslint/strict-void-return': 'error',
 	'default-case': 'off', // It conflicts with `@typescript-eslint/switch-exhaustiveness-check`. It would still be nice to have this rule for non-exhaustive switches though.
 	'@typescript-eslint/switch-exhaustiveness-check': [
