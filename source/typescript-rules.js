@@ -15,11 +15,6 @@ export const getNamingConventionRule = ({isTsx}) => ({
 			// We allow double underscore because of GraphQL type names and some React names.
 			leadingUnderscore: 'allowSingleOrDouble',
 			trailingUnderscore: 'allow',
-			// Ignore `{'Retry-After': retryAfter}` type properties.
-			filter: {
-				regex: '[- ]',
-				match: false,
-			},
 		},
 		{
 			// Also allow UPPER_CASE for module-level `const` variables.
@@ -105,6 +100,11 @@ export const getNamingConventionRule = ({isTsx}) => ({
 			selector: [
 				'classProperty',
 				'objectLiteralProperty',
+				'parameterProperty',
+				'classMethod',
+				'objectLiteralMethod',
+				'typeMethod',
+				'accessor',
 			],
 			format: null,
 			modifiers: [

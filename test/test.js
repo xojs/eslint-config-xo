@@ -125,6 +125,15 @@ test('typescript - UPPER_CASE is rejected for local const and non-const', async 
 	t.true(hasRule(letVariable, '@typescript-eslint/naming-convention'));
 });
 
+test('typescript - quoted/exotic property names are allowed', async t => {
+	const errors = await runEslint(
+		'const proxy = {\'/api\': {target: \'http://localhost\'},\n\t\'Content-Type\': \'text/html\',\n};\nvoid proxy;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
 test('space', async t => {
 	const fixture = `
 export function foo() {
