@@ -4,7 +4,8 @@ import stylistic from '@stylistic/eslint-plugin';
 import css from '@eslint/css'; // eslint-disable-line no-unused-vars
 import typescriptEslint from 'typescript-eslint';
 import pluginUnicorn from 'eslint-plugin-unicorn';
-import pluginImport from 'eslint-plugin-import-x';
+import pluginImport, {createNodeResolver} from 'eslint-plugin-import-x';
+import {createTypeScriptImportResolver} from 'eslint-import-resolver-typescript';
 import pluginN from 'eslint-plugin-n';
 import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
 /// import pluginPromise from 'eslint-plugin-promise';
@@ -128,13 +129,10 @@ export default function eslintConfigXo({
 				espree: jsExtensions,
 				'@typescript-eslint/parser': tsExtensions,
 			},
-			'import-x/external-module-folders': [
-				'node_modules',
-				'node_modules/@types',
+			'import-x/resolver-next': [
+				createNodeResolver(),
+				createTypeScriptImportResolver(),
 			],
-			'import-x/resolver': {
-				node: allExtensions,
-			},
 		},
 		rules: {
 			...pluginsRules,
@@ -184,35 +182,15 @@ export default function eslintConfigXo({
 				},
 			},
 		},
-		// Disabled temporarily.
-		// settings: {
-		// 	'import/resolver': {
-		// 		node: {
-		// 			extensions: [
-		// 				'.js',
-		// 				'.jsx',
-		// 				'.ts',
-		// 				'.tsx'
-		// 			]
-		// 		}
-		// 	},
-		// 	'import/parsers': {
-		// 		[require.resolve('@typescript-eslint/parser')]: [
-		// 			'.ts',
-		// 			'.tsx'
-		// 		]
-		// 	}
-		// },
 		rules: {
 			...typescriptRules,
 			'unicorn/import-style': 'off',
 			'n/file-extension-in-import': 'off',
-			// Disabled because of https://github.com/benmosher/eslint-plugin-import-x/issues/1590
+			// Disabled because it doesn't work correctly with TypeScript.
 			'import-x/export': 'off',
 			// Does not work when the TS definition exports a default const.
 			'import-x/default': 'off',
 			// Disabled as it doesn't work with TypeScript.
-			// This issue and some others: https://github.com/benmosher/eslint-plugin-import-x/issues/1341
 			'import-x/named': 'off',
 			...getOptionRules({space, semicolon, typescript: true}),
 		},
