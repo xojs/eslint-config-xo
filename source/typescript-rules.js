@@ -655,8 +655,25 @@ export const typescriptRules = {
 	'@stylistic/type-generic-spacing': 'error',
 	'@stylistic/type-named-tuple-spacing': 'error',
 
-	// Disabled per typescript-eslint recommendation: https://github.com/typescript-eslint/typescript-eslint/blob/e26e43ffba96f6d46198b22f1c8dd5c814db2652/docs/getting-started/linting/FAQ.md#i-get-errors-from-the-no-undef-rule-about-global-variables-not-being-defined-even-though-there-are-no-typescript-errors
+	// Disabled per @typescript-eslint/eslint-recommended.
+	// TypeScript already handles these checks, making the ESLint rules redundant.
+	// https://typescript-eslint.io/users/configs/#eslint-recommended
+	'constructor-super': 'off',
+	'getter-return': 'off',
+	'no-class-assign': 'off',
+	'no-const-assign': 'off',
+	'no-dupe-args': 'off',
+	'no-dupe-keys': 'off',
+	'no-func-assign': 'off',
+	'no-import-assign': 'off',
+	'no-new-native-nonconstructor': 'off',
+	'no-obj-calls': 'off',
+	'no-setter-return': 'off',
+	'no-this-before-super': 'off',
 	'no-undef': 'off',
+	'no-unreachable': 'off',
+	'no-unsafe-negation': 'off',
+	'no-with': 'off',
 
 	// TypeScript might have features not supported in a specific Node.js version.
 	'n/no-unsupported-features/es-syntax': 'off',

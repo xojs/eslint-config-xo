@@ -40,6 +40,11 @@ test('typescript', async t => {
 	t.true(hasRule(errors, '@typescript-eslint/no-inferrable-types'));
 });
 
+test('typescript - eslint-recommended rules are disabled', async t => {
+	const errors = await runEslint('export function foo(): number {\n\treturn 1;\n\t2;\n}\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	t.false(hasRule(errors, 'no-unreachable'));
+});
+
 test('restricted imports', async t => {
 	const errors = await runEslint('import objectAssign from \'object-assign\';\n', eslintConfigXo());
 	t.true(hasRule(errors, 'no-restricted-imports'));
