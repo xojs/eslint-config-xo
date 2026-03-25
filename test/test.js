@@ -40,6 +40,16 @@ test('typescript', async t => {
 	t.true(hasRule(errors, '@typescript-eslint/no-inferrable-types'));
 });
 
+test('restricted imports', async t => {
+	const errors = await runEslint('import objectAssign from \'object-assign\';\n', eslintConfigXo());
+	t.true(hasRule(errors, 'no-restricted-imports'));
+});
+
+test('restricted imports - typescript', async t => {
+	const errors = await runEslint('import objectAssign from \'object-assign\';\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	t.true(hasRule(errors, '@typescript-eslint/no-restricted-imports'));
+});
+
 test('space', async t => {
 	const fixture = `
 export function foo() {

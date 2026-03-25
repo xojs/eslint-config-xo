@@ -1,3 +1,5 @@
+import {restrictedImports} from './restricted-imports.js';
+
 export const javascriptRules = {
 	'@stylistic/comma-dangle': [
 		'error',
@@ -247,25 +249,7 @@ export const javascriptRules = {
 		},
 	],
 	'no-buffer-constructor': 'error',
-	'no-restricted-imports': [
-		'error',
-		'domain',
-		'freelist',
-		'smalloc',
-		'punycode',
-		'sys',
-		'querystring',
-		'colors',
-		// TODO: Enable this in 2028.
-		// {
-		// 	name: 'buffer',
-		// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-		// },
-		// {
-		// 	name: 'node:buffer',
-		// 	message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',
-		// },
-	],
+	'no-restricted-imports': ['error', ...restrictedImports],
 	'@stylistic/array-bracket-newline': [
 		'error',
 		'consistent',

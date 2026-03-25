@@ -1,3 +1,5 @@
+import {restrictedImports} from './restricted-imports.js';
+
 export const getNamingConventionRule = ({isTsx}) => ({
 	'@typescript-eslint/naming-convention': [
 		'error',
@@ -424,20 +426,7 @@ export const typescriptRules = {
 		},
 	],
 	'no-restricted-imports': 'off',
-	'@typescript-eslint/no-restricted-imports': [
-		'error',
-		{
-			paths: [
-				'domain',
-				'freelist',
-				'smalloc',
-				'punycode',
-				'sys',
-				'querystring',
-				'colors',
-			],
-		},
-	],
+	'@typescript-eslint/no-restricted-imports': ['error', {paths: [...restrictedImports]}],
 
 	// The rule is buggy and keeps inferring `any` for types that are not `any`. Just a lot of false-positives.
 	// '@typescript-eslint/no-redundant-type-constituents': 'error',
