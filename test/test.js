@@ -91,6 +91,24 @@ test('typescript - single-word UPPER_CASE module-level const is allowed', async 
 	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
 });
 
+test('typescript - UPPER_CASE static readonly class property is allowed', async t => {
+	const errors = await runEslint(
+		'class Foo {\n\tprivate static readonly PRIME = 16_777_619;\n\tstatic readonly OFFSET = 2_166_136_261;\n}\nvoid Foo;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
+test('typescript - UPPER_CASE non-static class property is rejected', async t => {
+	const errors = await runEslint(
+		'class Foo {\n\treadonly MAX_VALUE = 100;\n}\nvoid Foo;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.true(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
 test('typescript - UPPER_CASE is rejected for local const and non-const', async t => {
 	const localConst = await runEslint(
 		'export function foo() {\n\tconst MAX_VALUE = 100;\n\treturn MAX_VALUE;\n}\n',

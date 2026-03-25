@@ -42,6 +42,26 @@ export const getNamingConventionRule = ({isTsx}) => ({
 			},
 		},
 		{
+			// Also allow UPPER_CASE for static readonly class properties.
+			// Needs filter + modifiers to outrank the general selector above.
+			selector: 'classProperty',
+			modifiers: [
+				'static',
+				'readonly',
+			],
+			format: [
+				'strictCamelCase',
+				isTsx && 'StrictPascalCase',
+				'UPPER_CASE',
+			].filter(Boolean),
+			leadingUnderscore: 'allowSingleOrDouble',
+			trailingUnderscore: 'allow',
+			filter: {
+				regex: '[- ]',
+				match: false,
+			},
+		},
+		{
 			selector: 'typeLike',
 			format: [
 				'StrictPascalCase',
