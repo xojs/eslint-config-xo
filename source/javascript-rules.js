@@ -157,7 +157,6 @@ export const javascriptRules = {
 		'error',
 		'always',
 	],
-	'no-return-await': 'error',
 	'no-script-url': 'error',
 	'no-self-assign': [
 		'error',
@@ -248,7 +247,6 @@ export const javascriptRules = {
 			caughtErrorsIgnorePattern: /^_$/v.source,
 		},
 	],
-	'no-buffer-constructor': 'error',
 	'no-restricted-imports': ['error', ...restrictedImports],
 	'@stylistic/array-bracket-newline': [
 		'error',
