@@ -437,7 +437,18 @@ export const javascriptRules = {
 	'no-array-constructor': 'error',
 	'no-bitwise': 'error',
 	'no-lonely-if': 'error',
-	'@stylistic/no-mixed-operators': 'error',
+	'@stylistic/no-mixed-operators': [
+		'error',
+		{
+			groups: [
+				['+', '-', '*', '/', '%', '**', '??'],
+				['&', '|', '^', '~', '<<', '>>', '>>>', '??'],
+				['==', '!=', '===', '!==', '>', '>=', '<', '<=', '??'],
+				['&&', '||', '??'],
+				['in', 'instanceof', '??'],
+			],
+		},
+	],
 	'@stylistic/no-mixed-spaces-and-tabs': 'error',
 	'no-multi-assign': 'error',
 	'@stylistic/no-multiple-empty-lines': [
