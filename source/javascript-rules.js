@@ -18,6 +18,8 @@ export const javascriptRules = {
 	'no-dupe-else-if': 'error',
 	'no-dupe-keys': 'error',
 	'no-duplicate-case': 'error',
+	// Disabled in favor of `import-x/no-duplicates` which has better TypeScript support.
+	// 'no-duplicate-imports': 'error',
 	'no-empty-character-class': 'error',
 	'no-empty': [
 		'error',
