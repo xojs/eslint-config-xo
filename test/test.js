@@ -134,6 +134,33 @@ test('typescript - quoted/exotic property names are allowed', async t => {
 	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
 });
 
+test('capitalized-comments - does not flag commented-out code keywords', async t => {
+	const codeKeywords = [
+		'// const a = 1;\n',
+		'// let foo = bar;\n',
+		'// var x = 1;\n',
+		'// import foo from \'bar\';\n',
+		'// export default foo;\n',
+		'// function foo() {}\n',
+		'// class Foo {}\n',
+		'// if (condition) {}\n',
+		'// for (const item of items) {}\n',
+		'// while (condition) {}\n',
+		'// switch (value) {}\n',
+	];
+
+	for (const code of codeKeywords) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(code, eslintConfigXo());
+		t.false(hasRule(errors, 'capitalized-comments'), `Expected no capitalized-comments error for: ${code.trim()}`);
+	}
+});
+
+test('capitalized-comments - still flags regular lowercase comments', async t => {
+	const errors = await runEslint('// this is a regular lowercase comment\n', eslintConfigXo());
+	t.true(hasRule(errors, 'capitalized-comments'));
+});
+
 test('space', async t => {
 	const fixture = `
 export function foo() {

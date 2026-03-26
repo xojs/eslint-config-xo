@@ -279,7 +279,11 @@ export const javascriptRules = {
 		{
 			// You can also ignore this rule by wrapping the first word in quotes.
 			// c8 => https://github.com/bcoe/c8
-			ignorePattern: /pragma|ignore|prettier-ignore|biome-ignore|codespell:ignore|webpack\w+:|c8|v8|type-coverage:/v.source,
+			// JS/TS code keywords at the start of a comment prevent incorrectly capitalizing commented-out code (e.g. `// const a = 'b'` → `// Const a = 'b'`). ESLint wraps ignorePattern with `^\s*(?:…)` so no `^` is needed here.
+			ignorePattern: [
+				/pragma|ignore|prettier-ignore|biome-ignore|codespell:ignore|webpack\w+:|c8|v8|type-coverage:/v,
+				/const |let |var |import |export |function |class |if \(|for \(|while \(|switch \(/v,
+			].map(r => r.source).join('|'),
 			ignoreInlineComments: true,
 			ignoreConsecutiveComments: true,
 		},
