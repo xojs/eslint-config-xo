@@ -2,31 +2,64 @@ import globals from 'globals';
 import confusingBrowserGlobals from 'confusing-browser-globals';
 import stylistic from '@stylistic/eslint-plugin';
 import css from '@eslint/css'; // eslint-disable-line no-unused-vars
-import typescriptEslint from 'typescript-eslint';
 import pluginUnicorn from 'eslint-plugin-unicorn';
 import pluginImport, {createNodeResolver} from 'eslint-plugin-import-x';
-import {createTypeScriptImportResolver} from 'eslint-import-resolver-typescript';
 import pluginN from 'eslint-plugin-n';
 import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
 /// import pluginPromise from 'eslint-plugin-promise';
 import pluginAva from 'eslint-plugin-ava';
 import {fixupPluginRules} from '@eslint/compat';
 import {javascriptRules} from './source/javascript-rules.js';
-import {typescriptRules, getNamingConventionRule} from './source/typescript-rules.js';
 import {pluginsRules} from './source/plugins-rules.js';
 import {jsonConfig, json5Config, jsoncConfig} from './source/json.js';
 import noUseExtendNativeRule from './source/rules/no-use-extend-native.js';
 
-export const tsExtensions = ['ts', 'tsx', 'mts', 'cts'];
-export const jsExtensions = ['js', 'jsx', 'mjs', 'cjs'];
-export const frameworkExtensions = ['vue', 'svelte', 'astro'];
-export const allExtensions = [...jsExtensions, ...tsExtensions, ...frameworkExtensions];
+// Dynamically import TypeScript-related packages so that `typescript` is not
+// required when users don't have it installed (JavaScript-only projects).
+let ts;
+try {
+	ts = await import('./source/typescript.js');
+} catch (error) {
+	if (!isMissingTypeScriptError(error)) {
+		throw error;
+	}
+}
+
+export const tsExtensions = [
+	'ts',
+	'tsx',
+	'mts',
+	'cts',
+];
+
+export const jsExtensions = [
+	'js',
+	'jsx',
+	'mjs',
+	'cjs',
+];
+
+export const frameworkExtensions = [
+	'vue',
+	'svelte',
+	'astro',
+];
+
+export const allExtensions = [
+	...jsExtensions,
+	...tsExtensions,
+	...frameworkExtensions,
+];
+const baseExtensions = [
+	...jsExtensions,
+	...frameworkExtensions,
+];
 
 export const jsFilesGlob = `**/*.{${jsExtensions.join(',')}}`;
 export const tsFilesGlob = `**/*.{${tsExtensions.join(',')}}`;
 export const allFilesGlob = `**/*.{${allExtensions.join(',')}}`;
 
-export const typescriptParser = typescriptEslint.parser;
+export const typescriptParser = ts?.parser;
 
 export const defaultIgnores = [
 	'**/node_modules/**',
@@ -45,6 +78,18 @@ const pluginNoUseExtendNative = {
 		'no-use-extend-native': noUseExtendNativeRule,
 	},
 };
+
+const missingTypeScriptParser = {
+	parse() {
+		throw new Error('Install `typescript` to lint TypeScript files with eslint-config-xo.');
+	},
+};
+
+function isMissingTypeScriptError(error) {
+	return error instanceof Error
+		&& (error.code === 'ERR_MODULE_NOT_FOUND' || error.code === 'MODULE_NOT_FOUND')
+		&& /'typescript'/v.test(error.message);
+}
 
 function getOptionRules({
 	space = false,
@@ -85,6 +130,8 @@ export default function eslintConfigXo({
 	space = false,
 	semicolon = true,
 } = {}) {
+	const lintedExtensions = ts ? allExtensions : baseExtensions;
+
 	const config = {
 		name: 'xo/base',
 		languageOptions: {
@@ -106,7 +153,7 @@ export default function eslintConfigXo({
 		},
 		plugins: {
 			'@stylistic': stylistic,
-			'@typescript-eslint': typescriptEslint.plugin,
+			...(ts ? {'@typescript-eslint': ts.plugin} : {}),
 			unicorn: pluginUnicorn,
 			'import-x': pluginImport,
 			'@eslint-community/eslint-comments': pluginComments,
@@ -117,21 +164,21 @@ export default function eslintConfigXo({
 			/// promise: fixupPluginRules(pluginPromise),
 		},
 		files: [
-			`**/*.{${allExtensions.join(',')}}`,
+			`**/*.{${lintedExtensions.join(',')}}`,
 		],
 		settings: {
-			'import-x/extensions': allExtensions,
+			'import-x/extensions': lintedExtensions,
 			'import-x/core-modules': [
 				'electron',
 				'atom',
 			],
 			'import-x/parsers': {
 				espree: jsExtensions,
-				'@typescript-eslint/parser': tsExtensions,
+				...(ts ? {'@typescript-eslint/parser': tsExtensions} : {}),
 			},
 			'import-x/resolver-next': [
 				createNodeResolver(),
-				createTypeScriptImportResolver(),
+				...(ts ? [ts.createTypeScriptImportResolver()] : []),
 			],
 		},
 		rules: {
@@ -165,36 +212,27 @@ export default function eslintConfigXo({
 		},
 	};
 
-	const typescriptConfig = {
-		files: [`**/*.{${tsExtensions.join(',')}}`],
-		plugins: {
-			'@typescript-eslint': typescriptEslint.plugin,
-			'@stylistic': stylistic,
-		},
-		languageOptions: {
-			sourceType: 'module',
-			parser: typescriptEslint.parser,
-			parserOptions: {
-				projectService: true,
-				warnOnUnsupportedTypeScriptVersion: false,
-				ecmaFeatures: {
-					jsx: true,
-				},
+	const typescriptConfigs = ts?.getConfigs({
+		optionRules: getOptionRules({space, semicolon, typescript: true}),
+		tsExtensions,
+	}) ?? [];
+	const missingTypeScriptConfig = [];
+	if (!ts) {
+		missingTypeScriptConfig.push({
+			name: 'xo/missing-typescript',
+			files: [
+				tsFilesGlob,
+			],
+			ignores: [
+				'**/*.d.ts',
+				'**/*.d.mts',
+				'**/*.d.cts',
+			],
+			languageOptions: {
+				parser: missingTypeScriptParser,
 			},
-		},
-		rules: {
-			...typescriptRules,
-			'unicorn/import-style': 'off',
-			'n/file-extension-in-import': 'off',
-			// Disabled because it doesn't work correctly with TypeScript.
-			'import-x/export': 'off',
-			// Does not work when the TS definition exports a default const.
-			'import-x/default': 'off',
-			// Disabled as it doesn't work with TypeScript.
-			'import-x/named': 'off',
-			...getOptionRules({space, semicolon, typescript: true}),
-		},
-	};
+		});
+	}
 
 	return [
 		{
@@ -205,6 +243,7 @@ export default function eslintConfigXo({
 		jsonConfig,
 		json5Config,
 		jsoncConfig,
+		...missingTypeScriptConfig,
 
 		// Disabled for now until it becomes more stable.
 		// {
@@ -228,26 +267,7 @@ export default function eslintConfigXo({
 		// 	},
 		// },
 
-		typescriptConfig,
-		{
-			files: ['**/*.d.ts'],
-			rules: {
-				'@typescript-eslint/no-unused-vars': 'off',
-			},
-		},
-		{
-			files: ['**/*.test-d.ts'],
-			rules: {
-				'@typescript-eslint/no-unsafe-call': 'off',
-				'@typescript-eslint/no-confusing-void-expression': 'off', // Conflicts with `expectError` assertion.
-			},
-		},
-		{
-			files: ['**/*.tsx'],
-			rules: {
-				...getNamingConventionRule({isTsx: true}),
-			},
-		},
+		...typescriptConfigs,
 		{
 			files: ['xo.config.{js,ts}'],
 			rules: {

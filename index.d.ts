@@ -11,7 +11,7 @@ export const allFilesGlob: string;
 
 export const defaultIgnores: string[];
 
-export const typescriptParser: Linter.Parser;
+export const typescriptParser: Linter.Parser | undefined;
 
 export type Options = {
 	/**

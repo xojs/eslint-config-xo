@@ -1,8 +1,17 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import process from 'node:process';
+import {pathToFileURL} from 'node:url';
 import test from 'ava';
 import {ESLint} from 'eslint';
 import eslintConfigXo from '../index.js';
 
 const hasRule = (errors, ruleId) => errors.some(error => error.ruleId === ruleId);
+const missingTypeScriptSource = `
+const error = new Error("Cannot find package 'typescript' imported from temporary/typescript.js");
+error.code = 'MODULE_NOT_FOUND';
+throw error;
+`;
 
 async function runEslint(string, config, {filePath} = {}) {
 	const eslint = new ESLint({
@@ -13,6 +22,22 @@ async function runEslint(string, config, {filePath} = {}) {
 	const [firstResult] = await eslint.lintText(string, {filePath});
 
 	return firstResult.messages;
+}
+
+async function loadConfigWithoutTypeScript({typescriptSource} = {}) {
+	const temporaryDirectory = await fs.mkdtemp(path.join(process.cwd(), 'test', 'no-typescript-'));
+	try {
+		await Promise.all([
+			fs.copyFile('index.js', path.join(temporaryDirectory, 'index.js')),
+			fs.cp('source', path.join(temporaryDirectory, 'source'), {recursive: true}),
+		]);
+		await fs.writeFile(path.join(temporaryDirectory, 'source', 'typescript.js'), typescriptSource ?? missingTypeScriptSource);
+
+		return {temporaryDirectory, configModule: await import(`${pathToFileURL(path.join(temporaryDirectory, 'index.js')).href}?cache-bust=${Date.now()}`)};
+	} catch (error) {
+		await fs.rm(temporaryDirectory, {recursive: true, force: true});
+		throw error;
+	}
 }
 
 test('node', async t => {
@@ -193,4 +218,54 @@ export function foo() {
 		const errors = await runEslint(fixture, config);
 		t.is(hasRule(errors, '@stylistic/indent'), expected);
 	}
+});
+
+test('no TypeScript install skips TypeScript files and omits the parser export', async t => {
+	const {temporaryDirectory, configModule} = await loadConfigWithoutTypeScript();
+	t.teardown(async () => {
+		await fs.rm(temporaryDirectory, {recursive: true, force: true});
+	});
+
+	t.is(configModule.typescriptParser, undefined);
+
+	const baseConfig = configModule.default().find(config => config.name === 'xo/base');
+	t.deepEqual(baseConfig.files, ['**/*.{js,jsx,mjs,cjs,vue,svelte,astro}']);
+	t.deepEqual(baseConfig.settings['import-x/extensions'], ['js', 'jsx', 'mjs', 'cjs', 'vue', 'svelte', 'astro']);
+
+	const errors = await runEslint(
+		'const foo: number = 1;\n',
+		configModule.default(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.true(errors[0].fatal);
+	t.regex(errors[0].message, /install `typescript` to lint typescript files/iv);
+
+	const declarationErrors = await runEslint(
+		'export type Foo = string;\n',
+		configModule.default(),
+		{filePath: 'index.d.ts'},
+	);
+	t.is(declarationErrors[0].message, 'File ignored because no matching configuration was supplied.');
+
+	for (const filePath of ['index.d.mts', 'index.d.cts']) {
+		// eslint-disable-next-line no-await-in-loop
+		const declarationVariantErrors = await runEslint(
+			'export type Foo = string;\n',
+			configModule.default(),
+			{filePath},
+		);
+		t.is(declarationVariantErrors[0].message, 'File ignored because no matching configuration was supplied.');
+	}
+});
+
+test('non-typescript import failures are rethrown', async t => {
+	const error = await t.throwsAsync(loadConfigWithoutTypeScript({
+		typescriptSource: `
+const error = new Error("Cannot find package 'missing-dependency' imported from temporary/typescript.js");
+error.code = 'ERR_MODULE_NOT_FOUND';
+throw error;
+`,
+	}));
+	t.is(error.code, 'ERR_MODULE_NOT_FOUND');
+	t.regex(error.message, /missing-dependency/v);
 });

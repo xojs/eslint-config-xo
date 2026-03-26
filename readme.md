@@ -64,6 +64,10 @@ export default [
 ];
 ```
 
+## TypeScript
+
+TypeScript is supported out of the box. If [`typescript`](https://github.com/microsoft/TypeScript) is installed, TypeScript rules are automatically enabled. For JavaScript-only projects, `typescript` is not required.
+
 ## Included plugins
 
 - [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn)

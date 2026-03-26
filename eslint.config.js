@@ -1,9 +1,7 @@
 import eslintConfigXo from './index.js';
 
-const config = eslintConfigXo();
-
 export default [
-	...config,
+	...eslintConfigXo(),
 	{
 		ignores: ['test/fixture.ts', 'index.d.ts'],
 	},
