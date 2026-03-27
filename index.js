@@ -13,6 +13,7 @@ import {javascriptRules} from './source/javascript-rules.js';
 import {pluginsRules} from './source/plugins-rules.js';
 import {jsonConfig, json5Config, jsoncConfig} from './source/json.js';
 import {getHtmlConfig} from './source/html.js';
+import {getMarkdownConfig} from './source/markdown.js';
 import noUseExtendNativeRule from './source/rules/no-use-extend-native.js';
 
 // Dynamically import TypeScript-related packages so that `typescript` is not
@@ -50,11 +51,16 @@ export const htmlExtensions = [
 	'html',
 ];
 
+export const mdExtensions = [
+	'md',
+];
+
 export const allExtensions = [
 	...jsExtensions,
 	...tsExtensions,
 	...frameworkExtensions,
 	...htmlExtensions,
+	...mdExtensions,
 ];
 const baseExtensions = [
 	...jsExtensions,
@@ -250,6 +256,7 @@ export default function eslintConfigXo({
 		json5Config,
 		jsoncConfig,
 		getHtmlConfig({space}),
+		getMarkdownConfig(),
 		...missingTypeScriptConfig,
 
 		// Disabled for now until it becomes more stable.

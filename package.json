@@ -60,6 +60,7 @@
 		"@eslint/compat": "^2.0.2",
 		"@eslint/css": "^1.0.0",
 		"@eslint/json": "^1.2.0",
+		"@eslint/markdown": "^8.0.0",
 		"@html-eslint/eslint-plugin": "^0.58.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"confusing-browser-globals": "1.0.11",

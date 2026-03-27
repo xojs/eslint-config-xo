@@ -258,6 +258,34 @@ test('no TypeScript install skips TypeScript files and omits the parser export',
 	}
 });
 
+test('markdown - lints md files', async t => {
+	// Fenced code block without a language specifier should trigger fenced-code-language
+	const errors = await runEslint(
+		'```\ncode\n```\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.md'},
+	);
+	t.true(hasRule(errors, 'markdown/fenced-code-language'));
+});
+
+test('markdown - no-multiple-h1 triggers', async t => {
+	const errors = await runEslint(
+		'# First\n\n# Second\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.md'},
+	);
+	t.true(hasRule(errors, 'markdown/no-multiple-h1'));
+});
+
+test('markdown - inline disable directives still work', async t => {
+	const errors = await runEslint(
+		'# First\n\n<!-- eslint-disable-next-line markdown/no-multiple-h1 -->\n# Second\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.md'},
+	);
+	t.deepEqual(errors, []);
+});
+
 test('html - lints html files', async t => {
 	// Uppercase tags should trigger the lowercase rule
 	const errors = await runEslint(
@@ -281,9 +309,10 @@ test('html - indent respects space option', async t => {
 	t.false(hasRule(spaceErrors, '@html-eslint/indent'));
 });
 
-test('exported file globs include html', t => {
+test('exported file globs include html and md', t => {
 	t.true(allExtensions.includes('html'));
-	t.is(allFilesGlob, '**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,svelte,astro,html}');
+	t.true(allExtensions.includes('md'));
+	t.is(allFilesGlob, '**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,svelte,astro,html,md}');
 });
 
 test('non-typescript import failures are rethrown', async t => {
