@@ -4,7 +4,7 @@ import process from 'node:process';
 import {pathToFileURL} from 'node:url';
 import test from 'ava';
 import {ESLint} from 'eslint';
-import eslintConfigXo from '../index.js';
+import eslintConfigXo, {allExtensions, allFilesGlob} from '../index.js';
 
 const hasRule = (errors, ruleId) => errors.some(error => error.ruleId === ruleId);
 const missingTypeScriptSource = `
@@ -256,6 +256,34 @@ test('no TypeScript install skips TypeScript files and omits the parser export',
 		);
 		t.is(declarationVariantErrors[0].message, 'File ignored because no matching configuration was supplied.');
 	}
+});
+
+test('html - lints html files', async t => {
+	// Uppercase tags should trigger the lowercase rule
+	const errors = await runEslint(
+		'<HTML></HTML>\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.html'},
+	);
+	t.true(hasRule(errors, '@html-eslint/lowercase'));
+});
+
+test('html - indent respects space option', async t => {
+	// Fixture uses 2-space indentation
+	const fixture = '<!doctype html>\n<html>\n  <body></body>\n</html>\n';
+
+	// Tab config should report an indent error for the 2-space-indented fixture
+	const tabErrors = await runEslint(fixture, eslintConfigXo(), {filePath: 'test/fixture.html'});
+	t.true(hasRule(tabErrors, '@html-eslint/indent'));
+
+	// Space config (2 spaces) should not report an indent error
+	const spaceErrors = await runEslint(fixture, eslintConfigXo({space: true}), {filePath: 'test/fixture.html'});
+	t.false(hasRule(spaceErrors, '@html-eslint/indent'));
+});
+
+test('exported file globs include html', t => {
+	t.true(allExtensions.includes('html'));
+	t.is(allFilesGlob, '**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,svelte,astro,html}');
 });
 
 test('non-typescript import failures are rethrown', async t => {

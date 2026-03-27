@@ -1,6 +1,6 @@
 # eslint-config-xo
 
-> ESLint [shareable config](https://eslint.org/docs/developer-guide/shareable-configs.html) for [XO](https://github.com/xojs/xo) with support for JavaScript and TypeScript
+> ESLint [shareable config](https://eslint.org/docs/developer-guide/shareable-configs.html) for [XO](https://github.com/xojs/xo) with support for JavaScript, TypeScript, and HTML
 
 This is for advanced users. [You probably want to use XO directly.](#use-the-xo-cli-instead)
 
@@ -68,6 +68,10 @@ export default [
 
 TypeScript is supported out of the box. If [`typescript`](https://github.com/microsoft/TypeScript) is installed, TypeScript rules are automatically enabled. For JavaScript-only projects, `typescript` is not required.
 
+## HTML
+
+HTML files (`*.html`) are linted automatically using [`@html-eslint/eslint-plugin`](https://github.com/yeonjuan/html-eslint), covering best practices, accessibility, SEO, and style.
+
 ## Included plugins
 
 - [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn)
@@ -77,6 +81,7 @@ TypeScript is supported out of the box. If [`typescript`](https://github.com/mic
 - [`@eslint-community/eslint-plugin-eslint-comments`](https://github.com/eslint-community/eslint-plugin-eslint-comments)
 - [`@stylistic/eslint-plugin`](https://github.com/eslint-stylistic/eslint-stylistic)
 - [`typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint)
+- [`@html-eslint/eslint-plugin`](https://github.com/yeonjuan/html-eslint)
 
 ## Use the XO CLI instead
 

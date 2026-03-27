@@ -12,6 +12,7 @@ import {fixupPluginRules} from '@eslint/compat';
 import {javascriptRules} from './source/javascript-rules.js';
 import {pluginsRules} from './source/plugins-rules.js';
 import {jsonConfig, json5Config, jsoncConfig} from './source/json.js';
+import {getHtmlConfig} from './source/html.js';
 import noUseExtendNativeRule from './source/rules/no-use-extend-native.js';
 
 // Dynamically import TypeScript-related packages so that `typescript` is not
@@ -45,10 +46,15 @@ export const frameworkExtensions = [
 	'astro',
 ];
 
+export const htmlExtensions = [
+	'html',
+];
+
 export const allExtensions = [
 	...jsExtensions,
 	...tsExtensions,
 	...frameworkExtensions,
+	...htmlExtensions,
 ];
 const baseExtensions = [
 	...jsExtensions,
@@ -130,7 +136,7 @@ export default function eslintConfigXo({
 	space = false,
 	semicolon = true,
 } = {}) {
-	const lintedExtensions = ts ? allExtensions : baseExtensions;
+	const lintedExtensions = ts ? [...baseExtensions, ...tsExtensions] : baseExtensions;
 
 	const config = {
 		name: 'xo/base',
@@ -243,6 +249,7 @@ export default function eslintConfigXo({
 		jsonConfig,
 		json5Config,
 		jsoncConfig,
+		getHtmlConfig({space}),
 		...missingTypeScriptConfig,
 
 		// Disabled for now until it becomes more stable.

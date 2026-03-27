@@ -3,6 +3,7 @@ import {type Linter} from 'eslint';
 export const tsExtensions: string[];
 export const jsExtensions: string[];
 export const frameworkExtensions: string[];
+export const htmlExtensions: string[];
 export const allExtensions: string[];
 
 export const tsFilesGlob: string;
