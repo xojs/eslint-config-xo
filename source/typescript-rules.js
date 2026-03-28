@@ -520,7 +520,7 @@ export const typescriptRules = {
 	'@typescript-eslint/no-unsafe-function-type': 'error',
 	'@typescript-eslint/no-unsafe-member-access': 'error',
 	'@typescript-eslint/no-unsafe-return': 'error',
-	'@typescript-eslint/no-unsafe-type-assertion': 'error',
+	// '@typescript-eslint/no-unsafe-type-assertion': 'error', // TODO: Enable again when it's fixed for TS 6.
 	'@typescript-eslint/no-useless-empty-export': 'error',
 	'no-unused-expressions': 'off',
 	'no-unused-private-class-members': 'off',

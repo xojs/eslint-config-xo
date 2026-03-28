@@ -107,7 +107,9 @@ export const javascriptRules = {
 	'dot-notation': 'error',
 	'@stylistic/curly-newline': [
 		'error',
-		'always',
+		{
+			consistent: true,
+		},
 	],
 	'@stylistic/dot-location': [
 		'error',
@@ -266,7 +268,7 @@ export const javascriptRules = {
 		'error',
 		'1tbs',
 		{
-			allowSingleLine: false,
+			allowSingleLine: true,
 		},
 	],
 	camelcase: [

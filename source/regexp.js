@@ -92,14 +92,14 @@ export function getRegexpConfig({files}) {
 			'regexp/grapheme-string-literal': 'error',
 			'regexp/hexadecimal-escape': [
 				'error',
-				'always',
+				'never', // We prefer the consistency of Unicode escapes.
 			],
 			'regexp/letter-case': [
 				'error',
 				{
 					caseInsensitive: 'lowercase',
-					unicodeEscape: 'lowercase',
-					hexadecimalEscape: 'lowercase',
+					unicodeEscape: 'ignore', // `unicorn/escape-case` already handles it.
+					hexadecimalEscape: 'uppercase',
 					controlEscape: 'uppercase',
 				},
 			],

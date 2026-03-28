@@ -25,7 +25,15 @@ export function getJsdocConfigs({files, tsFiles}) {
 			rules: {
 				// Validation
 				'jsdoc/check-access': 'error',
-				'jsdoc/check-alignment': 'error',
+
+				// Doesn't work when not prefixing lines with `*`.
+				// 'jsdoc/check-alignment': [
+				// 	'error',
+				// 	{
+				// 		innerIndent: 0,
+				// 	}
+				// ],
+
 				'jsdoc/check-indentation': 'error',
 				'jsdoc/check-line-alignment': 'error',
 				'jsdoc/check-param-names': 'error',
@@ -49,7 +57,14 @@ export function getJsdocConfigs({files, tsFiles}) {
 				'jsdoc/convert-to-jsdoc-comments': 'off',
 				'jsdoc/empty-tags': 'error',
 				'jsdoc/escape-inline-tags': 'error',
-				'jsdoc/lines-before-block': 'error',
+
+				// The rule is dumb and doesn't handle:
+				// export type Options = {
+				//		/**
+				//		Foo
+				//		*/
+				// 'jsdoc/lines-before-block': 'error',
+
 				'jsdoc/multiline-blocks': 'error',
 				'jsdoc/no-bad-blocks': 'error',
 				'jsdoc/no-blank-block-descriptions': 'error',
@@ -60,7 +75,7 @@ export function getJsdocConfigs({files, tsFiles}) {
 					'never',
 				],
 				'jsdoc/sort-tags': 'off', // Too opinionated. Too much churn.
-				'jsdoc/tag-lines': 'error',
+				'jsdoc/tag-lines': ['error', 'any', {startLines: null}],
 				'jsdoc/type-formatting': 'off', // It's marked as experimental.
 
 				// Content
@@ -86,7 +101,11 @@ export function getJsdocConfigs({files, tsFiles}) {
 				// Requirements — these only apply to existing JSDoc comments,
 				// except `require-jsdoc` which requires JSDoc to be present.
 				'jsdoc/require-description': 'error',
-				'jsdoc/require-description-complete-sentence': 'error',
+
+				// It's too naive. Requires dot at the end here:
+				// Modifier: Make the text italic. *(Not widely supported)*
+				// 'jsdoc/require-description-complete-sentence': 'error',
+
 				'jsdoc/require-example': 'off',
 				'jsdoc/require-file-overview': 'off',
 				'jsdoc/require-hyphen-before-param-description': 'off',

@@ -295,8 +295,13 @@ export const pluginsRules = {
 		'error',
 		{
 			ignore: [
+				'eslint-enable',
 				'eslint-disable-next-line',
 				'eslint-disable-line',
+				'eslint-env',
+				'exported',
+				'global',
+				'globals',
 			],
 		},
 	],
