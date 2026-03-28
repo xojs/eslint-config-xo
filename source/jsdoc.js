@@ -1,0 +1,184 @@
+import pluginJsdoc from 'eslint-plugin-jsdoc';
+
+const filePragmaTags = [
+	'jest-environment',
+	'ts-check',
+	'ts-expect-error',
+	'ts-expect-no-error',
+	'ts-ignore',
+	'ts-nocheck',
+	'vitest-environment',
+];
+
+const typeScriptDocTags = [
+	'defaultValue',
+];
+
+export function getJsdocConfigs({files, tsFiles}) {
+	return [
+		{
+			name: 'xo/jsdoc',
+			plugins: {
+				jsdoc: pluginJsdoc,
+			},
+			files,
+			rules: {
+				// Validation
+				'jsdoc/check-access': 'error',
+				'jsdoc/check-alignment': 'error',
+				'jsdoc/check-indentation': 'error',
+				'jsdoc/check-line-alignment': 'error',
+				'jsdoc/check-param-names': 'error',
+				'jsdoc/check-property-names': 'error',
+				'jsdoc/check-syntax': 'error',
+				'jsdoc/check-tag-names': [
+					'error',
+					{
+						definedTags: [
+							...filePragmaTags,
+							...typeScriptDocTags,
+						],
+						jsxTags: true,
+					},
+				],
+				'jsdoc/check-template-names': 'error',
+				'jsdoc/check-types': 'error',
+				'jsdoc/check-values': 'error',
+
+				// Formatting
+				'jsdoc/convert-to-jsdoc-comments': 'off',
+				'jsdoc/empty-tags': 'error',
+				'jsdoc/escape-inline-tags': 'error',
+				'jsdoc/lines-before-block': 'error',
+				'jsdoc/multiline-blocks': 'error',
+				'jsdoc/no-bad-blocks': 'error',
+				'jsdoc/no-blank-block-descriptions': 'error',
+				'jsdoc/no-blank-blocks': 'error',
+				'jsdoc/no-multi-asterisks': 'error',
+				'jsdoc/require-asterisk-prefix': [
+					'error',
+					'never',
+				],
+				'jsdoc/sort-tags': 'off', // Too opinionated. Too much churn.
+				'jsdoc/tag-lines': 'error',
+				'jsdoc/type-formatting': 'off', // It's marked as experimental.
+
+				// Content
+				'jsdoc/implements-on-classes': 'error',
+				'jsdoc/imports-as-dependencies': 'error',
+				'jsdoc/informative-docs': 'error',
+				'jsdoc/match-description': 'off',
+				'jsdoc/match-name': 'off',
+				'jsdoc/no-defaults': 'error',
+				'jsdoc/no-missing-syntax': 'off',
+				'jsdoc/no-restricted-syntax': 'off',
+				'jsdoc/no-types': 'off',
+				// JavaScript projects commonly rely on ambient platform and lib types from `@ts-check`, DOM libs, and JSX runtimes.
+				// These types are valid in JSDoc but often have no lexical binding for `eslint-plugin-jsdoc` to resolve in a shared config.
+				// Keeping this off avoids false positives for common cases like `RequestInit`, `NodeListOf`, `AsyncGenerator`, and `React.JSX`.
+				'jsdoc/no-undefined-types': 'off',
+				'jsdoc/prefer-import-tag': 'off',
+				'jsdoc/reject-any-type': 'error',
+				'jsdoc/reject-function-type': 'error',
+				'jsdoc/text-escaping': 'off',
+				'jsdoc/valid-types': 'error',
+
+				// Requirements — these only apply to existing JSDoc comments,
+				// except `require-jsdoc` which requires JSDoc to be present.
+				'jsdoc/require-description': 'error',
+				'jsdoc/require-description-complete-sentence': 'error',
+				'jsdoc/require-example': 'off',
+				'jsdoc/require-file-overview': 'off',
+				'jsdoc/require-hyphen-before-param-description': 'off',
+				'jsdoc/require-jsdoc': 'off',
+				'jsdoc/require-next-description': 'off',
+				'jsdoc/require-next-type': 'error',
+				'jsdoc/require-param': 'error',
+				'jsdoc/require-param-description': 'error',
+				'jsdoc/require-param-name': 'error',
+				'jsdoc/require-param-type': 'error',
+				'jsdoc/require-property': 'error',
+				'jsdoc/require-property-description': 'error',
+				'jsdoc/require-property-name': 'error',
+				'jsdoc/require-property-type': 'error',
+				'jsdoc/require-rejects': 'off',
+				'jsdoc/require-returns': 'error',
+				'jsdoc/require-returns-check': 'error',
+				'jsdoc/require-returns-description': 'error',
+				'jsdoc/require-returns-type': 'error',
+				'jsdoc/require-tags': 'off',
+				'jsdoc/require-template': 'off',
+				'jsdoc/require-template-description': 'off',
+				'jsdoc/require-throws': 'off',
+				'jsdoc/require-throws-description': 'off',
+				'jsdoc/require-throws-type': 'error',
+				'jsdoc/require-yields': 'error',
+				'jsdoc/require-yields-check': 'error',
+				'jsdoc/require-yields-description': 'off',
+				'jsdoc/require-yields-type': 'error',
+
+				// TypeScript-related
+				'jsdoc/ts-method-signature-style': 'off',
+				'jsdoc/ts-no-empty-object-type': 'error',
+				'jsdoc/ts-no-unnecessary-template-expression': 'off',
+				'jsdoc/ts-prefer-function-type': 'off',
+			},
+		},
+		...(tsFiles
+			? [{
+				name: 'xo/jsdoc-typescript',
+				files: tsFiles,
+				settings: {
+					jsdoc: {
+						tagNamePreference: {
+							typeParam: 'typeParam',
+						},
+					},
+				},
+				rules: {
+					// In TypeScript, types are expressed in the code, not in JSDoc.
+					'jsdoc/check-tag-names': [
+						'error',
+						{
+							definedTags: [
+								...filePragmaTags,
+								...typeScriptDocTags,
+							],
+							jsxTags: true,
+							typed: true,
+						},
+					],
+					'jsdoc/no-types': 'error',
+					'jsdoc/no-undefined-types': 'off',
+					'jsdoc/require-param': [
+						'error',
+						{
+							contexts: [
+								'ArrowFunctionExpression',
+								'FunctionDeclaration',
+								'FunctionExpression',
+							],
+						},
+					],
+					// Keep `@returns` on real implementations, but skip declaration signatures such as overloads.
+					'jsdoc/require-returns': [
+						'error', {
+							contexts: [
+								'ArrowFunctionExpression',
+								'FunctionDeclaration',
+								'FunctionExpression',
+							],
+						},
+					],
+					'jsdoc/require-param-type': 'off',
+					'jsdoc/require-property-type': 'off',
+					'jsdoc/require-returns-type': 'off',
+					// In TypeScript, thrown/yielded value types belong in the signature rather than JSDoc.
+					'jsdoc/require-throws-type': 'off',
+					'jsdoc/require-yields-type': 'off',
+				},
+			}]
+			: []
+		),
+	];
+}

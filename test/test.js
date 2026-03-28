@@ -70,6 +70,233 @@ test('typescript - eslint-recommended rules are disabled', async t => {
 	t.false(hasRule(errors, 'no-unreachable'));
 });
 
+test('jsdoc file pragmas do not fail check-tag-names', async t => {
+	for (const [filePath, code] of [
+		['index.js', '/** @ts-check */\nconst value = 1;\nvoid value;\n'],
+		['index.jsx', '/** @jsxImportSource react */\nconst value = <div />;\nvoid value;\n'],
+		['index.js', '/** @jest-environment jsdom */\nconst value = 1;\nvoid value;\n'],
+		['index.js', '/** @vitest-environment jsdom */\nconst value = 1;\nvoid value;\n'],
+	]) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(code, eslintConfigXo(), {filePath});
+		t.false(errors.some(error => error.fatal));
+		t.false(hasRule(errors, 'jsdoc/check-tag-names'));
+	}
+});
+
+test('typescript supports tsdoc typeParam tags', async t => {
+	const errors = await runEslint(
+		'/**\n * @typeParam T - Value type.\n * @param value - Input value.\n * @returns The input value.\n */\nexport function identity<T>(value: T): T {\n\treturn value;\n}\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, 'jsdoc/check-tag-names'));
+});
+
+test('typescript supports standard tsdoc tags', async t => {
+	const errors = await runEslint(
+		'/**\n * @defaultValue 1\n * @param value - Input value.\n * @returns The input value.\n */\nexport function identity(value = 1): number {\n\treturn value;\n}\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(errors.some(error => error.fatal));
+	t.false(hasRule(errors, 'jsdoc/check-tag-names'));
+});
+
+test('javascript supports standard tsdoc tags', async t => {
+	const errors = await runEslint(
+		'/**\n * @defaultValue 1\n * @returns {number} The input value.\n */\nexport function identity(value = 1) {\n\treturn value;\n}\n',
+		eslintConfigXo(),
+		{filePath: 'index.js'},
+	);
+	t.false(errors.some(error => error.fatal));
+	t.false(hasRule(errors, 'jsdoc/check-tag-names'));
+});
+
+test('standard multiline jsdoc style is allowed', async t => {
+	const errors = await runEslint(
+		'/**\nDescription.\n@returns {number} The value.\n*/\nexport function foo() {\n\treturn 1;\n}\n',
+		eslintConfigXo(),
+		{filePath: 'index.js'},
+	);
+	t.false(errors.some(error => error.fatal));
+	t.false(hasRule(errors, 'jsdoc/require-asterisk-prefix'));
+});
+
+test('typescript jsx pragmas do not fail check-tag-names', async t => {
+	for (const [filePath, code] of [
+		['test/fixture.ts', '/** @jsxImportSource react */\nconst value = 1;\nvoid value;\n'],
+		['test/fixture.ts', '/** @jsxRuntime automatic */\nconst value = 1;\nvoid value;\n'],
+	]) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(code, eslintConfigXo(), {filePath});
+		t.false(errors.some(error => error.fatal));
+		t.false(hasRule(errors, 'jsdoc/check-tag-names'));
+	}
+});
+
+test('typescript does not require throws or yields types', async t => {
+	const throwsFixture = [
+		'/**',
+		' * @param value - Input value.',
+		' * @returns The input value.',
+		' * @throws If the value is invalid.',
+		' */',
+		'export function validate(value: string): string {',
+		'\tif (value.length === 0) {',
+		'\t\tthrow new Error(\'Invalid value\');',
+		'\t}',
+		'',
+		'\treturn value;',
+		'}',
+		'',
+	].join('\n');
+	const throwsErrors = await runEslint(
+		throwsFixture,
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(throwsErrors.some(error => error.fatal));
+	t.false(hasRule(throwsErrors, 'jsdoc/require-throws-type'));
+
+	const yieldsFixture = [
+		'/**',
+		' * @yields The next value.',
+		' */',
+		'export function *numbers(): Generator<number> {',
+		'\tyield 1;',
+		'}',
+		'',
+	].join('\n');
+	const yieldsErrors = await runEslint(
+		yieldsFixture,
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(yieldsErrors.some(error => error.fatal));
+	t.false(hasRule(yieldsErrors, 'jsdoc/require-yields-type'));
+});
+
+test('typescript overload signatures do not require returns docs', async t => {
+	const fixture = [
+		'/**',
+		' * @param value - Input value.',
+		' */',
+		'export function foo(value: string): string;',
+		'/**',
+		' * @param value - Input value.',
+		' */',
+		'export function foo(value: number): number;',
+		'export function foo(value: string | number): string | number {',
+		'\treturn value;',
+		'}',
+		'',
+	].join('\n');
+	const errors = await runEslint(
+		fixture,
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(errors.some(error => error.fatal));
+	t.false(hasRule(errors, 'jsdoc/require-returns'));
+});
+
+test('typescript overload signatures do not require param docs', async t => {
+	const fixture = [
+		'/**',
+		' * @overload',
+		' */',
+		'export function foo(value: string): string;',
+		'export function foo(value: string): string {',
+		'\treturn value;',
+		'}',
+		'',
+	].join('\n');
+	const errors = await runEslint(
+		fixture,
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(errors.some(error => error.fatal));
+	t.false(hasRule(errors, 'jsdoc/require-param'));
+});
+
+test('typescript implementations still require returns docs', async t => {
+	const fixture = [
+		'/**',
+		' * @param value - Input value.',
+		' */',
+		'export function foo(value: string): string {',
+		'\treturn value;',
+		'}',
+		'',
+	].join('\n');
+	const errors = await runEslint(
+		fixture,
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(errors.some(error => error.fatal));
+	t.true(hasRule(errors, 'jsdoc/require-returns'));
+});
+
+test('typescript method implementations still require returns docs', async t => {
+	const classMethodErrors = await runEslint(
+		'class Foo {\n\t/**\n\t * @param value - Input value.\n\t */\n\tbar(value: string): string {\n\t\treturn value;\n\t}\n}\nvoid Foo;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(classMethodErrors.some(error => error.fatal));
+	t.true(hasRule(classMethodErrors, 'jsdoc/require-returns'));
+
+	const objectMethodErrors = await runEslint(
+		'const foo = {\n\t/**\n\t * @param value - Input value.\n\t */\n\tbar(value: string): string {\n\t\treturn value;\n\t},\n};\nvoid foo;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(objectMethodErrors.some(error => error.fatal));
+	t.true(hasRule(objectMethodErrors, 'jsdoc/require-returns'));
+});
+
+test('jsdoc allows ambient type namespaces in javascript', async t => {
+	for (const [filePath, code] of [
+		['index.js', '/** @type {NodeJS.ProcessEnv} */\nconst environment = process.env;\nvoid environment;\n'],
+		['index.jsx', '/** @returns {JSX.Element} */\nexport function Foo() {\n\treturn <div />;\n}\n'],
+		['index.jsx', '/** @returns {React.JSX.Element} */\nexport function Foo() {\n\treturn <div />;\n}\n'],
+		['index.jsx', '/** @returns {Preact.JSX.Element} */\nexport function Foo() {\n\treturn <div />;\n}\n'],
+		['index.js', '/** @returns {AsyncGenerator<string, void, unknown>} */\nexport async function *foo() {\n\tyield \'value\';\n}\n'],
+	]) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(code, eslintConfigXo(), {filePath});
+		t.false(errors.some(error => error.fatal));
+		t.false(hasRule(errors, 'jsdoc/no-undefined-types'));
+	}
+});
+
+test('jsdoc allows browser ambient lib types in javascript', async t => {
+	const fixture = [
+		'/** @returns {NodeListOf<Element>} */',
+		'export function queryAll() {',
+		'\treturn document.querySelectorAll(\'div\');',
+		'}',
+		'',
+		'/**',
+		' * @param {RequestInit} options - Request options.',
+		' */',
+		'export function request(options) {',
+		'\treturn options;',
+		'}',
+		'',
+	].join('\n');
+	const errors = await runEslint(
+		fixture,
+		eslintConfigXo({browser: true}),
+		{filePath: 'index.js'},
+	);
+	t.false(errors.some(error => error.fatal));
+	t.false(hasRule(errors, 'jsdoc/no-undefined-types'));
+});
+
 test('restricted imports', async t => {
 	const errors = await runEslint('import objectAssign from \'object-assign\';\n', eslintConfigXo());
 	t.true(hasRule(errors, 'no-restricted-imports'));
@@ -325,6 +552,43 @@ test('regexp - applies to typescript files', async t => {
 		{filePath: 'test/fixture.ts'},
 	);
 	t.true(hasRule(errors, 'regexp/prefer-d'));
+});
+
+test('jsdoc - flags missing param description', async t => {
+	const errors = await runEslint(
+		'/**\n * Does something.\n * @param {string} name\n */\nexport function foo(name) {\n\treturn name;\n}\n',
+		eslintConfigXo(),
+	);
+	t.true(hasRule(errors, 'jsdoc/require-param-description'));
+});
+
+test('jsdoc - applies to typescript files', async t => {
+	const errors = await runEslint(
+		'/**\n * Does something.\n * @param {string} name\n */\nexport function foo(name: string): string {\n\treturn name;\n}\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	// In TypeScript, types in JSDoc should not be used.
+	t.true(hasRule(errors, 'jsdoc/no-types'));
+});
+
+test('jsdoc - typescript overrides disable type requirements', async t => {
+	const errors = await runEslint(
+		'/**\n * Does something.\n * @param name - The name.\n * @returns The name.\n */\nexport function foo(name: string): string {\n\treturn name;\n}\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	// TypeScript config should not require @param type or @returns type.
+	t.false(hasRule(errors, 'jsdoc/require-param-type'));
+	t.false(hasRule(errors, 'jsdoc/require-returns-type'));
+});
+
+test('jsdoc - does not require jsdoc on functions', async t => {
+	const errors = await runEslint(
+		'export function foo() {\n\treturn true;\n}\n',
+		eslintConfigXo(),
+	);
+	t.false(hasRule(errors, 'jsdoc/require-jsdoc'));
 });
 
 test('exported file globs include html and md', t => {

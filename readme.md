@@ -88,6 +88,7 @@ Markdown files (`*.md`) are linted automatically using [`@eslint/markdown`](http
 - [`@html-eslint/eslint-plugin`](https://github.com/yeonjuan/html-eslint)
 - [`@eslint/markdown`](https://github.com/eslint/markdown)
 - [`eslint-plugin-regexp`](https://github.com/ota-meshi/eslint-plugin-regexp)
+- [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc)
 
 ## Use the XO CLI instead
 
