@@ -309,6 +309,24 @@ test('html - indent respects space option', async t => {
 	t.false(hasRule(spaceErrors, '@html-eslint/indent'));
 });
 
+test('regexp - flags a non-optimal character class', async t => {
+	// [0-9] should use \d instead
+	const errors = await runEslint(
+		'export const regex = /[0-9]+/;\n',
+		eslintConfigXo(),
+	);
+	t.true(hasRule(errors, 'regexp/prefer-d'));
+});
+
+test('regexp - applies to typescript files', async t => {
+	const errors = await runEslint(
+		'export const regex = /[0-9]+/;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.true(hasRule(errors, 'regexp/prefer-d'));
+});
+
 test('exported file globs include html and md', t => {
 	t.true(allExtensions.includes('html'));
 	t.true(allExtensions.includes('md'));

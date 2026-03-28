@@ -82,7 +82,7 @@ export const getNamingConventionRule = ({isTsx}) => ({
 		{
 			// Interface name should not be prefixed with `I`.
 			selector: 'interface',
-			filter: /^(?!I)[A-Z]/v.source,
+			filter: /^[A-HJ-Z]/v.source,
 			format: [
 				'StrictPascalCase',
 			],
@@ -90,7 +90,7 @@ export const getNamingConventionRule = ({isTsx}) => ({
 		{
 			// Type parameter name should either be `T` or a descriptive name.
 			selector: 'typeParameter',
-			filter: /^T$|^[A-Z][a-zA-Z]+$/v.source,
+			filter: /^T$|^[A-Z][A-Za-z]+$/v.source,
 			format: [
 				'StrictPascalCase',
 			],

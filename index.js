@@ -14,6 +14,7 @@ import {pluginsRules} from './source/plugins-rules.js';
 import {jsonConfig, json5Config, jsoncConfig} from './source/json.js';
 import {getHtmlConfig} from './source/html.js';
 import {getMarkdownConfig} from './source/markdown.js';
+import {getRegexpConfig} from './source/regexp.js';
 import noUseExtendNativeRule from './source/rules/no-use-extend-native.js';
 
 // Dynamically import TypeScript-related packages so that `typescript` is not
@@ -255,6 +256,7 @@ export default function eslintConfigXo({
 		jsonConfig,
 		json5Config,
 		jsoncConfig,
+		getRegexpConfig({files: [`**/*.{${lintedExtensions.join(',')}}`]}),
 		getHtmlConfig({space}),
 		getMarkdownConfig(),
 		...missingTypeScriptConfig,
