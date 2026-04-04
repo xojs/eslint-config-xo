@@ -73,6 +73,7 @@ export const getNamingConventionRule = ({isTsx}) => ({
 			prefix: [
 				'is',
 				'has',
+				'had',
 				'can',
 				'should',
 				'will',

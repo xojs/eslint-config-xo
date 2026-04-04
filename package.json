@@ -57,27 +57,27 @@
 	],
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
-		"@eslint/compat": "^2.0.2",
-		"@eslint/css": "^1.0.0",
+		"@eslint/compat": "^2.1.0",
+		"@eslint/css": "^1.2.0",
 		"@eslint/json": "^1.2.0",
-		"@eslint/markdown": "^8.0.0",
-		"@html-eslint/eslint-plugin": "^0.58.1",
+		"@eslint/markdown": "^8.0.1",
+		"@html-eslint/eslint-plugin": "^0.60.0",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"confusing-browser-globals": "1.0.11",
 		"eslint-import-resolver-typescript": "^4.4.4",
-		"eslint-plugin-ava": "^16.0.0",
+		"eslint-plugin-ava": "^16.0.1",
 		"eslint-plugin-import-x": "^4.16.1",
-		"eslint-plugin-jsdoc": "^62.8.1",
-		"eslint-plugin-n": "^17.24.0",
+		"eslint-plugin-jsdoc": "^62.9.0",
+		"eslint-plugin-n": "^18.0.1",
 		"eslint-plugin-regexp": "^3.1.0",
 		"eslint-plugin-unicorn": "^64.0.0",
-		"globals": "^17.4.0",
-		"typescript-eslint": "^8.58.0"
+		"globals": "^17.6.0",
+		"typescript-eslint": "^8.59.3"
 	},
 	"devDependencies": {
-		"ava": "^7.0.0",
-		"eslint": "^10.1.0",
-		"typescript": "^6.0.2"
+		"ava": "^8.0.0",
+		"eslint": "^10.3.0",
+		"typescript": "^6.0.3"
 	},
 	"peerDependencies": {
 		"eslint": ">=10",

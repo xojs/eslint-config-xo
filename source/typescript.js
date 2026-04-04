@@ -63,6 +63,8 @@ export function getConfigs({optionRules, tsExtensions}) {
 			rules: {
 				'@typescript-eslint/no-unsafe-call': 'off',
 				'@typescript-eslint/no-confusing-void-expression': 'off', // Conflicts with `expectError` assertion.
+				'@typescript-eslint/no-unnecessary-type-arguments': 'off',
+				'@typescript-eslint/no-unsafe-argument': 'off',
 			},
 		},
 		{

@@ -69,7 +69,8 @@ export function getJsdocConfigs({files, tsFiles}) {
 				'jsdoc/no-bad-blocks': 'error',
 				'jsdoc/no-blank-block-descriptions': 'error',
 				'jsdoc/no-blank-blocks': 'error',
-				'jsdoc/no-multi-asterisks': 'error',
+				// `preventAtMiddleLines` is disabled to allow `**bold**` Markdown at the start of JSDoc content lines, which otherwise gets misinterpreted as a multi-asterisk prefix.
+				'jsdoc/no-multi-asterisks': ['error', {preventAtMiddleLines: false}],
 				'jsdoc/require-asterisk-prefix': [
 					'error',
 					'never',
@@ -81,10 +82,21 @@ export function getJsdocConfigs({files, tsFiles}) {
 				// Content
 				'jsdoc/implements-on-classes': 'error',
 				'jsdoc/imports-as-dependencies': 'error',
-				'jsdoc/informative-docs': 'error',
+				// `@default` is excluded because values like `[]` or `{}` contain no word characters, causing the rule to incorrectly flag them as uninformative.
+				'jsdoc/informative-docs': ['error', {excludedTags: ['default']}],
 				'jsdoc/match-description': 'off',
 				'jsdoc/match-name': 'off',
-				'jsdoc/no-defaults': 'error',
+				// It's buggy and seem to apply to getters even when we specify `contexts`.
+				// 'jsdoc/no-defaults': [
+				// 	'error',
+				// 	{
+				// 		contexts: [
+				// 			'ArrowFunctionExpression',
+				// 			'FunctionDeclaration',
+				// 			'FunctionExpression',
+				// 		],
+				// 	},
+				// ],
 				'jsdoc/no-missing-syntax': 'off',
 				'jsdoc/no-restricted-syntax': 'off',
 				'jsdoc/no-types': 'off',
@@ -121,7 +133,14 @@ export function getJsdocConfigs({files, tsFiles}) {
 				'jsdoc/require-property-name': 'error',
 				'jsdoc/require-property-type': 'error',
 				'jsdoc/require-rejects': 'off',
-				'jsdoc/require-returns': 'error',
+				// Doesn't make sense to always force this. Sometimes it's clear from just the return type or from the description.
+				// Keep `@returns` on real implementations, but skip declaration signatures such as overloads.
+				// 'jsdoc/require-returns': [
+				// 	'error',
+				// 	{
+				// 		publicOnly: true,
+				// 	}
+				// ],
 				'jsdoc/require-returns-check': 'error',
 				'jsdoc/require-returns-description': 'error',
 				'jsdoc/require-returns-type': 'error',
@@ -172,16 +191,7 @@ export function getJsdocConfigs({files, tsFiles}) {
 					'jsdoc/require-param': [
 						'error',
 						{
-							contexts: [
-								'ArrowFunctionExpression',
-								'FunctionDeclaration',
-								'FunctionExpression',
-							],
-						},
-					],
-					// Keep `@returns` on real implementations, but skip declaration signatures such as overloads.
-					'jsdoc/require-returns': [
-						'error', {
+							ignoreWhenAllParamsMissing: true,
 							contexts: [
 								'ArrowFunctionExpression',
 								'FunctionDeclaration',

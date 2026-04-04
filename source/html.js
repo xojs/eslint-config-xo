@@ -34,11 +34,13 @@ export function getHtmlConfig({space = false} = {}) {
 			'@html-eslint/prefer-https': 'error',
 			'@html-eslint/require-button-type': 'error',
 			'@html-eslint/require-closing-tags': 'error',
+			'@html-eslint/require-content': 'error',
 			'@html-eslint/require-details-summary': 'error',
 			'@html-eslint/require-doctype': 'error',
 			'@html-eslint/require-explicit-size': 'error',
 			'@html-eslint/require-li-container': 'error',
 			'@html-eslint/require-meta-charset': 'error',
+			'@html-eslint/svg-require-viewbox': 'error',
 			'@html-eslint/use-baseline': 'error',
 
 			// SEO
@@ -80,7 +82,7 @@ export function getHtmlConfig({space = false} = {}) {
 			'@html-eslint/id-naming-convention': 'off', // Requires project-specific config (camelCase/kebab-case/etc.)
 			'@html-eslint/indent': ['error', indent],
 			'@html-eslint/lowercase': 'error',
-			'@html-eslint/no-extra-spacing-attrs': 'error',
+			'@html-eslint/no-extra-spacing-tags': 'error',
 			'@html-eslint/no-extra-spacing-text': 'error',
 			'@html-eslint/no-multiple-empty-lines': [
 				'error',

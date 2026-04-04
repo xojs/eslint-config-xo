@@ -221,7 +221,8 @@ test('typescript overload signatures do not require param docs', async t => {
 	t.false(hasRule(errors, 'jsdoc/require-param'));
 });
 
-test('typescript implementations still require returns docs', async t => {
+// `jsdoc/require-returns` is currently disabled.
+test.failing('typescript implementations still require returns docs', async t => {
 	const fixture = [
 		'/**',
 		' * @param value - Input value.',
@@ -240,7 +241,8 @@ test('typescript implementations still require returns docs', async t => {
 	t.true(hasRule(errors, 'jsdoc/require-returns'));
 });
 
-test('typescript method implementations still require returns docs', async t => {
+// `jsdoc/require-returns` is currently disabled.
+test.failing('typescript method implementations still require returns docs', async t => {
 	const classMethodErrors = await runEslint(
 		'class Foo {\n\t/**\n\t * @param value - Input value.\n\t */\n\tbar(value: string): string {\n\t\treturn value;\n\t}\n}\nvoid Foo;\n',
 		eslintConfigXo(),
