@@ -597,6 +597,12 @@ test('exported file globs include html and md', t => {
 	t.is(allFilesGlob, '**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,svelte,astro,html,md}');
 });
 
+test('empty braces do not conflict between curly-newline and empty-brace-spaces', async t => {
+	const errors = await runEslint('console.log(() => {});\n', eslintConfigXo());
+	t.false(hasRule(errors, '@stylistic/curly-newline'));
+	t.false(hasRule(errors, 'unicorn/empty-brace-spaces'));
+});
+
 test('non-typescript import failures are rethrown', async t => {
 	const error = await t.throwsAsync(loadConfigWithoutTypeScript({
 		typescriptSource: `
