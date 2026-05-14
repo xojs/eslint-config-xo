@@ -605,6 +605,107 @@ test('empty braces do not conflict between curly-newline and empty-brace-spaces'
 	t.false(hasRule(errors, 'unicorn/empty-brace-spaces'));
 });
 
+test('import-specifier-newline - flags specifiers on same line in multi-line import', async t => {
+	const errors = await runEslint('import {\n\tfoo, bar,\n} from \'x\';\nvoid foo, bar;\n', eslintConfigXo());
+	t.true(hasRule(errors, 'xo/import-specifier-newline'));
+});
+
+test('import-specifier-newline - allows single-line imports', async t => {
+	const errors = await runEslint('import {foo, bar} from \'x\';\nvoid foo, bar;\n', eslintConfigXo());
+	t.false(hasRule(errors, 'xo/import-specifier-newline'));
+});
+
+test('import-specifier-newline - allows each specifier on its own line', async t => {
+	const errors = await runEslint('import {\n\tfoo,\n\tbar,\n} from \'x\';\nvoid foo, bar;\n', eslintConfigXo());
+	t.false(hasRule(errors, 'xo/import-specifier-newline'));
+});
+
+test('import-specifier-newline - allows single specifier', async t => {
+	const errors = await runEslint('import {\n\tfoo,\n} from \'x\';\nvoid foo;\n', eslintConfigXo());
+	t.false(hasRule(errors, 'xo/import-specifier-newline'));
+});
+
+test('import-specifier-newline - flags multiple violations on same line', async t => {
+	const errors = await runEslint('import {\n\tfoo, bar, baz,\n} from \'x\';\nvoid foo, bar, baz;\n', eslintConfigXo());
+	const violations = errors.filter(error => error.ruleId === 'xo/import-specifier-newline');
+	t.is(violations.length, 2);
+});
+
+test('import-specifier-newline - flags only the grouped specifiers', async t => {
+	const errors = await runEslint('import {\n\tfoo, bar,\n\tbaz,\n} from \'x\';\nvoid foo, bar, baz;\n', eslintConfigXo());
+	const violations = errors.filter(error => error.ruleId === 'xo/import-specifier-newline');
+	t.is(violations.length, 1);
+});
+
+test('import-specifier-newline - flags renamed imports on same line', async t => {
+	const errors = await runEslint('import {\n\tfoo as f, bar as b,\n} from \'x\';\nvoid f, b;\n', eslintConfigXo());
+	t.true(hasRule(errors, 'xo/import-specifier-newline'));
+});
+
+test('import-specifier-newline - flags mixed default and named import', async t => {
+	const errors = await runEslint('import def, {\n\tfoo, bar,\n} from \'x\';\nvoid def, foo, bar;\n', eslintConfigXo());
+	t.true(hasRule(errors, 'xo/import-specifier-newline'));
+});
+
+test('import-specifier-newline - autofix preserves indentation', async t => {
+	const eslint = new ESLint({
+		overrideConfigFile: true,
+		overrideConfig: eslintConfigXo(),
+		fix: true,
+	});
+
+	const [result] = await eslint.lintText('import {\n\tfoo, bar,\n} from \'x\';\nvoid foo, bar;\n');
+	t.true(result.output.includes('\tfoo,\n\tbar,'));
+});
+
+test('import-specifier-newline - autofix preserves space indentation', async t => {
+	const eslint = new ESLint({
+		overrideConfigFile: true,
+		overrideConfig: eslintConfigXo({space: true}),
+		fix: true,
+	});
+
+	const [result] = await eslint.lintText('import {\n  foo, bar,\n} from \'x\';\nvoid foo, bar;\n');
+	t.true(result.output.includes('  foo,\n  bar,'));
+});
+
+test('import-specifier-newline - autofix splits all three specifiers', async t => {
+	const eslint = new ESLint({
+		overrideConfigFile: true,
+		overrideConfig: eslintConfigXo(),
+		fix: true,
+	});
+
+	const [result] = await eslint.lintText('import {\n\tfoo, bar, baz,\n} from \'x\';\nvoid foo, bar, baz;\n');
+	t.true(result.output.includes('\tfoo,\n\tbar,\n\tbaz,'));
+});
+
+test('import-specifier-newline - skips fix when comment exists between specifiers', async t => {
+	const input = 'import {\n\tfoo, /* comment */ bar,\n} from \'x\';\nvoid foo, bar;\n';
+	const errors = await runEslint(input, eslintConfigXo());
+	t.true(hasRule(errors, 'xo/import-specifier-newline'));
+
+	const eslint = new ESLint({
+		overrideConfigFile: true,
+		overrideConfig: eslintConfigXo(),
+		fix: true,
+	});
+
+	const [result] = await eslint.lintText(input);
+	t.true(hasRule(result.messages, 'xo/import-specifier-newline'));
+});
+
+test('import-specifier-newline - flags groups on multiple lines', async t => {
+	const errors = await runEslint('import {\n\tfoo, bar,\n\tbaz, qux,\n} from \'x\';\nvoid foo, bar, baz, qux;\n', eslintConfigXo());
+	const violations = errors.filter(error => error.ruleId === 'xo/import-specifier-newline');
+	t.is(violations.length, 2);
+});
+
+test('import-specifier-newline - flags type imports in typescript', async t => {
+	const errors = await runEslint('import type {\n\tFoo, Bar,\n} from \'x\';\nvoid 0 as unknown as Foo | Bar;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	t.true(hasRule(errors, 'xo/import-specifier-newline'));
+});
+
 test('non-typescript import failures are rethrown', async t => {
 	const error = await t.throwsAsync(loadConfigWithoutTypeScript({
 		typescriptSource: `

@@ -3,6 +3,7 @@ import pluginUnicorn from 'eslint-plugin-unicorn';
 export const pluginsRules = {
 	...pluginUnicorn.configs?.recommended?.rules,
 	'no-use-extend-native/no-use-extend-native': 'error',
+	'xo/import-specifier-newline': 'error',
 	// TODO: Remove this override at some point.
 	// It's just here to ease users into readable variable names.
 	'unicorn/prevent-abbreviations': [

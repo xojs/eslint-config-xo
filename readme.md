@@ -76,6 +76,29 @@ HTML files (`*.html`) are linted automatically using [`@html-eslint/eslint-plugi
 
 Markdown files (`*.md`) are linted automatically using [`@eslint/markdown`](https://github.com/eslint/markdown), covering link/image correctness, heading structure, and more.
 
+## Custom rules
+
+### xo/import-specifier-newline
+
+When an import spans multiple lines, each specifier must be on its own line. Autofixable.
+
+```js
+// Bad
+import {
+	foo, bar, baz,
+} from 'x';
+
+// Good
+import {
+	foo,
+	bar,
+	baz,
+} from 'x';
+
+// Single-line imports are not affected
+import {foo, bar} from 'x';
+```
+
 ## Included plugins
 
 - [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn)

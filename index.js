@@ -17,6 +17,7 @@ import {getMarkdownConfig} from './source/markdown.js';
 import {getRegexpConfig} from './source/regexp.js';
 import {getJsdocConfigs} from './source/jsdoc.js';
 import noUseExtendNativeRule from './source/rules/no-use-extend-native.js';
+import importSpecifierNewlineRule from './source/rules/import-specifier-newline.js';
 
 // Dynamically import TypeScript-related packages so that `typescript` is not
 // required when users don't have it installed (JavaScript-only projects).
@@ -90,6 +91,12 @@ export const defaultIgnores = [
 const pluginNoUseExtendNative = {
 	rules: {
 		'no-use-extend-native': noUseExtendNativeRule,
+	},
+};
+
+const pluginXo = {
+	rules: {
+		'import-specifier-newline': importSpecifierNewlineRule,
 	},
 };
 
@@ -172,6 +179,7 @@ export default function eslintConfigXo({
 			'import-x': pluginImport,
 			'@eslint-community/eslint-comments': pluginComments,
 			'no-use-extend-native': pluginNoUseExtendNative,
+			xo: pluginXo,
 			ava: pluginAva,
 			// TODO: Remove `fixupPluginRules` wrapping when this plugin supports ESLint 10 natively.
 			n: fixupPluginRules(pluginN),
