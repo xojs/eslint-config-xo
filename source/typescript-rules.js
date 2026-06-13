@@ -505,9 +505,7 @@ export const typescriptRules = {
 	'@typescript-eslint/no-unnecessary-type-arguments': 'error',
 	'@typescript-eslint/no-unnecessary-type-assertion': 'error',
 	'@typescript-eslint/no-unnecessary-type-constraint': 'error',
-
-	// TODO: Currently documented as flawed. Enable it if fixed in 2026.
-	// '@typescript-eslint/no-unnecessary-type-conversion': 'error',
+	'@typescript-eslint/no-unnecessary-type-conversion': 'error',
 
 	// TODO: Enable at some point. Currently disabled because it's marked as unstable.
 	// https://typescript-eslint.io/rules/no-unnecessary-type-parameters/
@@ -521,7 +519,8 @@ export const typescriptRules = {
 	'@typescript-eslint/no-unsafe-function-type': 'error',
 	'@typescript-eslint/no-unsafe-member-access': 'error',
 	'@typescript-eslint/no-unsafe-return': 'error',
-	// '@typescript-eslint/no-unsafe-type-assertion': 'error', // TODO: Enable again when it's fixed for TS 6.
+	// Disabled because it's too naive. It flags intentional, idiomatic type-guard assertions like `(value as Promise<T>)?.then` as unsafe, causing too much noise in type-guard-heavy and low-level code.
+	// '@typescript-eslint/no-unsafe-type-assertion': 'error',
 	'@typescript-eslint/no-useless-empty-export': 'error',
 	'no-unused-expressions': 'off',
 	'no-unused-private-class-members': 'off',

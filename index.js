@@ -1,7 +1,8 @@
 import globals from 'globals';
 import confusingBrowserGlobals from 'confusing-browser-globals';
 import stylistic from '@stylistic/eslint-plugin';
-import css from '@eslint/css'; // eslint-disable-line no-unused-vars
+import css from '@eslint/css';
+import json from '@eslint/json';
 import pluginUnicorn from 'eslint-plugin-unicorn';
 import pluginImport, {createNodeResolver} from 'eslint-plugin-import-x';
 import pluginN from 'eslint-plugin-n';
@@ -206,6 +207,7 @@ export default function eslintConfigXo({
 		rules: {
 			...pluginsRules,
 			...javascriptRules,
+			// TODO: When bumping `eslint-plugin-unicorn` to a version that includes `unicorn/no-unnecessary-global-this` (added in https://github.com/sindresorhus/eslint-plugin-unicorn/pull/3161), this will conflict with it. The `confusing-browser-globals` list forces `globalThis.` prefixes for many globals, which `no-unnecessary-global-this` then flags as unnecessary. Narrow this down to only the genuinely confusing globals (`name`, `event`, `closed`, `length`, …) or disable one of the two.
 			'no-restricted-globals': browser
 				? ['error', ...confusingBrowserGlobals]
 				: [
@@ -256,11 +258,16 @@ export default function eslintConfigXo({
 		});
 	}
 
+	// `eslint-plugin-ava` bundles its own `@eslint/json` copy for its `**/package.json` config, which clashes with our `json` plugin registration on the same files (ESLint forbids defining the same plugin name with two different objects). Reuse our `json` instance so the references match.
+	const avaConfigs = pluginAva.configs.recommended.map(avaConfig => avaConfig.plugins?.json
+		? {...avaConfig, plugins: {...avaConfig.plugins, json}}
+		: avaConfig);
+
 	return [
 		{
 			ignores: defaultIgnores,
 		},
-		...pluginAva.configs.recommended,
+		...avaConfigs,
 		config,
 		jsonConfig,
 		json5Config,
@@ -274,27 +281,27 @@ export default function eslintConfigXo({
 		getMarkdownConfig(),
 		...missingTypeScriptConfig,
 
-		// Disabled for now until it becomes more stable.
-		// {
-		// 	plugins: {
-		// 		css,
-		// 	},
-		// 	files: [
-		// 		'**/*.css',
-		// 	],
-		// 	language: 'css/css',
-		// 	rules: {
-		// 		'css/font-family-fallbacks': 'error',
-		// 		'css/no-duplicate-imports': 'error',
-		// 		'css/no-duplicate-keyframe-selectors': 'error',
-		// 		'css/no-empty-blocks': 'error',
-		// 		'css/no-invalid-at-rule-placement': 'error',
-		// 		'css/no-invalid-at-rules': 'error',
-		// 		'css/no-invalid-named-grid-areas': 'error',
-		// 		'css/no-invalid-properties': 'error',
-		// 		'css/no-unmatchable-selectors': 'error',
-		// 	},
-		// },
+		{
+			plugins: {
+				css,
+			},
+			files: [
+				'**/*.css',
+			],
+			language: 'css/css',
+			rules: {
+				'css/font-family-fallbacks': 'error',
+				'css/no-duplicate-imports': 'error',
+				'css/no-duplicate-keyframe-selectors': 'error',
+				'css/no-empty-blocks': 'error',
+				'css/no-invalid-at-rule-placement': 'error',
+				'css/no-invalid-at-rules': 'error',
+				'css/no-invalid-named-grid-areas': 'error',
+				// TODO: Enable when false positives with CSS variables are fixed: https://github.com/eslint/css/issues/199
+				// 'css/no-invalid-properties': 'error',
+				'css/no-unmatchable-selectors': 'error',
+			},
+		},
 
 		...typescriptConfigs,
 		{

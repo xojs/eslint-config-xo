@@ -114,13 +114,6 @@ export const pluginsRules = {
 	// 		}
 	// 	}
 	// ],
-	// The character class sorting is a bit buggy at the moment.
-	'unicorn/better-regex': [
-		'error',
-		{
-			sortCharacterClasses: false,
-		},
-	],
 	// TODO: Disabled for now until it becomes more stable: https://github.com/sindresorhus/eslint-plugin-unicorn/search?q=consistent-destructuring+is:issue&state=open&type=issues
 	'unicorn/consistent-destructuring': 'off',
 	// TODO: Disabled for now as I don't have time to deal with the backslash that might come from this. Try to enable this rule in 2021.

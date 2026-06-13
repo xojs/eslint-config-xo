@@ -25,15 +25,12 @@ export function getJsdocConfigs({files, tsFiles}) {
 			rules: {
 				// Validation
 				'jsdoc/check-access': 'error',
-
-				// Doesn't work when not prefixing lines with `*`.
-				// 'jsdoc/check-alignment': [
-				// 	'error',
-				// 	{
-				// 		innerIndent: 0,
-				// 	}
-				// ],
-
+				'jsdoc/check-alignment': [
+					'error',
+					{
+						innerIndent: 0,
+					},
+				],
 				'jsdoc/check-indentation': 'error',
 				'jsdoc/check-line-alignment': 'error',
 				'jsdoc/check-param-names': 'error',
