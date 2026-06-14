@@ -449,6 +449,51 @@ export function foo() {
 	}
 });
 
+test('prettier - runs Prettier as a rule and reports misformatted code', async t => {
+	const errors = await runEslint('export const foo = {bar: \'baz\'}\n', eslintConfigXo({prettier: true}), {filePath: 'index.js'});
+	t.true(hasRule(errors, 'prettier/prettier'));
+});
+
+test('prettier - does not report well-formatted XO-style code', async t => {
+	const errors = await runEslint('export const foo = {bar: \'baz\'};\n', eslintConfigXo({prettier: true}), {filePath: 'index.js'});
+	t.false(hasRule(errors, 'prettier/prettier'));
+});
+
+test('prettier - reformats indentation to match the space option', async t => {
+	const fixture = 'export function foo() {\n  return true;\n}\n';
+
+	// `space: false` (tabs) — the 2-space fixture should be reported.
+	const tabErrors = await runEslint(fixture, eslintConfigXo({prettier: true}), {filePath: 'index.js'});
+	t.true(hasRule(tabErrors, 'prettier/prettier'));
+
+	// `space: true` (2 spaces) — the 2-space fixture matches, so no report.
+	const spaceErrors = await runEslint(fixture, eslintConfigXo({prettier: true, space: true}), {filePath: 'index.js'});
+	t.false(hasRule(spaceErrors, 'prettier/prettier'));
+});
+
+test('prettier - reports semicolons according to the semicolon option', async t => {
+	const fixture = 'export const foo = \'bar\';\n';
+
+	// `semicolon: true` (default) — the semicolon matches, so no report.
+	const withSemicolon = await runEslint(fixture, eslintConfigXo({prettier: true}), {filePath: 'index.js'});
+	t.false(hasRule(withSemicolon, 'prettier/prettier'));
+
+	// `semicolon: false` — the trailing semicolon should be reported.
+	const withoutSemicolon = await runEslint(fixture, eslintConfigXo({prettier: true, semicolon: false}), {filePath: 'index.js'});
+	t.true(hasRule(withoutSemicolon, 'prettier/prettier'));
+});
+
+test('prettier - compat disables conflicting stylistic rules without running Prettier', async t => {
+	const errors = await runEslint('export function foo() {\n  return true;\n}\n', eslintConfigXo({prettier: 'compat'}), {filePath: 'index.js'});
+	t.false(hasRule(errors, 'prettier/prettier'));
+	t.false(hasRule(errors, '@stylistic/indent'));
+});
+
+test('prettier - default does not enable Prettier', async t => {
+	const errors = await runEslint('export const foo = {bar: \'baz\'}\n', eslintConfigXo(), {filePath: 'index.js'});
+	t.false(hasRule(errors, 'prettier/prettier'));
+});
+
 test('no TypeScript install skips TypeScript files and omits the parser export', async t => {
 	const {temporaryDirectory, configModule} = await loadConfigWithoutTypeScript();
 	t.teardown(async () => {

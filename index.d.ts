@@ -38,6 +38,18 @@ export type Options = {
 	@default true
 	*/
 	semicolon?: boolean;
+
+	/**
+	Integrate [Prettier](https://prettier.io).
+
+	- `true` — Run Prettier as an ESLint rule using XO's Prettier style, and disable the stylistic rules that would conflict with it. Requires `prettier` to be installed.
+	- `'compat'` — Only disable the stylistic rules that conflict with Prettier, for when you run Prettier separately (for example, from your editor or a script).
+
+	Prettier options you set in a `.prettierrc` still apply for anything XO does not configure (like `printWidth` or plugins), but XO's own style settings take precedence.
+
+	@default false
+	*/
+	prettier?: boolean | 'compat';
 };
 
 /**
@@ -46,3 +58,15 @@ ESLint shareable config for XO with support for JavaScript and TypeScript.
 @returns An array of ESLint flat config objects.
 */
 export default function eslintConfigXo(options?: Options): Linter.Config[];
+
+/**
+Build the ESLint flat config object that integrates [Prettier](https://prettier.io), or `undefined` when `prettier` is falsy.
+
+Mainly intended for the `xo` package to reuse XO's Prettier integration. When `files` is omitted, the config applies to all files.
+*/
+export function getPrettierConfig(options: {
+	prettier?: boolean | 'compat';
+	space?: boolean | number;
+	semicolon?: boolean;
+	files?: Linter.Config['files'];
+}): Linter.Config | undefined;

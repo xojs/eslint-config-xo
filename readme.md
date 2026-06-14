@@ -64,6 +64,24 @@ export default [
 ];
 ```
 
+#### prettier
+
+Type: `boolean | 'compat'`\
+Default: `false`
+
+Integrate [Prettier](https://prettier.io).
+
+- `true` — Run Prettier as an ESLint rule using XO's Prettier style, and disable the stylistic rules that would conflict with it. Requires `prettier` to be installed.
+- `'compat'` — Only disable the stylistic rules that conflict with Prettier, for when you run Prettier separately (for example, from your editor or a script).
+
+```js
+export default [
+	...eslintConfigXo({prettier: true}),
+];
+```
+
+Prettier options you set in a `.prettierrc` still apply for anything XO does not configure (like `printWidth` or plugins), but XO's own style settings take precedence.
+
 ## TypeScript
 
 TypeScript is supported out of the box. If [`typescript`](https://github.com/microsoft/TypeScript) is installed, TypeScript rules are automatically enabled. For JavaScript-only projects, `typescript` is not required.
@@ -112,6 +130,7 @@ import {foo, bar} from 'x';
 - [`@eslint/markdown`](https://github.com/eslint/markdown)
 - [`eslint-plugin-regexp`](https://github.com/ota-meshi/eslint-plugin-regexp)
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc)
+- [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) *(only when the [`prettier`](#prettier) option is enabled)*
 
 ## Use the XO CLI instead
 

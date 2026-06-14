@@ -68,11 +68,13 @@
 		"@html-eslint/eslint-plugin": "^0.62.0",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"confusing-browser-globals": "1.0.11",
+		"eslint-config-prettier": "^10.1.8",
 		"eslint-import-resolver-typescript": "^4.4.5",
 		"eslint-plugin-ava": "^17.0.0",
 		"eslint-plugin-import-x": "^4.16.2",
 		"eslint-plugin-jsdoc": "^63.0.2",
 		"eslint-plugin-n": "^18.1.0",
+		"eslint-plugin-prettier": "^5.5.5",
 		"eslint-plugin-regexp": "^3.1.0",
 		"eslint-plugin-unicorn": "^65.0.1",
 		"globals": "^17.6.0",
@@ -81,13 +83,18 @@
 	"devDependencies": {
 		"ava": "^8.0.1",
 		"eslint": "^10.5.0",
+		"prettier": "^3.8.3",
 		"typescript": "^6.0.3"
 	},
 	"peerDependencies": {
 		"eslint": ">=10",
+		"prettier": ">=3",
 		"typescript": ">=6"
 	},
 	"peerDependenciesMeta": {
+		"prettier": {
+			"optional": true
+		},
 		"typescript": {
 			"optional": true
 		}

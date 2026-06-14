@@ -10,6 +10,8 @@ import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
 /// import pluginPromise from 'eslint-plugin-promise';
 import pluginAva from 'eslint-plugin-ava';
 import {fixupPluginRules} from '@eslint/compat';
+import pluginPrettier from 'eslint-plugin-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import {javascriptRules} from './source/javascript-rules.js';
 import {pluginsRules} from './source/plugins-rules.js';
 import {jsonConfig, json5Config, jsoncConfig} from './source/json.js';
@@ -147,10 +149,78 @@ function getOptionRules({
 	return rules;
 }
 
+/**
+Rules from `eslint-config-prettier`'s "special rules" list that XO configures and are safe to use with Prettier.
+@see https://github.com/prettier/eslint-config-prettier#special-rules
+*/
+const prettierCompatibleSpecialRules = {
+	curly: 'error',
+	'no-unexpected-multiline': 'error',
+	'@stylistic/quotes': ['error', 'single', {avoidEscape: true}],
+	'@stylistic/no-mixed-operators': [
+		'error',
+		{
+			groups: [
+				['+', '-', '*', '/', '%', '**', '??'],
+				['&', '|', '^', '~', '<<', '>>', '>>>', '??'],
+				['==', '!=', '===', '!==', '>', '>=', '<', '<=', '??'],
+				['&&', '||', '??'],
+				['in', 'instanceof', '??'],
+			],
+		},
+	],
+	'prefer-arrow-callback': ['error', {allowNamedFunctions: true}],
+	'arrow-body-style': 'error',
+};
+
+export function getPrettierConfig({prettier, space, semicolon, files}) {
+	if (!prettier) {
+		return undefined;
+	}
+
+	// `'compat'` only disables stylistic rules that conflict with Prettier, for users who run Prettier separately.
+	if (prettier === 'compat') {
+		return {
+			name: 'xo/prettier-compat',
+			...(files ? {files} : {}),
+			rules: {
+				...eslintConfigPrettier.rules,
+				...prettierCompatibleSpecialRules,
+			},
+		};
+	}
+
+	return {
+		name: 'xo/prettier',
+		...(files ? {files} : {}),
+		plugins: {
+			prettier: pluginPrettier,
+		},
+		rules: {
+			...pluginPrettier.configs?.recommended?.rules,
+			'prettier/prettier': [
+				'error',
+				{
+					singleQuote: true,
+					bracketSpacing: false,
+					bracketSameLine: false,
+					trailingComma: 'all',
+					tabWidth: typeof space === 'number' ? space : 2,
+					useTabs: !space,
+					semi: semicolon,
+				},
+			],
+			...eslintConfigPrettier.rules,
+			...prettierCompatibleSpecialRules,
+		},
+	};
+}
+
 export default function eslintConfigXo({
 	browser = false,
 	space = false,
 	semicolon = true,
+	prettier = false,
 } = {}) {
 	const lintedExtensions = ts ? [...baseExtensions, ...tsExtensions] : baseExtensions;
 
@@ -263,6 +333,14 @@ export default function eslintConfigXo({
 		? {...avaConfig, plugins: {...avaConfig.plugins, json}}
 		: avaConfig);
 
+	// Must come last so it overrides the stylistic rules from the base and TypeScript configs.
+	const prettierConfig = getPrettierConfig({
+		prettier,
+		space,
+		semicolon,
+		files: [`**/*.{${lintedExtensions.join(',')}}`],
+	});
+
 	return [
 		{
 			ignores: defaultIgnores,
@@ -310,5 +388,6 @@ export default function eslintConfigXo({
 				'import-x/no-anonymous-default-export': 'off',
 			},
 		},
+		...(prettierConfig ? [prettierConfig] : []),
 	];
 }
