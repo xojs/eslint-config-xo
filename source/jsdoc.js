@@ -25,12 +25,8 @@ export function getJsdocConfigs({files, tsFiles}) {
 			rules: {
 				// Validation
 				'jsdoc/check-access': 'error',
-				'jsdoc/check-alignment': [
-					'error',
-					{
-						innerIndent: 0,
-					},
-				],
+				// Disabled: conflicts with our indented, asterisk-free JSDoc style. In an indented multi-paragraph block, the empty line between paragraphs is reported as misaligned, but indenting it to satisfy the rule would introduce trailing whitespace (itself a violation), so the two requirements cannot both be met.
+				'jsdoc/check-alignment': 'off',
 				'jsdoc/check-indentation': 'error',
 				'jsdoc/check-line-alignment': 'error',
 				'jsdoc/check-param-names': 'error',

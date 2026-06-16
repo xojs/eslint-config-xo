@@ -17,10 +17,11 @@ npm install --save-dev eslint-config-xo
 ```js
 // eslint.config.js
 import eslintConfigXo from 'eslint-config-xo';
+import {defineConfig} from 'eslint/config';
 
-export default [
+export default defineConfig([
 	...eslintConfigXo(),
-];
+]);
 ```
 
 ### Options
@@ -33,9 +34,9 @@ Default: `false`
 Use browser globals instead of Node.js globals.
 
 ```js
-export default [
+export default defineConfig([
 	...eslintConfigXo({browser: true}),
-];
+]);
 ```
 
 #### space
@@ -46,9 +47,9 @@ Default: `false`
 Use spaces for indentation instead of tabs. Set to `true` for 2 spaces, or a number for a custom count.
 
 ```js
-export default [
+export default defineConfig([
 	...eslintConfigXo({space: true}),
-];
+]);
 ```
 
 #### semicolon
@@ -59,9 +60,9 @@ Default: `true`
 Use semicolons at the end of statements. Set to `false` to enforce no semicolons.
 
 ```js
-export default [
+export default defineConfig([
 	...eslintConfigXo({semicolon: false}),
-];
+]);
 ```
 
 #### prettier
@@ -75,9 +76,9 @@ Integrate [Prettier](https://prettier.io).
 - `'compat'` — Only disable the stylistic rules that conflict with Prettier, for when you run Prettier separately (for example, from your editor or a script).
 
 ```js
-export default [
+export default defineConfig([
 	...eslintConfigXo({prettier: true}),
-];
+]);
 ```
 
 Prettier options you set in a `.prettierrc` still apply for anything XO does not configure (like `printWidth` or plugins), but XO's own style settings take precedence.

@@ -126,6 +126,20 @@ export const pluginsRules = {
 	'unicorn/consistent-function-scoping': 'off',
 	// TODO: Temporarily disabled until it becomes more mature.
 	'unicorn/no-useless-undefined': 'off',
+	// Too opinionated. Methods with a single return are fine as-is.
+	'unicorn/prefer-short-arrow-method': 'off',
+	// TODO: Disabled for now to avoid churn. Enable at some point.
+	'unicorn/no-this-outside-of-class': 'off',
+	// TODO: Enable when the rule is more mature. It currently flags setter/accessor parameters (conventionally named `value`).
+	'unicorn/consistent-boolean-name': 'off',
+	// TODO: Enable when the rule is more mature.
+	'unicorn/prefer-await': 'off',
+	// TODO: Enable when the rule's "simple iterable" allowlist is broadened. It flags ordinary, readable `for…of` iterables, like method calls with an interpolated template-literal argument (`root.querySelectorAll(`[x=${y}]`)`) or a literal receiver (`'a,b'.split(',')`).
+	'unicorn/no-unreadable-for-of-expression': 'off',
+	// TODO: Enable when fixed. It treats every parameter without a default as required, so it flags valid calls that omit optional arguments (e.g. `createChalk()`).
+	'unicorn/no-invalid-argument-count': 'off',
+	// TODO: Enable when less aggressive. It flags the normal pattern of reassigning a top-level variable from inside a callback (e.g. a counter in `setInterval`).
+	'unicorn/no-top-level-assignment-in-function': 'off',
 	// TODO: Temporarily disabled as the rule is buggy.
 	'function-call-argument-newline': 'off',
 	// Commented out because it's not ready for ESLint 10.

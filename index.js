@@ -182,7 +182,7 @@ export function getPrettierConfig({prettier, space, semicolon, files}) {
 	if (prettier === 'compat') {
 		return {
 			name: 'xo/prettier-compat',
-			...(files ? {files} : {}),
+			...(files && {files}),
 			rules: {
 				...eslintConfigPrettier.rules,
 				...prettierCompatibleSpecialRules,
@@ -192,7 +192,7 @@ export function getPrettierConfig({prettier, space, semicolon, files}) {
 
 	return {
 		name: 'xo/prettier',
-		...(files ? {files} : {}),
+		...(files && {files}),
 		plugins: {
 			prettier: pluginPrettier,
 		},
@@ -245,7 +245,7 @@ export default function eslintConfigXo({
 		},
 		plugins: {
 			'@stylistic': stylistic,
-			...(ts ? {'@typescript-eslint': ts.plugin} : {}),
+			...(ts && {'@typescript-eslint': ts.plugin}),
 			unicorn: pluginUnicorn,
 			'import-x': pluginImport,
 			'@eslint-community/eslint-comments': pluginComments,
@@ -267,7 +267,7 @@ export default function eslintConfigXo({
 			],
 			'import-x/parsers': {
 				espree: jsExtensions,
-				...(ts ? {'@typescript-eslint/parser': tsExtensions} : {}),
+				...(ts && {'@typescript-eslint/parser': tsExtensions}),
 			},
 			'import-x/resolver-next': [
 				createNodeResolver(),
@@ -277,7 +277,8 @@ export default function eslintConfigXo({
 		rules: {
 			...pluginsRules,
 			...javascriptRules,
-			// TODO: When bumping `eslint-plugin-unicorn` to a version that includes `unicorn/no-unnecessary-global-this` (added in https://github.com/sindresorhus/eslint-plugin-unicorn/pull/3161), this will conflict with it. The `confusing-browser-globals` list forces `globalThis.` prefixes for many globals, which `no-unnecessary-global-this` then flags as unnecessary. Narrow this down to only the genuinely confusing globals (`name`, `event`, `closed`, `length`, …) or disable one of the two.
+			// In browser mode, `confusing-browser-globals` (via `no-restricted-globals`) forces a `globalThis.` prefix for confusing globals like `name` and `length`, which `unicorn/no-unnecessary-global-this` would otherwise flag as unnecessary. Disable it here to avoid the contradiction. It stays enabled for non-browser code, where it's useful and conflict-free.
+			...(browser && {'unicorn/no-unnecessary-global-this': 'off'}),
 			'no-restricted-globals': browser
 				? ['error', ...confusingBrowserGlobals]
 				: [

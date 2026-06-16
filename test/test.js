@@ -60,6 +60,20 @@ test('browser', async t => {
 	}
 });
 
+test('browser - confusing globals do not conflict with unicorn/no-unnecessary-global-this', async t => {
+	// `confusing-browser-globals` (via `no-restricted-globals`) forces a `globalThis.` prefix for confusing globals like `name`, which `unicorn/no-unnecessary-global-this` would otherwise flag as unnecessary. The two must not contradict each other.
+	const prefixedErrors = await runEslint('export const value = globalThis.name;\n', eslintConfigXo({browser: true}), {filePath: 'index.js'});
+	t.false(hasRule(prefixedErrors, 'unicorn/no-unnecessary-global-this'));
+
+	// Bare confusing globals should still be flagged in browser mode.
+	const bareErrors = await runEslint('export const value = name;\n', eslintConfigXo({browser: true}), {filePath: 'index.js'});
+	t.true(hasRule(bareErrors, 'no-restricted-globals'));
+
+	// In non-browser mode, the rule stays enabled since there is no conflict.
+	const nodeErrors = await runEslint('export const value = globalThis.structuredClone;\n', eslintConfigXo(), {filePath: 'index.js'});
+	t.true(hasRule(nodeErrors, 'unicorn/no-unnecessary-global-this'));
+});
+
 test('typescript', async t => {
 	const errors = await runEslint('const foo: number = 5;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
 	t.true(hasRule(errors, '@typescript-eslint/no-inferrable-types'));
