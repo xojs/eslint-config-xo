@@ -280,69 +280,8 @@ export const typescriptRules = {
 			},
 		},
 	],
-	'@typescript-eslint/member-ordering': [
-		'error',
-		{
-			default: [
-				'signature',
-
-				'public-static-field',
-				'public-static-method',
-
-				'protected-static-field',
-				'protected-static-method',
-
-				'private-static-field',
-				'private-static-method',
-
-				'static-field',
-				'static-method',
-
-				'public-decorated-field',
-				'public-instance-field',
-				'public-abstract-field',
-				'public-field',
-
-				'protected-decorated-field',
-				'protected-instance-field',
-				'protected-abstract-field',
-				'protected-field',
-
-				'private-decorated-field',
-				'private-instance-field',
-				'private-field',
-
-				'instance-field',
-				'abstract-field',
-				'decorated-field',
-				'field',
-
-				'public-constructor',
-				'protected-constructor',
-				'private-constructor',
-				'constructor',
-
-				'public-decorated-method',
-				'public-instance-method',
-				'public-abstract-method',
-				'public-method',
-
-				'protected-decorated-method',
-				'protected-instance-method',
-				'protected-abstract-method',
-				'protected-method',
-
-				'private-decorated-method',
-				'private-instance-method',
-				'private-method',
-
-				'instance-method',
-				'abstract-method',
-				'decorated-method',
-				'method',
-			],
-		},
-	],
+	// We use `unicorn/consistent-class-member-order` for member ordering instead. It's simpler and has an autofix suggestion.
+	'@typescript-eslint/member-ordering': 'off',
 
 	// Disabled for now as it causes too many weird TypeScript issues. I'm not sure whether the problems are caused by bugs in TS or problems in my types.
 	// TODO: Try to re-enable this again in 2026.
