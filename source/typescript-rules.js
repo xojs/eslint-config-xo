@@ -549,6 +549,7 @@ export const typescriptRules = {
 		},
 	],
 	'@typescript-eslint/return-await': 'error',
+	'unicorn/require-array-sort-compare': 'off',
 	'@typescript-eslint/require-array-sort-compare': [
 		'error',
 		{
