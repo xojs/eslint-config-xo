@@ -532,6 +532,11 @@ test('prettier - compat disables conflicting stylistic rules without running Pre
 	t.false(hasRule(errors, '@stylistic/indent'));
 });
 
+test('prettier - compat does not enforce quote style', async t => {
+	const errors = await runEslint('export const foo = "bar";\n', eslintConfigXo({prettier: 'compat'}), {filePath: 'index.js'});
+	t.false(hasRule(errors, '@stylistic/quotes'));
+});
+
 test('prettier - default does not enable Prettier', async t => {
 	const errors = await runEslint('export const foo = {bar: \'baz\'}\n', eslintConfigXo(), {filePath: 'index.js'});
 	t.false(hasRule(errors, 'prettier/prettier'));

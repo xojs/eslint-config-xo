@@ -156,7 +156,6 @@ Rules from `eslint-config-prettier`'s "special rules" list that XO configures an
 const prettierCompatibleSpecialRules = {
 	curly: 'error',
 	'no-unexpected-multiline': 'error',
-	'@stylistic/quotes': ['error', 'single', {avoidEscape: true}],
 	'@stylistic/no-mixed-operators': [
 		'error',
 		{
@@ -212,6 +211,8 @@ export function getPrettierConfig({prettier, space, semicolon, files}) {
 			],
 			...eslintConfigPrettier.rules,
 			...prettierCompatibleSpecialRules,
+			// XO controls Prettier here (`singleQuote: true`), so single-quote enforcement stays consistent.
+			'@stylistic/quotes': ['error', 'single', {avoidEscape: true}],
 		},
 	};
 }
