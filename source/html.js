@@ -14,6 +14,7 @@ const prettierConflictingRules = [
 	'@html-eslint/no-multiple-empty-lines',
 	'@html-eslint/no-trailing-spaces',
 	'@html-eslint/quotes',
+	'@html-eslint/require-closing-tags',
 ];
 
 export function getHtmlConfig({space = false, prettier = false} = {}) {
