@@ -644,6 +644,16 @@ test('regexp - applies to typescript files', async t => {
 	t.true(hasRule(errors, 'regexp/prefer-d'));
 });
 
+test('regexp - prefer-regexp-exec defers to the typescript version for typescript files', async t => {
+	const errors = await runEslint(
+		'export const match = "foo".match(/foo/);\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.true(hasRule(errors, '@typescript-eslint/prefer-regexp-exec'));
+	t.false(hasRule(errors, 'regexp/prefer-regexp-exec'));
+});
+
 test('jsdoc - flags missing param description', async t => {
 	const errors = await runEslint(
 		'/**\n * Does something.\n * @param {string} name\n */\nexport function foo(name) {\n\treturn name;\n}\n',

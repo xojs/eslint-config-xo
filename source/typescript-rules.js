@@ -601,6 +601,7 @@ export const typescriptRules = {
 	// 	}
 	// ],
 
+	'regexp/prefer-regexp-exec': 'off', // We use the type-aware `@typescript-eslint` version instead.
 	'@typescript-eslint/prefer-regexp-exec': 'error',
 	'@typescript-eslint/prefer-return-this-type': 'error',
 	'@typescript-eslint/unified-signatures': [
