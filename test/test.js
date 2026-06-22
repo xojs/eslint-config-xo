@@ -613,6 +613,30 @@ test('html - lints html files', async t => {
 	t.true(hasRule(errors, '@html-eslint/lowercase'));
 });
 
+test('html - prettier disables conflicting style rules', async t => {
+	const fixture = '<!doctype html>\n<html>\n      <body><p>x</p></body>\n</html>\n';
+
+	// Without prettier, the HTML style rules fire.
+	const baseErrors = await runEslint(fixture, eslintConfigXo(), {filePath: 'test/fixture.html'});
+	t.true(hasRule(baseErrors, '@html-eslint/indent'));
+	t.true(hasRule(baseErrors, '@html-eslint/element-newline'));
+
+	for (const prettier of ['compat', true]) {
+		// Both `prettier` modes disable the conflicting style rules...
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(fixture, eslintConfigXo({prettier}), {filePath: 'test/fixture.html'});
+		t.false(hasRule(errors, '@html-eslint/indent'));
+		t.false(hasRule(errors, '@html-eslint/element-newline'));
+
+		// ...but non-conflicting HTML rules stay on.
+		t.true(hasRule(errors, '@html-eslint/require-lang'));
+	}
+
+	// `sort-attrs` is not something Prettier does, so it stays enabled.
+	const sortErrors = await runEslint('<meta charset="utf-8" b="2" a="1">\n', eslintConfigXo({prettier: 'compat'}), {filePath: 'test/fixture.html'});
+	t.true(hasRule(sortErrors, '@html-eslint/sort-attrs'));
+});
+
 test('html - indent respects space option', async t => {
 	// Fixture uses 2-space indentation
 	const fixture = '<!doctype html>\n<html>\n  <body></body>\n</html>\n';

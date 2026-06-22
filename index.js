@@ -356,7 +356,7 @@ export default function eslintConfigXo({
 			files: [`**/*.{${lintedExtensions.join(',')}}`],
 			tsFiles: ts ? [tsFilesGlob] : undefined,
 		}),
-		getHtmlConfig({space}),
+		getHtmlConfig({space, prettier}),
 		getMarkdownConfig(),
 		...missingTypeScriptConfig,
 

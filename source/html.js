@@ -2,7 +2,21 @@ import html from '@html-eslint/eslint-plugin';
 
 const {languageOptions} = html.configs['flat/recommended'];
 
-export function getHtmlConfig({space = false} = {}) {
+// Style rules that conflict with Prettier's HTML formatting. Disabled when the `prettier` option is enabled. `eslint-config-prettier` does not yet cover `@html-eslint`: https://github.com/prettier/eslint-config-prettier/issues/248
+const prettierConflictingRules = [
+	'@html-eslint/attrs-newline',
+	'@html-eslint/class-spacing',
+	'@html-eslint/element-newline',
+	'@html-eslint/indent',
+	'@html-eslint/lowercase',
+	'@html-eslint/no-extra-spacing-tags',
+	'@html-eslint/no-extra-spacing-text',
+	'@html-eslint/no-multiple-empty-lines',
+	'@html-eslint/no-trailing-spaces',
+	'@html-eslint/quotes',
+];
+
+export function getHtmlConfig({space = false, prettier = false} = {}) {
 	const indent = space ? (typeof space === 'number' ? space : 2) : 'tab';
 
 	return {
@@ -96,6 +110,7 @@ export function getHtmlConfig({space = false} = {}) {
 				'double',
 			],
 			'@html-eslint/sort-attrs': 'error',
+			...(prettier && Object.fromEntries(prettierConflictingRules.map(rule => [rule, 'off']))),
 		},
 	};
 }
