@@ -63,24 +63,6 @@ export const getNamingConventionRule = ({isTsx}) => ({
 			],
 		},
 		{
-			selector: 'variable',
-			types: [
-				'boolean',
-			],
-			format: [
-				'StrictPascalCase',
-			],
-			prefix: [
-				'is',
-				'has',
-				'had',
-				'can',
-				'should',
-				'will',
-				'did',
-			],
-		},
-		{
 			// Interface name should not be prefixed with `I`.
 			selector: 'interface',
 			filter: /^[A-HJ-Z]/v.source,

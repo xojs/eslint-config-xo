@@ -126,12 +126,12 @@ function getOptionRules({
 		const spaces = typeof space === 'number' ? space : 2;
 		rules['@stylistic/indent'] = ['error', spaces, {SwitchCase: 1}];
 		rules['@stylistic/indent-binary-ops'] = ['error', spaces];
-	} else if (space === false) {
+	} else {
 		rules['@stylistic/indent'] = ['error', 'tab', {SwitchCase: 1}];
 		rules['@stylistic/indent-binary-ops'] = ['error', 'tab'];
 	}
 
-	if (semicolon === false) {
+	if (!semicolon) {
 		rules['@stylistic/semi'] = ['error', 'never'];
 		rules['@stylistic/semi-spacing'] = ['error', {before: false, after: true}];
 

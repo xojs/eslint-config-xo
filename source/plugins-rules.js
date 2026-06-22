@@ -6,7 +6,7 @@ export const pluginsRules = {
 	'xo/import-specifier-newline': 'error',
 	// TODO: Remove this override at some point.
 	// It's just here to ease users into readable variable names.
-	'unicorn/prevent-abbreviations': [
+	'unicorn/name-replacements': [
 		'error',
 		{
 			checkFilenames: false,
@@ -130,8 +130,16 @@ export const pluginsRules = {
 	'unicorn/prefer-short-arrow-method': 'off',
 	// TODO: Disabled for now to avoid churn. Enable at some point.
 	'unicorn/no-this-outside-of-class': 'off',
-	// TODO: Enable when the rule is more mature. It currently flags setter/accessor parameters (conventionally named `value`).
-	'unicorn/consistent-boolean-name': 'off',
+	// We enable this in favor of the boolean prefix in `@typescript-eslint/naming-convention`, which was too strict (it flagged destructuring bindings) and TypeScript-only.
+	'unicorn/consistent-boolean-name': [
+		'error',
+		{
+			prefixes: {
+				had: true,
+				does: true,
+			},
+		},
+	],
 	// TODO: Enable when the rule is more mature.
 	'unicorn/prefer-await': 'off',
 	// TODO: Enable when the rule's "simple iterable" allowlist is broadened. It flags ordinary, readable `for…of` iterables, like method calls with an interpolated template-literal argument (`root.querySelectorAll(`[x=${y}]`)`) or a literal receiver (`'a,b'.split(',')`).

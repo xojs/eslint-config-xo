@@ -402,6 +402,35 @@ test('typescript - quoted/exotic property names are allowed', async t => {
 	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
 });
 
+test('consistent-boolean-name - enforces boolean prefix in place of naming-convention', async t => {
+	const errors = await runEslint(
+		'const completed = true;\nvoid completed;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.true(hasRule(errors, 'unicorn/consistent-boolean-name'));
+	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
+test('consistent-boolean-name - allows the `had` and `does` prefixes', async t => {
+	const errors = await runEslint(
+		'const hadError = true;\nconst doesExist = false;\nvoid hadError;\nvoid doesExist;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, 'unicorn/consistent-boolean-name'));
+});
+
+test('consistent-boolean-name - ignores destructured boolean bindings', async t => {
+	const errors = await runEslint(
+		'const {awaitDomReady = false} = loader;\nvoid awaitDomReady;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(errors, 'unicorn/consistent-boolean-name'));
+	t.false(hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
 test('capitalized-comments - does not flag commented-out code keywords', async t => {
 	const codeKeywords = [
 		'// const a = 1;\n',
