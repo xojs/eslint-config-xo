@@ -73,6 +73,9 @@ const baseExtensions = [
 	...frameworkExtensions,
 ];
 
+// Well-known, unambiguous browser globals that are routinely used bare. We exclude these from `confusing-browser-globals` so `no-restricted-globals` does not force a `globalThis.` prefix on them.
+const allowedBrowserGlobals = new Set(['location', 'history', 'confirm', 'screen']);
+
 export const jsFilesGlob = `**/*.{${jsExtensions.join(',')}}`;
 export const tsFilesGlob = `**/*.{${tsExtensions.join(',')}}`;
 export const allFilesGlob = `**/*.{${allExtensions.join(',')}}`;
@@ -281,7 +284,7 @@ export default function eslintConfigXo({
 			// In browser mode, `confusing-browser-globals` (via `no-restricted-globals`) forces a `globalThis.` prefix for confusing globals like `name` and `length`, which `unicorn/no-unnecessary-global-this` would otherwise flag as unnecessary. Disable it here to avoid the contradiction. It stays enabled for non-browser code, where it's useful and conflict-free.
 			...(browser && {'unicorn/no-unnecessary-global-this': 'off'}),
 			'no-restricted-globals': browser
-				? ['error', ...confusingBrowserGlobals]
+				? ['error', ...confusingBrowserGlobals.filter(name => !allowedBrowserGlobals.has(name))]
 				: [
 					'error',
 					{

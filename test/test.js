@@ -69,6 +69,10 @@ test('browser - confusing globals do not conflict with unicorn/no-unnecessary-gl
 	const bareErrors = await runEslint('export const value = name;\n', eslintConfigXo({browser: true}), {filePath: 'index.js'});
 	t.true(hasRule(bareErrors, 'no-restricted-globals'));
 
+	// Well-known, unambiguous globals are allowed bare.
+	const allowedErrors = await runEslint('confirm(history.length);\nexport const value = [location.origin, screen.width];\n', eslintConfigXo({browser: true}), {filePath: 'index.js'});
+	t.false(hasRule(allowedErrors, 'no-restricted-globals'));
+
 	// In non-browser mode, the rule stays enabled since there is no conflict.
 	const nodeErrors = await runEslint('export const value = globalThis.structuredClone;\n', eslintConfigXo(), {filePath: 'index.js'});
 	t.true(hasRule(nodeErrors, 'unicorn/no-unnecessary-global-this'));
