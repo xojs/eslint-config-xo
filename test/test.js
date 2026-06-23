@@ -683,6 +683,34 @@ test('regexp - prefer-regexp-exec defers to the typescript version for typescrip
 	t.false(hasRule(errors, 'regexp/prefer-regexp-exec'));
 });
 
+/* eslint-disable no-template-curly-in-string -- The `${…}` is template-literal source code under test, not a placeholder in a regular string. */
+test('no-useless-template-literals - defers to the type-aware typescript version for typescript files', async t => {
+	const stringErrors = await runEslint(
+		'const stringValue = \'x\';\nexport const wrapped = `${stringValue}`;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.true(hasRule(stringErrors, '@typescript-eslint/no-unnecessary-template-expression'));
+	t.false(hasRule(stringErrors, 'unicorn/no-useless-template-literals'));
+
+	const numberErrors = await runEslint(
+		'const numberValue = 5;\nexport const wrapped = `${numberValue}`;\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(hasRule(numberErrors, '@typescript-eslint/no-unnecessary-template-expression'));
+	t.false(hasRule(numberErrors, 'unicorn/no-useless-template-literals'));
+});
+
+test('no-useless-template-literals - applies to javascript files', async t => {
+	const errors = await runEslint(
+		'const x = 5;\nexport const wrapped = `${x}`;\n',
+		eslintConfigXo(),
+	);
+	t.true(hasRule(errors, 'unicorn/no-useless-template-literals'));
+});
+/* eslint-enable no-template-curly-in-string */
+
 test('jsdoc - flags missing param description', async t => {
 	const errors = await runEslint(
 		'/**\n * Does something.\n * @param {string} name\n */\nexport function foo(name) {\n\treturn name;\n}\n',

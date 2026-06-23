@@ -530,6 +530,8 @@ export const typescriptRules = {
 			allowNumber: true,
 		},
 	],
+	'unicorn/no-useless-template-literals': 'off', // We use the type-aware `@typescript-eslint` version instead.
+	'@typescript-eslint/no-unnecessary-template-expression': 'error',
 	'@typescript-eslint/return-await': 'error',
 	'unicorn/require-array-sort-compare': 'off',
 	'@typescript-eslint/require-array-sort-compare': [
