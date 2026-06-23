@@ -120,6 +120,14 @@ export const pluginsRules = {
 	'unicorn/no-null': 'off',
 	// We only enforce it for single-line statements to not be too opinionated.
 	'unicorn/prefer-ternary': ['error', 'only-single-line'],
+	// Used in favor of the native `logical-assignment-operators`, which `eslint-plugin-unicorn`'s recommended config disables. The unicorn version has the same options but adds an autofix.
+	'unicorn/logical-assignment-operators': [
+		'error',
+		'always',
+		{
+			enforceForIfStatements: true,
+		},
+	],
 	// It will be disabled in the next version of eslint-plugin-unicorn.
 	'unicorn/prefer-json-parse-buffer': 'off',
 	// TODO: Remove this override when the rule is more stable.

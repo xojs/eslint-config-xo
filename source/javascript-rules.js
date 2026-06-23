@@ -378,13 +378,14 @@ export const javascriptRules = {
 			],
 		},
 	],
-	'logical-assignment-operators': [
-		'error',
-		'always',
-		{
-			enforceForIfStatements: true,
-		},
-	],
+	// Disabled in favor of the autofixable `unicorn/logical-assignment-operators` (configured in `plugins-rules.js`), which `eslint-plugin-unicorn`'s recommended config already sets and which disables this native rule.
+	// 'logical-assignment-operators': [
+	// 	'error',
+	// 	'always',
+	// 	{
+	// 		enforceForIfStatements: true,
+	// 	},
+	// ],
 	'max-depth': 'warn',
 	'@stylistic/max-len': [
 		'warn',
@@ -447,7 +448,8 @@ export const javascriptRules = {
 			max: 1,
 		},
 	],
-	'no-negated-condition': 'error',
+	// Disabled in favor of the autofixable `unicorn/no-negated-condition`, which `eslint-plugin-unicorn`'s recommended config already sets and which disables this native rule.
+	// 'no-negated-condition': 'error',
 	'@stylistic/no-whitespace-before-property': 'error',
 	'@stylistic/no-trailing-spaces': 'error',
 	'no-unneeded-ternary': 'error',
