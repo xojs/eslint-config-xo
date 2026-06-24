@@ -71,14 +71,14 @@
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-import-resolver-typescript": "^4.4.5",
 		"eslint-plugin-ava": "^17.0.1",
-		"eslint-plugin-import-x": "^4.16.2",
-		"eslint-plugin-jsdoc": "^63.0.4",
+		"eslint-plugin-import-x": "^4.17.0",
+		"eslint-plugin-jsdoc": "^63.0.7",
 		"eslint-plugin-n": "^18.1.0",
 		"eslint-plugin-prettier": "^5.5.6",
 		"eslint-plugin-regexp": "^3.1.0",
-		"eslint-plugin-unicorn": "^68.0.0",
-		"globals": "^17.6.0",
-		"typescript-eslint": "^8.61.1"
+		"eslint-plugin-unicorn": "^69.0.0",
+		"globals": "^17.7.0",
+		"typescript-eslint": "^8.62.0"
 	},
 	"devDependencies": {
 		"ava": "^8.0.1",
