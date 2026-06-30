@@ -334,9 +334,16 @@ export default function eslintConfigXo({
 	}
 
 	// `eslint-plugin-ava` bundles its own `@eslint/json` copy for its `**/package.json` config, which clashes with our `json` plugin registration on the same files (ESLint forbids defining the same plugin name with two different objects). Reuse our `json` instance so the references match.
-	const avaConfigs = pluginAva.configs.recommended.map(avaConfig => avaConfig.plugins?.json
-		? {...avaConfig, plugins: {...avaConfig.plugins, json}}
-		: avaConfig);
+	const avaConfigs = pluginAva.configs.recommended.map(avaConfig => {
+		const namedAvaConfig = {
+			...avaConfig,
+			name: avaConfig.files?.includes('**/package.json') ? 'xo/ava-package-json' : 'xo/ava',
+		};
+
+		return namedAvaConfig.plugins?.json
+			? {...namedAvaConfig, plugins: {...namedAvaConfig.plugins, json}}
+			: namedAvaConfig;
+	});
 
 	// Must come last so it overrides the stylistic rules from the base and TypeScript configs.
 	const prettierConfig = getPrettierConfig({
@@ -348,6 +355,7 @@ export default function eslintConfigXo({
 
 	return [
 		{
+			name: 'xo/ignores',
 			ignores: defaultIgnores,
 		},
 		...avaConfigs,
@@ -365,6 +373,7 @@ export default function eslintConfigXo({
 		...missingTypeScriptConfig,
 
 		{
+			name: 'xo/css',
 			plugins: {
 				css,
 			},
@@ -388,6 +397,7 @@ export default function eslintConfigXo({
 
 		...typescriptConfigs,
 		{
+			name: 'xo/config-file',
 			files: ['xo.config.{js,ts}'],
 			rules: {
 				'import-x/no-anonymous-default-export': 'off',

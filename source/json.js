@@ -9,6 +9,7 @@ const jsonRules = {
 
 // `jsonConfig` must come before `jsoncConfig` so that files matching both (e.g. `tsconfig.json`) end up with `language: 'json/jsonc'` instead of `'json/json'`, which would reject the JSONC-only `allowTrailingCommas` option.
 export const jsonConfig = {
+	name: 'xo/json',
 	plugins: {
 		json,
 	},
@@ -20,6 +21,7 @@ export const jsonConfig = {
 };
 
 export const jsoncConfig = {
+	name: 'xo/jsonc',
 	plugins: {
 		json,
 	},
@@ -36,6 +38,7 @@ export const jsoncConfig = {
 };
 
 export const json5Config = {
+	name: 'xo/json5',
 	plugins: {
 		json,
 	},

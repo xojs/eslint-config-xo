@@ -13,6 +13,13 @@ error.code = 'MODULE_NOT_FOUND';
 throw error;
 `;
 
+function assertUniqueConfigNames(t, configs) {
+	const names = configs.map(config => config.name);
+
+	t.false(names.includes(undefined));
+	t.is(new Set(names).size, names.length);
+}
+
 async function runEslint(string, config, {filePath} = {}) {
 	const eslint = new ESLint({
 		overrideConfigFile: true,
@@ -47,6 +54,16 @@ test('node', async t => {
 		// eslint-disable-next-line no-await-in-loop
 		const errors = await runEslint('\'use strict\';\nconsole.log("unicorn")\n', config);
 		t.true(hasRule(errors, '@stylistic/quotes'));
+	}
+});
+
+test('all config objects have unique names', t => {
+	for (const config of [
+		eslintConfigXo(),
+		eslintConfigXo({prettier: true}),
+		eslintConfigXo({prettier: 'compat'}),
+	]) {
+		assertUniqueConfigNames(t, config);
 	}
 });
 
@@ -554,13 +571,16 @@ test('no TypeScript install skips TypeScript files and omits the parser export',
 
 	t.is(configModule.typescriptParser, undefined);
 
-	const baseConfig = configModule.default().find(config => config.name === 'xo/base');
+	const noTypeScriptConfig = configModule.default();
+	assertUniqueConfigNames(t, noTypeScriptConfig);
+
+	const baseConfig = noTypeScriptConfig.find(config => config.name === 'xo/base');
 	t.deepEqual(baseConfig.files, ['**/*.{js,jsx,mjs,cjs,vue,svelte,astro}']);
 	t.deepEqual(baseConfig.settings['import-x/extensions'], ['js', 'jsx', 'mjs', 'cjs', 'vue', 'svelte', 'astro']);
 
 	const errors = await runEslint(
 		'const foo: number = 1;\n',
-		configModule.default(),
+		noTypeScriptConfig,
 		{filePath: 'test/fixture.ts'},
 	);
 	t.true(errors[0].fatal);
@@ -568,7 +588,7 @@ test('no TypeScript install skips TypeScript files and omits the parser export',
 
 	const declarationErrors = await runEslint(
 		'export type Foo = string;\n',
-		configModule.default(),
+		noTypeScriptConfig,
 		{filePath: 'index.d.ts'},
 	);
 	t.is(declarationErrors[0].message, 'File ignored because no matching configuration was supplied.');
@@ -577,7 +597,7 @@ test('no TypeScript install skips TypeScript files and omits the parser export',
 		// eslint-disable-next-line no-await-in-loop
 		const declarationVariantErrors = await runEslint(
 			'export type Foo = string;\n',
-			configModule.default(),
+			noTypeScriptConfig,
 			{filePath},
 		);
 		t.is(declarationVariantErrors[0].message, 'File ignored because no matching configuration was supplied.');

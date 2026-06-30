@@ -21,6 +21,7 @@ export function getHtmlConfig({space = false, prettier = false} = {}) {
 	const indent = space ? (typeof space === 'number' ? space : 2) : 'tab';
 
 	return {
+		name: 'xo/html',
 		plugins: {
 			'@html-eslint': html,
 		},

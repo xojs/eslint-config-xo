@@ -8,6 +8,7 @@ export const {parser} = typescriptEslint;
 export function getConfigs({optionRules, tsExtensions}) {
 	return [
 		{
+			name: 'xo/typescript',
 			files: [`**/*.{${tsExtensions.join(',')}}`],
 			plugins: {
 				'@typescript-eslint': typescriptEslint.plugin,
@@ -53,12 +54,14 @@ export function getConfigs({optionRules, tsExtensions}) {
 			},
 		},
 		{
+			name: 'xo/typescript-declaration',
 			files: ['**/*.d.ts'],
 			rules: {
 				'@typescript-eslint/no-unused-vars': 'off',
 			},
 		},
 		{
+			name: 'xo/typescript-test-declaration',
 			files: ['**/*.test-d.ts'],
 			rules: {
 				'@typescript-eslint/no-unsafe-call': 'off',
@@ -68,6 +71,7 @@ export function getConfigs({optionRules, tsExtensions}) {
 			},
 		},
 		{
+			name: 'xo/typescript-jsx',
 			files: ['**/*.tsx'],
 			rules: {
 				...getNamingConventionRule({isTsx: true}),

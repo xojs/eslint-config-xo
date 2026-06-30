@@ -41,6 +41,7 @@ const markdownRules = {
 
 export function getMarkdownConfig() {
 	return {
+		name: 'xo/markdown',
 		plugins: {
 			markdown,
 		},
