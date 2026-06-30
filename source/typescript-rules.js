@@ -403,7 +403,8 @@ export const typescriptRules = {
 			allowThrowingAny: false,
 		},
 	],
-	'@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
+	// Disabled in favor of `unicorn/no-unnecessary-boolean-comparison` (enabled via `eslint-plugin-unicorn`'s recommended config in `plugins-rules.js`), which is now type-aware and catches the same cases without requiring `strictNullChecks` to be enabled.
+	'@typescript-eslint/no-unnecessary-boolean-literal-compare': 'off',
 
 	// `no-unnecessary-condition` is essentially a stricter version of `no-constant-condition`, but that isn't currently enabled
 	'no-constant-condition': 'error',
