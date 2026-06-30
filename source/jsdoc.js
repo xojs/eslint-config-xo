@@ -14,6 +14,10 @@ const typeScriptDocTags = [
 	'defaultValue',
 ];
 
+const unicornDocTags = [
+	'isolated', // Used by `unicorn/isolated-functions`.
+];
+
 export function getJsdocConfigs({files, tsFiles}) {
 	return [
 		{
@@ -38,6 +42,7 @@ export function getJsdocConfigs({files, tsFiles}) {
 						definedTags: [
 							...filePragmaTags,
 							...typeScriptDocTags,
+							...unicornDocTags,
 						],
 						jsxTags: true,
 					},
@@ -105,7 +110,12 @@ export function getJsdocConfigs({files, tsFiles}) {
 
 				// Requirements — these only apply to existing JSDoc comments,
 				// except `require-jsdoc` which requires JSDoc to be present.
-				'jsdoc/require-description': 'error',
+				'jsdoc/require-description': [
+					'error',
+					{
+						exemptedBy: ['inheritdoc', ...unicornDocTags],
+					},
+				],
 
 				// It's too naive. Requires dot at the end here:
 				// Modifier: Make the text italic. *(Not widely supported)*
@@ -174,6 +184,7 @@ export function getJsdocConfigs({files, tsFiles}) {
 							definedTags: [
 								...filePragmaTags,
 								...typeScriptDocTags,
+								...unicornDocTags,
 							],
 							jsxTags: true,
 							typed: true,

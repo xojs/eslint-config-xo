@@ -119,6 +119,13 @@ test('jsdoc file pragmas do not fail check-tag-names', async t => {
 	}
 });
 
+test('jsdoc allows the @isolated tag used by unicorn/isolated-functions', async t => {
+	const errors = await runEslint('/** @isolated */\nfunction doStuff() {}\nvoid doStuff;\n', eslintConfigXo(), {filePath: 'index.js'});
+	t.false(errors.some(error => error.fatal));
+	t.false(hasRule(errors, 'jsdoc/check-tag-names'));
+	t.false(hasRule(errors, 'jsdoc/require-description'));
+});
+
 test('typescript supports tsdoc typeParam tags', async t => {
 	const errors = await runEslint(
 		'/**\n * @typeParam T - Value type.\n * @param value - Input value.\n * @returns The input value.\n */\nexport function identity<T>(value: T): T {\n\treturn value;\n}\n',
