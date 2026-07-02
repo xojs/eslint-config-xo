@@ -9,6 +9,7 @@ import pluginN from 'eslint-plugin-n';
 import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
 /// import pluginPromise from 'eslint-plugin-promise';
 import pluginAva from 'eslint-plugin-ava';
+import pluginNodeTest from 'eslint-node-test';
 import {fixupPluginRules} from '@eslint/compat';
 import pluginPrettier from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
@@ -345,6 +346,11 @@ export default function eslintConfigXo({
 			: namedAvaConfig;
 	});
 
+	const nodeTestConfig = {
+		...pluginNodeTest.configs.recommended,
+		files: [`**/*.{${lintedExtensions.join(',')}}`],
+	};
+
 	// Must come last so it overrides the stylistic rules from the base and TypeScript configs.
 	const prettierConfig = getPrettierConfig({
 		prettier,
@@ -359,6 +365,7 @@ export default function eslintConfigXo({
 			ignores: defaultIgnores,
 		},
 		...avaConfigs,
+		nodeTestConfig,
 		config,
 		jsonConfig,
 		json5Config,

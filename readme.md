@@ -121,9 +121,10 @@ import {foo, bar} from 'x';
 ## Included plugins
 
 - [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn)
+- [`eslint-node-test`](https://github.com/sindresorhus/eslint-node-test)
+- [`eslint-plugin-ava`](https://github.com/avajs/eslint-plugin-ava)
 - [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x)
 - [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n)
-- [`eslint-plugin-ava`](https://github.com/avajs/eslint-plugin-ava)
 - [`@eslint-community/eslint-plugin-eslint-comments`](https://github.com/eslint-community/eslint-plugin-eslint-comments)
 - [`@stylistic/eslint-plugin`](https://github.com/eslint-stylistic/eslint-stylistic)
 - [`typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint)
