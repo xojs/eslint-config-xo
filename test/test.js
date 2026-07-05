@@ -481,6 +481,24 @@ test('capitalized-comments - does not flag commented-out code keywords', async t
 	}
 });
 
+test('capitalized-comments - ignores tool ignore directives', async t => {
+	const directives = [
+		'// pragma: no cover\n',
+		'// ignore this\n',
+		'// prettier-ignore\n',
+		'// biome-ignore lint/suspicious/noDuplicateProperties\n',
+		'// svelte-ignore custom_element_props_identifier\n',
+		'// codespell:ignore\n',
+		'// newtool-ignore foo\n',
+	];
+
+	for (const code of directives) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(code, eslintConfigXo());
+		t.false(hasRule(errors, 'capitalized-comments'), `Expected no capitalized-comments error for: ${code.trim()}`);
+	}
+});
+
 test('capitalized-comments - still flags regular lowercase comments', async t => {
 	const errors = await runEslint('// this is a regular lowercase comment\n', eslintConfigXo());
 	t.true(hasRule(errors, 'capitalized-comments'));
