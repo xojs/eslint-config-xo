@@ -126,6 +126,17 @@ test('jsdoc allows the @isolated tag used by unicorn/isolated-functions', async 
 	t.false(hasRule(errors, 'jsdoc/require-description'));
 });
 
+test('jsdoc allows the @isolated tag on a method in a TypeScript file', async t => {
+	const errors = await runEslint(
+		'export const x = {\n\t/** @isolated */\n\tasync updater(repository: string): Promise<string> {\n\t\treturn repository;\n\t},\n};\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	t.false(errors.some(error => error.fatal));
+	t.false(hasRule(errors, 'jsdoc/check-tag-names'));
+	t.false(hasRule(errors, 'jsdoc/require-description'));
+});
+
 test('typescript supports tsdoc typeParam tags', async t => {
 	const errors = await runEslint(
 		'/**\n * @typeParam T - Value type.\n * @param value - Input value.\n * @returns The input value.\n */\nexport function identity<T>(value: T): T {\n\treturn value;\n}\n',
