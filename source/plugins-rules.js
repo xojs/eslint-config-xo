@@ -273,16 +273,9 @@ export const pluginsRules = {
 	// 'n/no-missing-import': 'error', // This rule is also buggy and doesn't support `node:`.
 	// 'n/no-missing-require': 'error',
 	'n/no-unpublished-bin': 'error',
-	// We have this enabled in addition to `import-x/extensions` as this one has an auto-fix.
-	'n/file-extension-in-import': [
-		'error',
-		'always',
-		{
-			// TypeScript doesn't yet support using extensions and fails with error TS2691.
-			'.ts': 'never',
-			'.tsx': 'never',
-		},
-	],
+	// Uniquely handles TypeScript's `.js`-for-`.ts` import convention (via its tsconfig-aware
+	// extension mapping) and has an auto-fix, so we keep it enabled alongside `import-x/extensions`.
+	'n/file-extension-in-import': ['error', 'always'],
 	'n/no-mixed-requires': [
 		'error',
 		{
