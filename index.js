@@ -10,6 +10,7 @@ import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
 /// import pluginPromise from 'eslint-plugin-promise';
 import pluginAva from 'eslint-plugin-ava';
 import pluginNodeTest from 'eslint-node-test';
+import pluginPackageJson from 'eslint-package-json';
 import {fixupPluginRules} from '@eslint/compat';
 import pluginPrettier from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
@@ -351,6 +352,16 @@ export default function eslintConfigXo({
 		files: [`**/*.{${lintedExtensions.join(',')}}`],
 	};
 
+	// `eslint-package-json` bundles its own `@eslint/json` copy for its `**/package.json` config, which clashes with our `json` plugin registration on the same files (ESLint forbids defining the same plugin name with two different objects). Reuse our `json` instance so the references match.
+	const packageJsonConfig = {
+		...pluginPackageJson.configs.recommended,
+		name: 'xo/package-json',
+		plugins: {
+			...pluginPackageJson.configs.recommended.plugins,
+			json,
+		},
+	};
+
 	// Must come last so it overrides the stylistic rules from the base and TypeScript configs.
 	const prettierConfig = getPrettierConfig({
 		prettier,
@@ -370,6 +381,7 @@ export default function eslintConfigXo({
 		jsonConfig,
 		json5Config,
 		jsoncConfig,
+		packageJsonConfig,
 		getRegexpConfig({files: [`**/*.{${lintedExtensions.join(',')}}`]}),
 		...getJsdocConfigs({
 			files: [`**/*.{${lintedExtensions.join(',')}}`],

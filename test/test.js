@@ -57,6 +57,11 @@ test('node', async t => {
 	}
 });
 
+test('package.json', async t => {
+	const errors = await runEslint('{\n\t"name": "foo",\n\t"keywords": []\n}\n', eslintConfigXo(), {filePath: 'package.json'});
+	t.true(hasRule(errors, 'package-json/no-empty-fields'));
+});
+
 test('all config objects have unique names', t => {
 	for (const config of [
 		eslintConfigXo(),

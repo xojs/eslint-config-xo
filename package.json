@@ -5,11 +5,7 @@
 	"license": "MIT",
 	"repository": "xojs/eslint-config-xo",
 	"funding": "https://github.com/sponsors/sindresorhus",
-	"author": {
-		"name": "Sindre Sorhus",
-		"email": "sindresorhus@gmail.com",
-		"url": "https://sindresorhus.com"
-	},
+	"author": "Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)",
 	"type": "module",
 	"exports": {
 		"types": "./index.d.ts",
@@ -21,10 +17,6 @@
 	},
 	"scripts": {
 		"test": "eslint && ava"
-	},
-	"ava": {
-		"serial": true,
-		"timeout": "10m"
 	},
 	"files": [
 		"index.js",
@@ -67,10 +59,11 @@
 		"@eslint/markdown": "^8.0.3",
 		"@html-eslint/eslint-plugin": "^0.63.0",
 		"@stylistic/eslint-plugin": "^5.10.0",
-		"confusing-browser-globals": "1.0.11",
+		"confusing-browser-globals": "^1.0.11",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-import-resolver-typescript": "^4.4.5",
 		"eslint-node-test": "^0.2.0",
+		"eslint-package-json": "^0.1.0",
 		"eslint-plugin-ava": "^17.0.1",
 		"eslint-plugin-import-x": "^4.17.1",
 		"eslint-plugin-jsdoc": "^63.0.12",
@@ -99,5 +92,9 @@
 		"typescript": {
 			"optional": true
 		}
+	},
+	"ava": {
+		"serial": true,
+		"timeout": "10m"
 	}
 }
