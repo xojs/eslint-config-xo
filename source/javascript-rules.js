@@ -617,7 +617,12 @@ export const javascriptRules = {
 	],
 	'no-class-assign': 'error',
 	'no-const-assign': 'error',
-	'no-constant-binary-expression': 'error',
+	'no-constant-binary-expression': [
+		'error',
+		{
+			checkRelationalComparisons: true,
+		},
+	],
 	'no-dupe-class-members': 'error',
 	'no-new-native-nonconstructor': 'error',
 	'no-this-before-super': 'error',

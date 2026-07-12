@@ -119,7 +119,10 @@ export const pluginsRules = {
 	// TODO: Disabled for now as I don't have time to deal with the backslash that might come from this. Try to enable this rule in 2021.
 	'unicorn/no-null': 'off',
 	// We only enforce it for single-line statements to not be too opinionated.
-	'unicorn/prefer-ternary': ['error', 'only-single-line'],
+	'unicorn/prefer-ternary': [
+		'error',
+		'only-single-line',
+	],
 	// Used in favor of the native `logical-assignment-operators`, which `eslint-plugin-unicorn`'s recommended config disables. The unicorn version has the same options but adds an autofix.
 	'unicorn/logical-assignment-operators': [
 		'error',
@@ -158,24 +161,6 @@ export const pluginsRules = {
 	'unicorn/no-top-level-assignment-in-function': 'off',
 	// TODO: Temporarily disabled as the rule is buggy.
 	'function-call-argument-newline': 'off',
-	// Commented out because it's not ready for ESLint 10.
-	// 'promise/param-names': 'error',
-	// 'promise/no-return-wrap': [
-	// 	'error',
-	// 	{
-	// 		allowReject: true,
-	// 	},
-	// ],
-	// 'promise/no-new-statics': 'error',
-	// 'promise/no-return-in-finally': 'error',
-	// 'promise/prefer-await-to-then': [
-	// 	'error',
-	// 	{
-	// 		strict: true,
-	// 	},
-	// ],
-	// 'promise/prefer-catch': 'error',
-	// 'promise/valid-params': 'error',
 	'import-x/default': 'error',
 	'import-x/export': 'error',
 	'import-x/extensions': [
