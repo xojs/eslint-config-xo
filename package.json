@@ -81,7 +81,7 @@
 		"typescript": "^6.0.3"
 	},
 	"peerDependencies": {
-		"eslint": ">=10",
+		"eslint": ">=10.4",
 		"prettier": ">=3",
 		"typescript": ">=6"
 	},

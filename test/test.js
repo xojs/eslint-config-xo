@@ -63,10 +63,13 @@ test('package.json', async t => {
 });
 
 test('all config objects have unique names', t => {
+	const gitignoreUrl = pathToFileURL(path.join(process.cwd(), 'eslint.config.js')).href;
+
 	for (const config of [
 		eslintConfigXo(),
 		eslintConfigXo({prettier: true}),
 		eslintConfigXo({prettier: 'compat'}),
+		eslintConfigXo({gitignore: gitignoreUrl}),
 	]) {
 		assertUniqueConfigNames(t, config);
 	}
@@ -924,6 +927,40 @@ test('import-specifier-newline - flags groups on multiple lines', async t => {
 test('import-specifier-newline - flags type imports in typescript', async t => {
 	const errors = await runEslint('import type {\n\tFoo, Bar,\n} from \'x\';\nvoid 0 as unknown as Foo | Bar;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
 	t.true(hasRule(errors, 'xo/import-specifier-newline'));
+});
+
+test('gitignore - ignores paths listed in .gitignore', async t => {
+	const temporaryDirectory = await fs.mkdtemp(path.join(process.cwd(), 'test', 'gitignore-'));
+	t.teardown(async () => {
+		await fs.rm(temporaryDirectory, {recursive: true, force: true});
+	});
+
+	await fs.writeFile(path.join(temporaryDirectory, '.gitignore'), 'ignored.js\n');
+
+	const config = eslintConfigXo({gitignore: pathToFileURL(path.join(temporaryDirectory, 'eslint.config.js')).href});
+	t.true(config.some(configObject => configObject.name === 'xo/gitignore'));
+
+	const ignoredErrors = await runEslint('const x = 1;\n', config, {filePath: path.join(temporaryDirectory, 'ignored.js')});
+	t.is(ignoredErrors.length, 1);
+	t.regex(ignoredErrors[0].message, /ignored because of a matching ignore pattern/v);
+
+	// A sibling file that is not gitignored is still linted.
+	const lintedErrors = await runEslint('const x = 1;\n', config, {filePath: path.join(temporaryDirectory, 'linted.js')});
+	t.true(hasRule(lintedErrors, 'no-unused-vars'));
+});
+
+test('gitignore - not enabled without the option', t => {
+	t.false(eslintConfigXo().some(configObject => configObject.name === 'xo/gitignore'));
+});
+
+test('gitignore - skips silently when .gitignore is absent', async t => {
+	const temporaryDirectory = await fs.mkdtemp(path.join(process.cwd(), 'test', 'gitignore-missing-'));
+	t.teardown(async () => {
+		await fs.rm(temporaryDirectory, {recursive: true, force: true});
+	});
+
+	const config = eslintConfigXo({gitignore: pathToFileURL(path.join(temporaryDirectory, 'eslint.config.js')).href});
+	t.false(config.some(configObject => configObject.name === 'xo/gitignore'));
 });
 
 test('non-typescript import failures are rethrown', async t => {
