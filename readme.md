@@ -83,6 +83,23 @@ export default defineConfig([
 
 Prettier options you set in a `.prettierrc` still apply for anything XO does not configure (like `printWidth` or plugins), but XO's own style settings take precedence.
 
+#### gitignore
+
+Type: `string`
+
+Ignore paths listed in your project's `.gitignore` file.
+
+Pass `import.meta.url` so the `.gitignore` is resolved relative to your ESLint config file. It is a no-op if the file does not exist.
+
+```js
+export default defineConfig([
+	...eslintConfigXo({gitignore: import.meta.url}),
+]);
+```
+
+> [!NOTE]
+> This is not needed when using the [XO CLI](https://github.com/xojs/xo), which already respects `.gitignore`.
+
 ## TypeScript
 
 TypeScript is supported out of the box. If [`typescript`](https://github.com/microsoft/TypeScript) is installed, TypeScript rules are automatically enabled. For JavaScript-only projects, `typescript` is not required.

@@ -50,6 +50,25 @@ export type Options = {
 	@default false
 	*/
 	prettier?: boolean | 'compat';
+
+	/**
+	Ignore paths listed in your project's `.gitignore` file.
+
+	Pass `import.meta.url` from your ESLint config file so the `.gitignore` is resolved relative to it. It is a no-op if the file does not exist.
+
+	Not needed when using the [XO CLI](https://github.com/xojs/xo), which already respects `.gitignore`.
+
+	@example
+	```
+	import eslintConfigXo from 'eslint-config-xo';
+	import {defineConfig} from 'eslint/config';
+
+	export default defineConfig([
+		...eslintConfigXo({gitignore: import.meta.url}),
+	]);
+	```
+	*/
+	gitignore?: string;
 };
 
 /**

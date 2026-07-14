@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {includeIgnoreFile} from 'eslint/config';
 import globals from 'globals';
 import confusingBrowserGlobals from 'confusing-browser-globals';
 import stylistic from '@stylistic/eslint-plugin';
@@ -120,6 +123,26 @@ function isMissingTypeScriptError(error) {
 		&& /'typescript'/v.test(error.message);
 }
 
+function getGitignoreConfig(configUrl) {
+	if (!configUrl) {
+		return undefined;
+	}
+
+	if (!configUrl.startsWith('file://')) {
+		throw new TypeError('The `gitignore` option must be a `file://` URL. Pass `import.meta.url` from your ESLint config file.');
+	}
+
+	// `includeIgnoreFile` requires an absolute path, so the `file://` URL cannot be passed directly.
+	const gitignorePath = fileURLToPath(new URL('.gitignore', configUrl));
+
+	// Skip silently when there is no `.gitignore`, so opting in never crashes.
+	if (!fs.existsSync(gitignorePath)) {
+		return undefined;
+	}
+
+	return includeIgnoreFile(gitignorePath, {name: 'xo/gitignore', gitignoreResolution: true});
+}
+
 function getOptionRules({
 	space = false,
 	semicolon = true,
@@ -227,6 +250,7 @@ export default function eslintConfigXo({
 	space = false,
 	semicolon = true,
 	prettier = false,
+	gitignore,
 } = {}) {
 	const lintedExtensions = ts ? [...baseExtensions, ...tsExtensions] : baseExtensions;
 
@@ -370,11 +394,14 @@ export default function eslintConfigXo({
 		files: [`**/*.{${lintedExtensions.join(',')}}`],
 	});
 
+	const gitignoreConfig = getGitignoreConfig(gitignore);
+
 	return [
 		{
 			name: 'xo/ignores',
 			ignores: defaultIgnores,
 		},
+		...(gitignoreConfig ? [gitignoreConfig] : []),
 		...avaConfigs,
 		nodeTestConfig,
 		config,
