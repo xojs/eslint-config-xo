@@ -963,6 +963,12 @@ test('gitignore - skips silently when .gitignore is absent', async t => {
 	t.false(config.some(configObject => configObject.name === 'xo/gitignore'));
 });
 
+test('gitignore - throws for a non-`file://` URL', t => {
+	t.throws(() => {
+		eslintConfigXo({gitignore: '.gitignore'});
+	}, {message: /must be a `file:\/\/` URL/v});
+});
+
 test('non-typescript import failures are rethrown', async t => {
 	const error = await t.throwsAsync(loadConfigWithoutTypeScript({
 		typescriptSource: `

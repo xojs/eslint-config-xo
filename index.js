@@ -128,6 +128,11 @@ function getGitignoreConfig(configUrl) {
 		return undefined;
 	}
 
+	if (!configUrl.startsWith('file://')) {
+		throw new TypeError('The `gitignore` option must be a `file://` URL. Pass `import.meta.url` from your ESLint config file.');
+	}
+
+	// `includeIgnoreFile` requires an absolute path, so the `file://` URL cannot be passed directly.
 	const gitignorePath = fileURLToPath(new URL('.gitignore', configUrl));
 
 	// Skip silently when there is no `.gitignore`, so opting in never crashes.
