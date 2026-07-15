@@ -648,6 +648,23 @@ test('no TypeScript install skips TypeScript files and omits the parser export',
 	}
 });
 
+test('import-x/extensions is disabled in base config when TypeScript is active', t => {
+	const config = eslintConfigXo();
+	const baseConfig = config.find(c => c.name === 'xo/base');
+	t.is(baseConfig.rules['import-x/extensions'], 'off');
+});
+
+test('import-x/extensions is enabled in base config without TypeScript', async t => {
+	const {temporaryDirectory, configModule} = await loadConfigWithoutTypeScript();
+	t.teardown(async () => {
+		await fs.rm(temporaryDirectory, {recursive: true, force: true});
+	});
+
+	const noTypeScriptConfig = configModule.default();
+	const baseConfig = noTypeScriptConfig.find(c => c.name === 'xo/base');
+	t.deepEqual(baseConfig.rules['import-x/extensions'], ['error', 'always', {ignorePackages: true}]);
+});
+
 test('markdown - lints md files', async t => {
 	// Fenced code block without a language specifier should trigger fenced-code-language
 	const errors = await runEslint(

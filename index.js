@@ -307,6 +307,8 @@ export default function eslintConfigXo({
 		rules: {
 			...pluginsRules,
 			...javascriptRules,
+			// `import-x/extensions` resolves imports to the real `.ts` target and demands a `.ts` extension, breaking TypeScript ESM's `.js`-for-`.ts` convention. Disable it for all file types (including framework files like `.vue`/`.svelte`/`.astro`) whenever TypeScript resolution is active. Extension enforcement is handled by `n/file-extension-in-import` instead.
+			...(ts && {'import-x/extensions': 'off'}),
 			// In browser mode, `confusing-browser-globals` (via `no-restricted-globals`) forces a `globalThis.` prefix for confusing globals like `name` and `length`, which `unicorn/no-unnecessary-global-this` would otherwise flag as unnecessary. Disable it here to avoid the contradiction. It stays enabled for non-browser code, where it's useful and conflict-free.
 			...(browser && {'unicorn/no-unnecessary-global-this': 'off'}),
 			'no-restricted-globals': browser

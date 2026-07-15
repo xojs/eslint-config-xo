@@ -28,10 +28,7 @@ export function getConfigs({optionRules, tsExtensions}) {
 			rules: {
 				...typescriptRules,
 				'unicorn/import-style': 'off',
-				// `import-x/extensions` resolves an import to its real `.ts` file and enforces the extension of
-				// that resolved file, so it can't model TypeScript ESM's convention of writing `.js` for `.ts`
-				// imports. The convention is instead enforced by `n/file-extension-in-import` (kept enabled) via
-				// its tsconfig-aware extension mapping, so this rule is redundant for TypeScript.
+				// Also disabled in the base config when TypeScript is active, but kept here as a safety net for config merging.
 				'import-x/extensions': 'off',
 				// Disabled because it doesn't work correctly with TypeScript.
 				'import-x/export': 'off',
