@@ -62,22 +62,22 @@
 		"confusing-browser-globals": "^1.0.11",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-import-resolver-typescript": "^4.4.5",
-		"eslint-node-test": "^0.3.0",
-		"eslint-package-json": "^0.2.0",
+		"eslint-node-test": "^0.4.0",
+		"eslint-package-json": "^0.3.0",
 		"eslint-plugin-ava": "^17.0.1",
 		"eslint-plugin-import-x": "^4.17.1",
-		"eslint-plugin-jsdoc": "^63.0.13",
+		"eslint-plugin-jsdoc": "^63.3.3",
 		"eslint-plugin-n": "^18.2.2",
 		"eslint-plugin-prettier": "^5.5.6",
 		"eslint-plugin-regexp": "^3.1.1",
-		"eslint-plugin-unicorn": "^72.0.0",
-		"globals": "^17.7.0",
-		"typescript-eslint": "^8.64.0"
+		"eslint-plugin-unicorn": "^73.0.0",
+		"globals": "^17.9.0",
+		"typescript-eslint": "^8.66.0"
 	},
 	"devDependencies": {
 		"ava": "^8.0.1",
-		"eslint": "^10.7.0",
-		"prettier": "^3.9.5",
+		"eslint": "^10.8.0",
+		"prettier": "^3.9.6",
 		"typescript": "^6.0.3"
 	},
 	"peerDependencies": {
