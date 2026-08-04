@@ -665,6 +665,27 @@ test('import-x/extensions is enabled in base config without TypeScript', async t
 	t.deepEqual(baseConfig.rules['import-x/extensions'], ['error', 'always', {ignorePackages: true}]);
 });
 
+test('import extension rules do not conflict when a JavaScript file imports a TypeScript file', async t => {
+	// `test/fixture-typescript-target.ts` is the real file behind the `./fixture-typescript-target.js` specifier.
+	const errors = await runEslint(
+		'import {foo} from \'./fixture-typescript-target.js\';\n\nconsole.log(foo);\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture-typescript-target.test.js'},
+	);
+	t.false(hasRule(errors, 'import-x/extensions'));
+	t.false(hasRule(errors, 'n/file-extension-in-import'));
+});
+
+test('n/file-extension-in-import requires the `.js` extension for a TypeScript target', async t => {
+	const errors = await runEslint(
+		'import {foo} from \'./fixture-typescript-target.ts\';\n\nconsole.log(foo);\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.ts'},
+	);
+	const error = errors.find(error => error.ruleId === 'n/file-extension-in-import');
+	t.is(error.message, 'require file extension \'.js\'.');
+});
+
 test('markdown - lints md files', async t => {
 	// Fenced code block without a language specifier should trigger fenced-code-language
 	const errors = await runEslint(
