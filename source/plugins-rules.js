@@ -279,6 +279,7 @@ export const pluginsRules = {
 	'n/prefer-global/text-encoder': ['error', 'always'],
 	'n/prefer-global/url-search-params': ['error', 'always'],
 	'n/prefer-global/url': ['error', 'always'],
+	'n/prefer-process-get-builtin-module': 'error',
 	'n/prefer-promises/dns': 'error',
 	'n/prefer-promises/fs': 'error',
 	'@eslint-community/eslint-comments/disable-enable-pair': [
