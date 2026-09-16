@@ -1,6 +1,6 @@
 {
 	"name": "eslint-config-xo",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"description": "ESLint shareable config for XO",
 	"license": "MIT",
 	"repository": "xojs/eslint-config-xo",
