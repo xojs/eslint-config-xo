@@ -211,21 +211,11 @@ const nativeObjectDefinitions = [
 const nativeObjects = new Map();
 
 for (const nativeObjectDefinition of nativeObjectDefinitions) {
-	const nativeObjectInfo = {};
-
-	if (nativeObjectDefinition.instance) {
-		nativeObjectInfo.instance = createPropertyInfo(nativeObjectDefinition.instance, nativeObjectDefinition.instanceProperties);
-	}
-
-	if (nativeObjectDefinition.prototype) {
-		nativeObjectInfo.prototype = createPropertyInfo(nativeObjectDefinition.prototype);
-	}
-
-	if (nativeObjectDefinition.static) {
-		nativeObjectInfo.static = createPropertyInfo(nativeObjectDefinition.static);
-	}
-
-	nativeObjects.set(nativeObjectDefinition.typeName, nativeObjectInfo);
+	nativeObjects.set(nativeObjectDefinition.typeName, {
+		instance: nativeObjectDefinition.instance ? createPropertyInfo(nativeObjectDefinition.instance, nativeObjectDefinition.instanceProperties) : undefined,
+		prototype: nativeObjectDefinition.prototype ? createPropertyInfo(nativeObjectDefinition.prototype) : undefined,
+		static: nativeObjectDefinition.static ? createPropertyInfo(nativeObjectDefinition.static) : undefined,
+	});
 }
 
 const getPropertyName = memberExpression => {

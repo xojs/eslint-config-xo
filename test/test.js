@@ -4,7 +4,13 @@ import process from 'node:process';
 import {pathToFileURL} from 'node:url';
 import test from 'ava';
 import {ESLint} from 'eslint';
-import eslintConfigXo, {allExtensions, allFilesGlob} from '../index.js';
+import eslintConfigXo, {
+	allExtensions,
+	allFilesGlob,
+	jsonExtensions,
+	cssExtensions,
+	defaultIgnores,
+} from '../index.js';
 
 const hasRule = (errors, ruleId) => errors.some(error => error.ruleId === ruleId);
 const missingTypeScriptSource = `
@@ -858,6 +864,16 @@ test('exported file globs include html and md', t => {
 	t.true(allExtensions.includes('html'));
 	t.true(allExtensions.includes('md'));
 	t.is(allFilesGlob, '**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,svelte,astro,html,md}');
+});
+
+test('exports json and css extensions separately and ignores lockfiles by default', t => {
+	t.deepEqual(jsonExtensions, ['json', 'jsonc', 'json5']);
+	t.deepEqual(cssExtensions, ['css']);
+	t.false(allExtensions.includes('json'));
+	t.false(allExtensions.includes('css'));
+	t.true(defaultIgnores.includes('**/package-lock.json'));
+	t.true(defaultIgnores.includes('**/npm-shrinkwrap.json'));
+	t.true(defaultIgnores.includes('**/*.min.css'));
 });
 
 test('empty braces do not conflict between curly-newline and empty-brace-spaces', async t => {

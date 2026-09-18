@@ -38,6 +38,7 @@ try {
 	}
 }
 
+// TODO: Drop `cts` in the next major version, as CommonJS is no longer supported.
 export const tsExtensions = [
 	'ts',
 	'tsx',
@@ -45,6 +46,7 @@ export const tsExtensions = [
 	'cts',
 ];
 
+// TODO: Drop `cjs` in the next major version, as CommonJS is no longer supported.
 export const jsExtensions = [
 	'js',
 	'jsx',
@@ -64,6 +66,16 @@ export const htmlExtensions = [
 
 export const mdExtensions = [
 	'md',
+];
+
+export const jsonExtensions = [
+	'json',
+	'jsonc',
+	'json5',
+];
+
+export const cssExtensions = [
+	'css',
 ];
 
 export const allExtensions = [
@@ -94,9 +106,12 @@ export const defaultIgnores = [
 	'coverage/**',
 	'{tmp,temp}/**',
 	'**/*.min.js',
+	'**/*.min.css',
 	'vendor/**',
 	'dist/**',
 	'tap-snapshots/*.{cjs,js}',
+	'**/package-lock.json',
+	'**/npm-shrinkwrap.json',
 ];
 
 const pluginNoUseExtendNative = {
@@ -114,6 +129,21 @@ const pluginXo = {
 const missingTypeScriptParser = {
 	parse() {
 		throw new Error('Install `typescript` to lint TypeScript files with eslint-config-xo.');
+	},
+};
+
+const missingTypeScriptConfig = {
+	name: 'xo/missing-typescript',
+	files: [
+		tsFilesGlob,
+	],
+	ignores: [
+		'**/*.d.ts',
+		'**/*.d.mts',
+		'**/*.d.cts',
+	],
+	languageOptions: {
+		parser: missingTypeScriptParser,
 	},
 };
 
@@ -136,11 +166,7 @@ function getGitignoreConfig(configUrl) {
 	const gitignorePath = fileURLToPath(new URL('.gitignore', configUrl));
 
 	// Skip silently when there is no `.gitignore`, so opting in never crashes.
-	if (!fs.existsSync(gitignorePath)) {
-		return undefined;
-	}
-
-	return includeIgnoreFile(gitignorePath, {name: 'xo/gitignore', gitignoreResolution: true});
+	return fs.existsSync(gitignorePath) ? includeIgnoreFile(gitignorePath, {name: 'xo/gitignore', gitignoreResolution: true}) : undefined;
 }
 
 function getOptionRules({
@@ -343,24 +369,6 @@ export default function eslintConfigXo({
 		optionRules: getOptionRules({space, semicolon, typescript: true}),
 		tsExtensions,
 	}) ?? [];
-	const missingTypeScriptConfig = [];
-	if (!ts) {
-		missingTypeScriptConfig.push({
-			name: 'xo/missing-typescript',
-			files: [
-				tsFilesGlob,
-			],
-			ignores: [
-				'**/*.d.ts',
-				'**/*.d.mts',
-				'**/*.d.cts',
-			],
-			languageOptions: {
-				parser: missingTypeScriptParser,
-			},
-		});
-	}
-
 	// `eslint-plugin-ava` bundles its own `@eslint/json` copy for its `**/package.json` config, which clashes with our `json` plugin registration on the same files (ESLint forbids defining the same plugin name with two different objects). Reuse our `json` instance so the references match.
 	const avaConfigs = pluginAva.configs.recommended.map(avaConfig => {
 		const namedAvaConfig = {
@@ -418,7 +426,7 @@ export default function eslintConfigXo({
 		}),
 		getHtmlConfig({space, prettier}),
 		getMarkdownConfig(),
-		...missingTypeScriptConfig,
+		...(ts ? [] : [missingTypeScriptConfig]),
 
 		{
 			name: 'xo/css',

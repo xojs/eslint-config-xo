@@ -84,28 +84,34 @@ async function lintProject(projectDirectory) {
 const stats = new Map();
 const occurrences = [];
 
+const recordMessage = (projectName, filePath, message) => {
+	const ruleId = message.fatal || !message.ruleId ? '(parse/fatal)' : message.ruleId;
+
+	let entry = stats.get(ruleId);
+	if (!entry) {
+		entry = {count: 0, projects: new Set()};
+		stats.set(ruleId, entry);
+	}
+
+	entry.count++;
+	entry.projects.add(projectName);
+
+	if (rule !== ruleId) {
+		return;
+	}
+
+	const relativePath = path.relative(baseDirectory, filePath);
+	occurrences.push(`${projectName} | ${relativePath}:${message.line} :: ${message.message}`);
+};
+
 for (const projectDirectory of projectDirectories) {
 	const projectName = path.basename(projectDirectory);
 	// eslint-disable-next-line no-await-in-loop
 	const results = await lintProject(projectDirectory);
 
-	for (const result of results) {
-		for (const message of result.messages) {
-			const ruleId = message.fatal || !message.ruleId ? '(parse/fatal)' : message.ruleId;
-
-			let entry = stats.get(ruleId);
-			if (!entry) {
-				entry = {count: 0, projects: new Set()};
-				stats.set(ruleId, entry);
-			}
-
-			entry.count++;
-			entry.projects.add(projectName);
-
-			if (rule === ruleId) {
-				const relativePath = path.relative(baseDirectory, result.filePath);
-				occurrences.push(`${projectName} | ${relativePath}:${message.line} :: ${message.message}`);
-			}
+	for (const {filePath, messages} of results) {
+		for (const message of messages) {
+			recordMessage(projectName, filePath, message);
 		}
 	}
 }
