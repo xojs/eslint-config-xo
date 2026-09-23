@@ -119,6 +119,28 @@ test('typescript - eslint-recommended rules are disabled', async t => {
 	t.false(hasRule(errors, 'no-unreachable'));
 });
 
+test('typescript - node:test calls are allowed to float', async t => {
+	const fixture = [
+		'/// <reference types="node" />',
+		'import test, {describe, it, suite} from \'node:test\';',
+		'test(\'a\', () => {});',
+		'test.skip(\'b\', () => {});',
+		'test.only(\'c\', () => {});',
+		'describe(\'d\', () => {',
+		'\tit(\'e\', () => {});',
+		'\tit.todo(\'f\');',
+		'});',
+		'suite(\'g\', () => {});',
+		'async function foo() {}',
+		'foo();',
+		'',
+	].join('\n');
+
+	const errors = await runEslint(fixture, eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	const floatingPromiseLines = errors.filter(error => error.ruleId === '@typescript-eslint/no-floating-promises').map(error => error.line);
+	t.deepEqual(floatingPromiseLines, [12]);
+});
+
 test('jsdoc file pragmas do not fail check-tag-names', async t => {
 	for (const [filePath, code] of [
 		['index.js', '/** @ts-check */\nconst value = 1;\nvoid value;\n'],

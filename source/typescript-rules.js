@@ -343,6 +343,22 @@ export const typescriptRules = {
 			checkThenables: true,
 			ignoreVoid: true, // Prepend a function call with `void` to mark it as not needing to be await'ed, which silences this rule.
 			ignoreIIFE: true,
+			// `node:test` functions return promises that do not need to be awaited.
+			allowForKnownSafeCalls: [
+				{
+					from: 'package',
+					package: 'node:test',
+					name: [
+						'test',
+						'it',
+						'describe',
+						'suite',
+						'skip',
+						'todo',
+						'only',
+					],
+				},
+			],
 		},
 	],
 	'@typescript-eslint/no-for-in-array': 'error',
