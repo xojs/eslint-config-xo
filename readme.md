@@ -156,7 +156,7 @@ import {foo, bar} from 'x';
 
 XO is an ESLint wrapper with great defaults.
 
-Here are some reason why you should use the [XO CLI](https://github.com/xojs/xo) instead of this config:
+Here are some reasons why you should use the [XO CLI](https://github.com/xojs/xo) instead of this config:
 
 - XO comes bundled with this config.
 - [Beautiful output.](https://github.com/sindresorhus/eslint-formatter-pretty)
