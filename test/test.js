@@ -66,6 +66,29 @@ test('package.json', async () => {
 	assert.ok(hasRule(errors, 'package-json/no-empty-fields'));
 });
 
+test('common config files are parsed as JSONC', async () => {
+	const config = eslintConfigXo();
+	const source = '{\n\t// Comment\n\t"foo": true,\n}\n';
+
+	for (const filePath of [
+		'tsconfig.json',
+		'tsconfig.node.json',
+		'packages/foo/tsconfig.build.json',
+		'jsconfig.json',
+		'.vscode/settings.json',
+		'dprint.json',
+		'.dprint.json',
+		'foo.jsonc',
+	]) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(source, config, {filePath});
+		assert.deepEqual(errors, [], filePath);
+	}
+
+	const errors = await runEslint(source, config, {filePath: 'config.json'});
+	assert.ok(errors.some(error => error.fatal));
+});
+
 test('all config objects have unique names', () => {
 	const gitignoreUrl = pathToFileURL(path.join(process.cwd(), 'eslint.config.js')).href;
 

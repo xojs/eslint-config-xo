@@ -27,7 +27,9 @@ export const jsoncConfig = {
 	},
 	files: [
 		'**/*.jsonc',
-		'**/tsconfig.json',
+		'**/{ts,js}config.json',
+		'**/{ts,js}config.*.json',
+		'**/{,.}dprint.json',
 		'.vscode/*.json',
 	],
 	language: 'json/jsonc',
