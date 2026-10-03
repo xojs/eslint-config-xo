@@ -14,6 +14,7 @@ import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
 import pluginAva from 'eslint-plugin-ava';
 import pluginNodeTest from 'eslint-node-test';
 import pluginPackageJson from 'eslint-package-json';
+import pluginCssicorn from 'eslint-cssicorn';
 import {fixupPluginRules} from '@eslint/compat';
 import pluginPrettier from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
@@ -432,6 +433,7 @@ export default function eslintConfigXo({
 			name: 'xo/css',
 			plugins: {
 				css,
+				cssicorn: pluginCssicorn,
 			},
 			files: [
 				'**/*.css',
@@ -448,6 +450,7 @@ export default function eslintConfigXo({
 				// TODO: Enable when false positives with CSS variables are fixed: https://github.com/eslint/css/issues/199
 				// 'css/no-invalid-properties': 'error',
 				'css/no-unmatchable-selectors': 'error',
+				...pluginCssicorn.configs.recommended.rules,
 			},
 		},
 

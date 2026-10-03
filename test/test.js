@@ -61,6 +61,11 @@ test('node', async () => {
 	}
 });
 
+test('css', async () => {
+	const errors = await runEslint('a {\n\tcolor: #ffffff;\n}\n', eslintConfigXo(), {filePath: 'style.css'});
+	assert.ok(hasRule(errors, 'cssicorn/prefer-short-hex-color'));
+});
+
 test('package.json', async () => {
 	const errors = await runEslint('{\n\t"name": "foo",\n\t"keywords": []\n}\n', eslintConfigXo(), {filePath: 'package.json'});
 	assert.ok(hasRule(errors, 'package-json/no-empty-fields'));

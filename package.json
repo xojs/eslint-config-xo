@@ -61,6 +61,7 @@
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"confusing-browser-globals": "^1.0.11",
 		"eslint-config-prettier": "^10.1.8",
+		"eslint-cssicorn": "^1.0.0",
 		"eslint-import-resolver-typescript": "^4.4.5",
 		"eslint-node-test": "^0.4.0",
 		"eslint-package-json": "^1.0.0",
