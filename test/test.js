@@ -169,6 +169,11 @@ test('typescript - node:test calls are allowed to float', async () => {
 	assert.deepEqual(floatingPromiseLines, [12]);
 });
 
+test('importing a helper from the test directory is allowed', async () => {
+	const errors = await runEslint('import {test} from \'./_helper.js\';\n\ntest(\'foo\', () => {});\n', eslintConfigXo(), {filePath: 'test/test.js'});
+	assert.ok(!hasRule(errors, 'node-test/no-import-test-files'));
+});
+
 test('jsdoc file pragmas do not fail check-tag-names', async () => {
 	for (const [filePath, code] of [
 		['index.js', '/** @ts-check */\nconst value = 1;\nvoid value;\n'],
