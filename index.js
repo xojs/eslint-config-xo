@@ -10,12 +10,10 @@ import pluginUnicorn from 'eslint-plugin-unicorn';
 import pluginImport, {createNodeResolver} from 'eslint-plugin-import-x';
 import pluginN from 'eslint-plugin-n';
 import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
-/// import pluginPromise from 'eslint-plugin-promise';
 import pluginAva from 'eslint-plugin-ava';
 import pluginNodeTest from 'eslint-node-test';
 import pluginPackageJson from 'eslint-package-json';
 import pluginCssicorn from 'eslint-cssicorn';
-import {fixupPluginRules} from '@eslint/compat';
 import pluginPrettier from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import {javascriptRules} from './source/javascript-rules.js';
@@ -309,9 +307,7 @@ export default function eslintConfigXo({
 			'no-use-extend-native': pluginNoUseExtendNative,
 			xo: pluginXo,
 			ava: pluginAva,
-			// TODO: Remove `fixupPluginRules` wrapping when this plugin supports ESLint 10 natively.
-			n: fixupPluginRules(pluginN),
-			/// promise: fixupPluginRules(pluginPromise),
+			n: pluginN,
 		},
 		files: [
 			`**/*.{${lintedExtensions.join(',')}}`,
