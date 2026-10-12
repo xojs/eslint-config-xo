@@ -10,7 +10,6 @@ import pluginUnicorn from 'eslint-plugin-unicorn';
 import pluginImport, {createNodeResolver} from 'eslint-plugin-import-x';
 import pluginN from 'eslint-plugin-n';
 import pluginComments from '@eslint-community/eslint-plugin-eslint-comments';
-import pluginAva from 'eslint-plugin-ava';
 import pluginNodeTest from 'eslint-node-test';
 import pluginPackageJson from 'eslint-package-json';
 import pluginCssicorn from 'eslint-cssicorn';
@@ -306,7 +305,6 @@ export default function eslintConfigXo({
 			'@eslint-community/eslint-comments': pluginComments,
 			'no-use-extend-native': pluginNoUseExtendNative,
 			xo: pluginXo,
-			ava: pluginAva,
 			n: pluginN,
 		},
 		files: [
@@ -366,18 +364,6 @@ export default function eslintConfigXo({
 		optionRules: getOptionRules({space, semicolon, typescript: true}),
 		tsExtensions,
 	}) ?? [];
-	// `eslint-plugin-ava` bundles its own `@eslint/json` copy for its `**/package.json` config, which clashes with our `json` plugin registration on the same files (ESLint forbids defining the same plugin name with two different objects). Reuse our `json` instance so the references match.
-	const avaConfigs = pluginAva.configs.recommended.map(avaConfig => {
-		const namedAvaConfig = {
-			...avaConfig,
-			name: avaConfig.files?.includes('**/package.json') ? 'xo/ava-package-json' : 'xo/ava',
-		};
-
-		return namedAvaConfig.plugins?.json
-			? {...namedAvaConfig, plugins: {...namedAvaConfig.plugins, json}}
-			: namedAvaConfig;
-	});
-
 	const nodeTestConfig = {
 		...pluginNodeTest.configs.recommended,
 		files: [`**/*.{${lintedExtensions.join(',')}}`],
@@ -409,7 +395,6 @@ export default function eslintConfigXo({
 			ignores: defaultIgnores,
 		},
 		...(gitignoreConfig ? [gitignoreConfig] : []),
-		...avaConfigs,
 		nodeTestConfig,
 		config,
 		jsonConfig,

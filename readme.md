@@ -140,7 +140,6 @@ import {foo, bar} from 'x';
 - [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn)
 - [`eslint-node-test`](https://github.com/sindresorhus/eslint-node-test)
 - [`eslint-package-json`](https://github.com/sindresorhus/eslint-package-json)
-- [`eslint-plugin-ava`](https://github.com/avajs/eslint-plugin-ava)
 - [`eslint-plugin-import-x`](https://github.com/un-ts/eslint-plugin-import-x)
 - [`eslint-plugin-n`](https://github.com/eslint-community/eslint-plugin-n)
 - [`@eslint-community/eslint-plugin-eslint-comments`](https://github.com/eslint-community/eslint-plugin-eslint-comments)
