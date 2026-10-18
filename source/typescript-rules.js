@@ -124,7 +124,10 @@ export const typescriptRules = {
 				},
 				null: {
 					message: 'Use `undefined` instead. See: https://github.com/sindresorhus/meta/issues/7',
-					fixWith: 'undefined',
+					// Not an autofix, because `null` from types we don't control (React refs, DOM APIs) cannot be replaced with `undefined`.
+					suggest: [
+						'undefined',
+					],
 				},
 				Buffer: {
 					message: 'Use Uint8Array instead. See: https://sindresorhus.com/blog/goodbye-nodejs-buffer',

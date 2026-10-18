@@ -142,6 +142,14 @@ test('typescript', async () => {
 	assert.ok(hasRule(errors, '@typescript-eslint/no-inferrable-types'));
 });
 
+test('typescript - the `null` type is suggested to be `undefined` but not autofixed', async () => {
+	const errors = await runEslint('export type Value = string | null;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	const message = errors.find(error => error.ruleId === '@typescript-eslint/no-restricted-types');
+	assert.ok(message);
+	assert.equal(message.fix, undefined);
+	assert.deepEqual(message.suggestions.map(suggestion => suggestion.fix.text), ['undefined']);
+});
+
 test('typescript - eslint-recommended rules are disabled', async () => {
 	const errors = await runEslint('export function foo(): number {\n\treturn 1;\n\t2;\n}\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
 	assert.ok(!hasRule(errors, 'no-unreachable'));
