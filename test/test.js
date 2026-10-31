@@ -850,14 +850,18 @@ test('regexp - applies to typescript files', async () => {
 	assert.ok(hasRule(errors, 'regexp/prefer-d'));
 });
 
-test('regexp - prefer-regexp-exec defers to the typescript version for typescript files', async () => {
-	const errors = await runEslint(
-		'export const match = "foo".match(/foo/);\n',
-		eslintConfigXo(),
-		{filePath: 'test/fixture.ts'},
-	);
-	assert.ok(hasRule(errors, '@typescript-eslint/prefer-regexp-exec'));
-	assert.ok(!hasRule(errors, 'regexp/prefer-regexp-exec'));
+test('prefer-regexp-exec - overlapping rules are disabled', async () => {
+	for (const filePath of ['test/fixture.js', 'test/fixture.ts']) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(
+			'export const match = "foo".match(/foo/);\n',
+			eslintConfigXo(),
+			{filePath},
+		);
+		assert.ok(errors.every(error => !error.fatal));
+		assert.ok(!hasRule(errors, '@typescript-eslint/prefer-regexp-exec'));
+		assert.ok(!hasRule(errors, 'regexp/prefer-regexp-exec'));
+	}
 });
 
 /* eslint-disable no-template-curly-in-string -- The `${…}` is template-literal source code under test, not a placeholder in a regular string. */

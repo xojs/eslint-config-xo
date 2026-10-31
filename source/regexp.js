@@ -79,7 +79,7 @@ export function getRegexpConfig({files}) {
 			// ],
 
 			'regexp/prefer-range': 'error',
-			'regexp/prefer-regexp-exec': 'error',
+			'regexp/prefer-regexp-exec': 'off', // We use `unicorn/prefer-regexp-exec` instead.
 			'regexp/prefer-regexp-test': 'error',
 			'regexp/prefer-set-operation': 'error',
 			'regexp/require-unicode-regexp': 'off', // Conflicts with `require-unicode-regexp`.
