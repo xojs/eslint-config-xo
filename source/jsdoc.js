@@ -10,11 +10,11 @@ const filePragmaTags = [
 	'vitest-environment',
 ];
 
-const typeScriptDocTags = [
+const typeScriptDocumentTags = [
 	'defaultValue',
 ];
 
-const unicornDocTags = [
+const unicornDocumentTags = [
 	'isolated', // Used by `unicorn/isolated-functions`.
 ];
 
@@ -41,8 +41,8 @@ export function getJsdocConfigs({files, tsFiles}) {
 					{
 						definedTags: [
 							...filePragmaTags,
-							...typeScriptDocTags,
-							...unicornDocTags,
+							...typeScriptDocumentTags,
+							...unicornDocumentTags,
 						],
 						jsxTags: true,
 					},
@@ -113,7 +113,7 @@ export function getJsdocConfigs({files, tsFiles}) {
 				'jsdoc/require-description': [
 					'error',
 					{
-						exemptedBy: ['inheritdoc', ...unicornDocTags],
+						exemptedBy: ['inheritdoc', ...unicornDocumentTags],
 					},
 				],
 
@@ -183,8 +183,8 @@ export function getJsdocConfigs({files, tsFiles}) {
 						{
 							definedTags: [
 								...filePragmaTags,
-								...typeScriptDocTags,
-								...unicornDocTags,
+								...typeScriptDocumentTags,
+								...unicornDocumentTags,
 							],
 							jsxTags: true,
 							typed: true,
