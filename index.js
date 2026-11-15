@@ -208,18 +208,6 @@ Rules from `eslint-config-prettier`'s "special rules" list that XO configures an
 const prettierCompatibleSpecialRules = {
 	curly: 'error',
 	'no-unexpected-multiline': 'error',
-	'@stylistic/no-mixed-operators': [
-		'error',
-		{
-			groups: [
-				['+', '-', '*', '/', '%', '**', '??'],
-				['&', '|', '^', '~', '<<', '>>', '>>>', '??'],
-				['==', '!=', '===', '!==', '>', '>=', '<', '<=', '??'],
-				['&&', '||', '??'],
-				['in', 'instanceof', '??'],
-			],
-		},
-	],
 	'prefer-arrow-callback': ['error', {allowNamedFunctions: true}],
 	'arrow-body-style': 'error',
 };

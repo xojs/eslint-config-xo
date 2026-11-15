@@ -671,6 +671,19 @@ test('prettier - compat does not enforce quote style', async () => {
 	assert.ok(!hasRule(errors, '@stylistic/quotes'));
 });
 
+test('prettier - does not enforce no-mixed-operators, as Prettier removes the parentheses it asks for', async () => {
+	const fixture = 'export const foo = (a, b, c) => a + b / c;\n';
+
+	for (const prettier of ['compat', true]) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(fixture, eslintConfigXo({prettier}), {filePath: 'index.js'});
+		assert.ok(!hasRule(errors, '@stylistic/no-mixed-operators'));
+	}
+
+	const errors = await runEslint(fixture, eslintConfigXo(), {filePath: 'index.js'});
+	assert.ok(hasRule(errors, '@stylistic/no-mixed-operators'));
+});
+
 test('prettier - default does not enable Prettier', async () => {
 	const errors = await runEslint('export const foo = {bar: \'baz\'}\n', eslintConfigXo(), {filePath: 'index.js'});
 	assert.ok(!hasRule(errors, 'prettier/prettier'));
