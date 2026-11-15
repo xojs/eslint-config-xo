@@ -16,10 +16,6 @@ export const pluginsRules = {
 	// 		}
 	// 	}
 	// ],
-	// TODO: Disabled for now until it becomes more stable: https://github.com/sindresorhus/eslint-plugin-unicorn/search?q=consistent-destructuring+is:issue&state=open&type=issues
-	'unicorn/consistent-destructuring': 'off',
-	// TODO: Disabled for now as I don't have time to deal with the backslash that might come from this. Try to enable this rule in 2021.
-	'unicorn/no-null': 'off',
 	// We only enforce it for single-line statements to not be too opinionated.
 	'unicorn/prefer-ternary': [
 		'error',
@@ -33,12 +29,8 @@ export const pluginsRules = {
 			enforceForIfStatements: true,
 		},
 	],
-	// It will be disabled in the next version of eslint-plugin-unicorn.
-	'unicorn/prefer-json-parse-buffer': 'off',
 	// TODO: Remove this override when the rule is more stable.
 	'unicorn/consistent-function-scoping': 'off',
-	// TODO: Temporarily disabled until it becomes more mature.
-	'unicorn/no-useless-undefined': 'off',
 	// Too opinionated. Methods with a single return are fine as-is.
 	'unicorn/prefer-short-arrow-method': 'off',
 	// TODO: Disabled for now to avoid churn. Enable at some point.
@@ -53,14 +45,17 @@ export const pluginsRules = {
 			},
 		},
 	],
-	// TODO: Enable when the rule is more mature.
-	'unicorn/prefer-await': 'off',
 	// TODO: Enable when the rule's "simple iterable" allowlist is broadened. It flags ordinary, readable `for…of` iterables, like method calls with an interpolated template-literal argument (`root.querySelectorAll(`[x=${y}]`)`) or a literal receiver (`'a,b'.split(',')`).
 	'unicorn/no-unreadable-for-of-expression': 'off',
-	// TODO: Enable when fixed. It treats every parameter without a default as required, so it flags valid calls that omit optional arguments (e.g. `createChalk()`).
-	'unicorn/no-invalid-argument-count': 'off',
 	// TODO: Enable when less aggressive. It flags the normal pattern of reassigning a top-level variable from inside a callback (e.g. a counter in `setInterval`).
 	'unicorn/no-top-level-assignment-in-function': 'off',
+	// TODO: Enable again when using `eslint-plugin-unicorn` v81. It reports a replacement that is a function declared in the same file (`string.replace(regex, replacer)`), which is the safe form the rule recommends.
+	'unicorn/no-unsafe-string-replacement': 'off',
+	// Not in `eslint-plugin-unicorn`'s recommended config. `import.meta.dirname` and `import.meta.filename` are available in Node.js 20.11 and later.
+	// TODO: Enable again when using `eslint-plugin-unicorn` v81. Its autofix removes the trailing path separator from `fileURLToPath(new URL('.', import.meta.url))`.
+	'unicorn/prefer-import-meta-properties': 'off',
+	// Not in `eslint-plugin-unicorn`'s recommended config. Also enabled for HTML files in `html.js`.
+	'unicorn/no-invalid-file-input-accept': 'error',
 	// TODO: Temporarily disabled as the rule is buggy.
 	'function-call-argument-newline': 'off',
 	'import-x/default': 'error',

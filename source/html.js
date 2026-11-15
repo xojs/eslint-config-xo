@@ -1,4 +1,5 @@
 import html from '@html-eslint/eslint-plugin';
+import pluginUnicorn from 'eslint-plugin-unicorn';
 
 const {languageOptions} = html.configs['flat/recommended'];
 
@@ -24,12 +25,24 @@ export function getHtmlConfig({space = false, prettier = false} = {}) {
 		name: 'xo/html',
 		plugins: {
 			'@html-eslint': html,
+			unicorn: pluginUnicorn,
 		},
 		files: [
 			'**/*.html',
 		],
 		languageOptions,
 		rules: {
+			...pluginUnicorn.configs['recommended-html'].rules,
+			// Only check filenames. Class names often come from third-party stylesheets, like Bootstrap's `btn`, which users cannot rename.
+			'unicorn/name-replacements': [
+				'error',
+				{
+					checkVariables: false,
+				},
+			],
+			// It only checks class and ID names in HTML, which often come from third-party stylesheets, like WordPress's `sub-menu`.
+			'unicorn/consistent-compound-words': 'off',
+
 			// Best Practice
 			'@html-eslint/css-no-empty-blocks': 'error',
 			'@html-eslint/head-order': 'error',
@@ -47,7 +60,7 @@ export function getHtmlConfig({space = false, prettier = false} = {}) {
 			'@html-eslint/no-script-style-type': 'error',
 			'@html-eslint/no-target-blank': 'error',
 			'@html-eslint/no-whitespace-only-children': 'error',
-			'@html-eslint/prefer-https': 'error',
+			'@html-eslint/prefer-https': 'off', // We use `unicorn/prefer-https` instead, which has an autofix and ignores identifier URLs.
 			'@html-eslint/require-button-type': 'error',
 			'@html-eslint/require-closing-tags': 'error',
 			'@html-eslint/require-content': 'error',
@@ -58,6 +71,7 @@ export function getHtmlConfig({space = false, prettier = false} = {}) {
 			'@html-eslint/require-meta-charset': 'error',
 			'@html-eslint/svg-require-viewbox': 'error',
 			'@html-eslint/use-baseline': 'error',
+			'unicorn/no-invalid-file-input-accept': 'error',
 
 			// SEO
 			'@html-eslint/no-multiple-h1': 'error',

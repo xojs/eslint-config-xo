@@ -137,6 +137,39 @@ test('browser - confusing globals do not conflict with unicorn/no-unnecessary-gl
 	assert.ok(hasRule(nodeErrors, 'unicorn/no-unnecessary-global-this'));
 });
 
+test('unicorn/no-useless-undefined does not conflict with other rules', async () => {
+	// A getter can return `undefined` with `return undefined;`, since `getter-return` forbids `return;`.
+	const getterFixture = [
+		'export const object = {',
+		'\titems: [],',
+		'\tget foo() {',
+		'\t\tfor (const item of this.items) {',
+		'\t\t\tif (item.isFoo) {',
+		'\t\t\t\treturn item;',
+		'\t\t\t}',
+		'\t\t}',
+		'',
+		'\t\treturn undefined;',
+		'\t},',
+		'};',
+		'',
+	].join('\n');
+	const getterErrors = await runEslint(getterFixture, eslintConfigXo(), {filePath: 'index.js'});
+	assert.deepEqual(getterErrors, []);
+
+	// A TypeScript no-op function can be `() => undefined` (`@typescript-eslint/no-empty-function`).
+	const noopErrors = await runEslint('export const noop = () => undefined;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	assert.deepEqual(noopErrors, []);
+
+	const functionErrors = await runEslint('export function noop() {\n\treturn undefined;\n}\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	assert.deepEqual(functionErrors, []);
+});
+
+test('unicorn/prefer-await allows a promise chain discarded with `void`', async () => {
+	const errors = await runEslint('const promise = Promise.resolve(1);\nvoid promise.then(value => {\n\tconsole.log(value);\n});\n', eslintConfigXo(), {filePath: 'index.js'});
+	assert.deepEqual(errors, []);
+});
+
 test('typescript', async () => {
 	const errors = await runEslint('const foo: number = 5;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
 	assert.ok(hasRule(errors, '@typescript-eslint/no-inferrable-types'));
@@ -806,6 +839,92 @@ test('html - lints html files', async () => {
 		{filePath: 'test/fixture.html'},
 	);
 	assert.ok(hasRule(errors, '@html-eslint/lowercase'));
+});
+
+test('unicorn language presets apply to non-JavaScript files', async () => {
+	const cssErrors = await runEslint('.button {\n\ttransition: all 1s;\n}\n', eslintConfigXo(), {filePath: 'test/fixture.css'});
+	assert.ok(hasRule(cssErrors, 'unicorn/no-transition-all'));
+
+	const htmlErrors = await runEslint('<script src="https://example.com/script.js" integrity="sha256-invalid"></script>\n', eslintConfigXo(), {filePath: 'test/fixture.html'});
+	assert.ok(hasRule(htmlErrors, 'unicorn/no-invalid-integrity'));
+
+	const jsonErrors = await runEslint('{\n\t"value": 1.0\n}\n', eslintConfigXo(), {filePath: 'test/fixture.json'});
+	assert.ok(hasRule(jsonErrors, 'unicorn/no-zero-fractions'));
+
+	// eslint-disable-next-line unicorn/prefer-https -- The fixture needs an HTTP URL.
+	const markdownErrors = await runEslint('# Title\n\nSee [the website](http://sindresorhus.com).\n', eslintConfigXo(), {filePath: 'test/fixture.md'});
+	assert.ok(hasRule(markdownErrors, 'unicorn/prefer-https'));
+});
+
+test('unicorn/name-replacements ignores third-party class names in CSS and HTML', async () => {
+	const cssErrors = await runEslint('.btn {\n\tcolor: red;\n}\n', eslintConfigXo(), {filePath: 'test/fixture.css'});
+	assert.ok(!hasRule(cssErrors, 'unicorn/name-replacements'));
+
+	const htmlErrors = await runEslint('<button type="button" class="btn">Go</button>\n', eslintConfigXo(), {filePath: 'test/fixture.html'});
+	assert.ok(!hasRule(htmlErrors, 'unicorn/name-replacements'));
+});
+
+test('unicorn rules ignore file and class names that tools require', async () => {
+	const requiredPaths = [
+		'pull_request_template.md',
+		'docs/pull_request_template.md',
+		'.github/pull_request_template.md',
+		'.github/ISSUE_TEMPLATE/bug_report.md',
+		'_locales/zh_CN/messages.json',
+		'ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json',
+		'locales/en-US.json',
+		'cypress.env.json',
+		'tsconfig.lib.json',
+	];
+
+	for (const filePath of requiredPaths) {
+		const code = filePath.endsWith('.md') ? '# Title\n' : '{}\n';
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(code, eslintConfigXo(), {filePath});
+		assert.ok(!hasRule(errors, 'unicorn/filename-case'), filePath);
+		assert.ok(!hasRule(errors, 'unicorn/name-replacements'), filePath);
+	}
+
+	// Class names from third-party stylesheets, like WordPress's `sub-menu`.
+	const cssErrors = await runEslint('.sub-menu {\n\tcolor: red;\n}\n', eslintConfigXo(), {filePath: 'test/fixture.css'});
+	assert.ok(!hasRule(cssErrors, 'unicorn/consistent-compound-words'));
+
+	const htmlErrors = await runEslint('<ul class="sub-menu"></ul>\n', eslintConfigXo(), {filePath: 'test/fixture.html'});
+	assert.ok(!hasRule(htmlErrors, 'unicorn/consistent-compound-words'));
+
+	// Markdown filename checks are temporarily disabled.
+	const markdownErrors = await runEslint('# Title\n', eslintConfigXo(), {filePath: 'docs/Guide.md'});
+	assert.ok(!hasRule(markdownErrors, 'unicorn/filename-case'));
+
+	// A pull request template with only a comment.
+	const templateErrors = await runEslint('<!-- Describe the change. -->\n', eslintConfigXo(), {filePath: '.github/pull_request_template.md'});
+	assert.ok(!hasRule(templateErrors, 'unicorn/no-empty-file'));
+});
+
+test('unicorn rules that are not in the language presets', async () => {
+	const jsonErrors = await runEslint('{\n\t"id": 9007199254740993\n}\n', eslintConfigXo(), {filePath: 'test/fixture.json'});
+	assert.ok(hasRule(jsonErrors, 'unicorn/no-loss-of-precision'));
+
+	const cssErrors = await runEslint('.button {\n\twidth: 9007199254740993px;\n}\n', eslintConfigXo(), {filePath: 'test/fixture.css'});
+	assert.ok(hasRule(cssErrors, 'unicorn/no-loss-of-precision'));
+
+	const markdownErrors = await runEslint('# Title\n\n[Run](javascript:alert(1))\n', eslintConfigXo(), {filePath: 'test/fixture.md'});
+	assert.ok(hasRule(markdownErrors, 'unicorn/no-javascript-url'));
+});
+
+test('json - unicorn/prefer-https keeps JSON Schema identifiers', async () => {
+	// eslint-disable-next-line unicorn/prefer-https -- The fixture needs the HTTP meta-schema identifier.
+	const errors = await runEslint('{\n\t"$schema": "http://json-schema.org/draft-07/schema#"\n}\n', eslintConfigXo(), {filePath: 'test/fixture.json'});
+	assert.ok(!hasRule(errors, 'unicorn/prefer-https'));
+});
+
+test('html - flags an invalid file input `accept` value', async () => {
+	const errors = await runEslint(
+		'<input type="file" accept="image/jpg">\n',
+		eslintConfigXo(),
+		{filePath: 'test/fixture.html'},
+	);
+	assert.ok(hasRule(errors, 'unicorn/no-invalid-file-input-accept'));
 });
 
 test('html - prettier disables conflicting style rules', async () => {

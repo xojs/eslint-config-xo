@@ -13,7 +13,7 @@
 	},
 	"sideEffects": false,
 	"engines": {
-		"node": ">=22"
+		"node": ">=22.13"
 	},
 	"scripts": {
 		"test": "eslint && node --test --test-timeout=600000 'test/[!_]*.js'"
@@ -69,7 +69,7 @@
 		"eslint-plugin-n": "^18.5.0",
 		"eslint-plugin-prettier": "^5.5.7",
 		"eslint-plugin-regexp": "^3.3.1",
-		"eslint-plugin-unicorn": "^79.0.0",
+		"eslint-plugin-unicorn": "^80.0.0",
 		"globals": "^17.13.0",
 		"typescript-eslint": "^8.72.0"
 	},

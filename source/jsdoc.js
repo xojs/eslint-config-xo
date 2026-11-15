@@ -74,6 +74,7 @@ export function getJsdocConfigs({files, tsFiles}) {
 					'never',
 				],
 				'jsdoc/sort-tags': 'off', // Too opinionated. Too much churn.
+				// eslint-disable-next-line unicorn/no-null -- The rule option requires `null` to not enforce lines before the first tag.
 				'jsdoc/tag-lines': ['error', 'any', {startLines: null}],
 				'jsdoc/type-formatting': 'off', // It's marked as experimental.
 

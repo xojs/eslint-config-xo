@@ -153,7 +153,7 @@ function isMissingTypeScriptError(error) {
 
 function getGitignoreConfig(configUrl) {
 	if (!configUrl) {
-		return undefined;
+		return;
 	}
 
 	if (!configUrl.startsWith('file://')) {
@@ -214,7 +214,7 @@ const prettierCompatibleSpecialRules = {
 
 export function getPrettierConfig({prettier, space, semicolon, files}) {
 	if (!prettier) {
-		return undefined;
+		return;
 	}
 
 	// `'compat'` only disables stylistic rules that conflict with Prettier, for users who run Prettier separately.
@@ -403,12 +403,25 @@ export default function eslintConfigXo({
 			plugins: {
 				css,
 				cssicorn: pluginCssicorn,
+				unicorn: pluginUnicorn,
 			},
 			files: [
 				'**/*.css',
 			],
 			language: 'css/css',
 			rules: {
+				...pluginUnicorn.configs['recommended-css'].rules,
+				// Only check filenames. Class and custom property names often come from third-party stylesheets, like Bootstrap's `.btn`, which users cannot rename.
+				'unicorn/name-replacements': [
+					'error',
+					{
+						checkVariables: false,
+					},
+				],
+				// It only checks class and other names in CSS, which often come from third-party stylesheets, like WordPress's `.sub-menu`.
+				'unicorn/consistent-compound-words': 'off',
+				// Not in `eslint-plugin-unicorn`'s CSS config. Catches numbers that cannot be represented exactly.
+				'unicorn/no-loss-of-precision': 'error',
 				'css/font-family-fallbacks': 'error',
 				'css/no-duplicate-imports': 'error',
 				'css/no-duplicate-keyframe-selectors': 'error',

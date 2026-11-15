@@ -1,6 +1,20 @@
 import markdown from '@eslint/markdown';
+import pluginUnicorn from 'eslint-plugin-unicorn';
 
 const markdownRules = {
+	...pluginUnicorn.configs['recommended-markdown'].rules,
+	// GitHub requires names like `.github/pull_request_template.md` and `.github/ISSUE_TEMPLATE/`.
+	// TODO: Enable again when using `eslint-plugin-unicorn` v81. It also rejects GitHub's required `pull_request_template.md` filenames in the root and `docs` directories.
+	'unicorn/filename-case': 'off',
+	// Allow files with only a comment, like a pull request template with instructions that should not show in the pull request.
+	'unicorn/no-empty-file': [
+		'error',
+		{
+			allowComments: true,
+		},
+	],
+	// Not in `eslint-plugin-unicorn`'s Markdown config.
+	'unicorn/no-javascript-url': 'error',
 	'markdown/fenced-code-language': 'error',
 	// 'markdown/heading-increment': 'error', // Too strict. Sometimes it makes sense not to have exact increment
 	'markdown/no-bare-urls': 'off', // It's fine to write bare URLs
@@ -44,6 +58,7 @@ export function getMarkdownConfig() {
 		name: 'xo/markdown',
 		plugins: {
 			markdown,
+			unicorn: pluginUnicorn,
 		},
 		files: [
 			'**/*.md',

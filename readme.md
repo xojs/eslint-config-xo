@@ -1,6 +1,6 @@
 # eslint-config-xo
 
-> ESLint [shareable config](https://eslint.org/docs/developer-guide/shareable-configs.html) for [XO](https://github.com/xojs/xo) with support for JavaScript, TypeScript, HTML, and Markdown
+> ESLint [shareable config](https://eslint.org/docs/developer-guide/shareable-configs.html) for [XO](https://github.com/xojs/xo) with support for JavaScript, TypeScript, HTML, Markdown, CSS, and JSON
 
 This is for advanced users. [You probably want to use XO directly.](#use-the-xo-cli-instead)
 
@@ -106,11 +106,19 @@ TypeScript is supported out of the box. If [`typescript`](https://github.com/mic
 
 ## HTML
 
-HTML files (`*.html`) are linted automatically using [`@html-eslint/eslint-plugin`](https://github.com/yeonjuan/html-eslint), covering best practices, accessibility, SEO, and style.
+HTML files (`*.html`) are linted automatically using [`@html-eslint/eslint-plugin`](https://github.com/yeonjuan/html-eslint), covering best practices, accessibility, SEO, and style, and the HTML rules of [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn).
 
 ## Markdown
 
-Markdown files (`*.md`) are linted automatically using [`@eslint/markdown`](https://github.com/eslint/markdown), covering link/image correctness, heading structure, and more.
+Markdown files (`*.md`) are linted automatically using [`@eslint/markdown`](https://github.com/eslint/markdown), covering link/image correctness, heading structure, and more, and the Markdown rules of [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn).
+
+## CSS
+
+CSS files (`*.css`) are linted automatically using [`@eslint/css`](https://github.com/eslint/css), [`eslint-cssicorn`](https://github.com/sindresorhus/eslint-cssicorn), and the CSS rules of [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn).
+
+## JSON
+
+JSON files (`*.json`, `*.jsonc`, and `*.json5`) are linted automatically using [`@eslint/json`](https://github.com/eslint/json) and the JSON rules of [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn). Files that allow comments and trailing commas, like `tsconfig.json` and `.vscode/*.json`, are parsed as JSONC. `package.json` is also linted with [`eslint-package-json`](https://github.com/sindresorhus/eslint-package-json).
 
 ## Custom rules
 
@@ -147,6 +155,9 @@ import {foo, bar} from 'x';
 - [`typescript-eslint`](https://github.com/typescript-eslint/typescript-eslint)
 - [`@html-eslint/eslint-plugin`](https://github.com/yeonjuan/html-eslint)
 - [`@eslint/markdown`](https://github.com/eslint/markdown)
+- [`@eslint/css`](https://github.com/eslint/css)
+- [`eslint-cssicorn`](https://github.com/sindresorhus/eslint-cssicorn)
+- [`@eslint/json`](https://github.com/eslint/json)
 - [`eslint-plugin-regexp`](https://github.com/ota-meshi/eslint-plugin-regexp)
 - [`eslint-plugin-jsdoc`](https://github.com/gajus/eslint-plugin-jsdoc)
 - [`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) *(only when the [`prettier`](#prettier) option is enabled)*

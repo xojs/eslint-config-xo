@@ -89,6 +89,7 @@ export const getNamingConventionRule = ({isTsx}) => ({
 				'typeMethod',
 				'accessor',
 			],
+			// eslint-disable-next-line unicorn/no-null -- The rule option requires `null` to not check the format.
 			format: null,
 			modifiers: [
 				'requiresQuotes',
@@ -292,6 +293,11 @@ export const typescriptRules = {
 	'@typescript-eslint/no-dynamic-delete': 'error',
 	'no-empty-function': 'off',
 	'@typescript-eslint/no-empty-function': 'error',
+	// Allow `() => undefined` as a no-op function, since `@typescript-eslint/no-empty-function` forbids `() => {}`.
+	// TODO: Enable again when using `eslint-plugin-unicorn` v81. Removing `return undefined` changes inferred return types from `undefined` to `void` and can produce empty functions.
+	'unicorn/no-useless-undefined': 'off',
+	// TODO: Enable again when using `eslint-plugin-unicorn` v81. It ignores declared callable types, so `const callback: (value: number) => number = () => 1; callback(2);` is incorrectly reported as having too many arguments.
+	'unicorn/no-invalid-argument-count': 'off',
 	'@typescript-eslint/no-empty-object-type': 'error',
 
 	// TODO: Try to enable this again in 2025.

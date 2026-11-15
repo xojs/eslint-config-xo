@@ -45,7 +45,7 @@ const createPropertyInfo = (value, extraProperties = []) => {
 	};
 };
 
-const emptyFunction = () => undefined;
+const emptyFunction = () => {};
 
 // Keep the checked native object list explicit so rule behavior stays predictable.
 const nativeObjectDefinitions = [
@@ -229,14 +229,14 @@ const getPropertyName = memberExpression => {
 
 const resolveBinaryExpressionType = binaryExpression => {
 	if (binaryExpression.operator !== '+') {
-		return undefined;
+		return;
 	}
 
 	const leftReference = resolveNativeObjectReference(binaryExpression.left);
 	const rightReference = resolveNativeObjectReference(binaryExpression.right);
 
 	if (leftReference?.usage !== 'instance' || rightReference?.usage !== 'instance') {
-		return undefined;
+		return;
 	}
 
 	if (leftReference.typeName === 'String' || rightReference.typeName === 'String') {
@@ -245,13 +245,11 @@ const resolveBinaryExpressionType = binaryExpression => {
 			usage: 'instance',
 		};
 	}
-
-	return undefined;
 };
 
 const resolveIdentifierReference = node => {
 	if (!nativeObjects.has(node.name)) {
-		return undefined;
+		return;
 	}
 
 	return {
@@ -288,13 +286,11 @@ const resolveLiteralReference = node => {
 			usage: 'instance',
 		};
 	}
-
-	return undefined;
 };
 
 const resolvePrototypeReference = node => {
 	if (getPropertyName(node) !== 'prototype' || !isIdentifierNode(node.object) || !nativeObjects.has(node.object.name)) {
-		return undefined;
+		return;
 	}
 
 	return {
@@ -305,7 +301,7 @@ const resolvePrototypeReference = node => {
 
 const resolveNewExpressionReference = node => {
 	if (!isIdentifierNode(node.callee) || !nativeObjects.has(node.callee.name)) {
-		return undefined;
+		return;
 	}
 
 	return {
@@ -316,7 +312,7 @@ const resolveNewExpressionReference = node => {
 
 function resolveNativeObjectReference(node) {
 	if (!node) {
-		return undefined;
+		return;
 	}
 
 	if (isMemberExpressionNode(node)) {
@@ -369,9 +365,7 @@ function resolveNativeObjectReference(node) {
 			};
 		}
 
-		default: {
-			return undefined;
-		}
+		// No default
 	}
 }
 

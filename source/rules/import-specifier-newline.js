@@ -38,7 +38,7 @@ const importSpecifierNewlineRule = {
 							fix(fixer) {
 								const comma = sourceCode.getTokenAfter(previous, token => token.value === ',');
 								if (!comma || sourceCode.commentsExistBetween(comma, current)) {
-									return undefined;
+									return;
 								}
 
 								const previousLine = sourceCode.lines[previous.loc.start.line - 1];

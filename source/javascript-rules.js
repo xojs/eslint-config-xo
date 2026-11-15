@@ -189,7 +189,12 @@ export const javascriptRules = {
 	'no-useless-concat': 'error',
 	'no-useless-escape': 'error',
 	'no-useless-return': 'error',
-	'no-void': 'error',
+	'no-void': [
+		'error',
+		{
+			allowAsStatement: true, // To allow `void promise.then(…)`, which `unicorn/prefer-await` accepts and suggests.
+		},
+	],
 	'no-warning-comments': 'warn',
 	'no-with': 'error',
 
