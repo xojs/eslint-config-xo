@@ -145,6 +145,7 @@ export const javascriptRules = {
 	'no-implied-eval': 'error',
 	'no-iterator': 'error',
 	'no-labels': 'error',
+	'no-loop-func': 'error',
 	'no-lone-blocks': 'error',
 	'@stylistic/no-multi-spaces': 'error',
 	'no-multi-str': 'error',
@@ -184,6 +185,7 @@ export const javascriptRules = {
 		},
 	],
 	'no-unused-labels': 'error',
+	'no-useless-assignment': 'error',
 	'no-useless-call': 'error',
 	'no-useless-catch': 'error',
 	'no-useless-concat': 'error',
@@ -257,17 +259,43 @@ export const javascriptRules = {
 		},
 	],
 	'no-restricted-imports': ['error', ...restrictedImports],
-	'@stylistic/array-bracket-newline': [
+	// Only checks `[]` and `{}` lists. Not checked:
+	// - `()` (arguments and parameters): It requires the `)` on the last line of a multi-line callback (`items.some(item =>\n\ta\n\t&& b)`), but XO puts it on its own line after a trailing comma.
+	// - `<>` (generics): Long nested generic types are often wrapped in ways the rule does not allow.
+	// TODO: Try to check `()` lists again when the rule supports this style.
+	'@stylistic/list-style': [
 		'error',
-		'consistent',
-	],
-	'@stylistic/array-bracket-spacing': [
-		'error',
-		'never',
-	],
-	'@stylistic/array-element-newline': [
-		'error',
-		'consistent',
+		{
+			singleLine: {
+				spacing: 'never',
+			},
+			overrides: {
+				// The rule defaults to spaces inside `{}`.
+				'{}': {
+					singleLine: {
+						spacing: 'never',
+					},
+				},
+				'()': 'off',
+				'<>': 'off',
+				// Four or more items go on separate lines.
+				ObjectExpression: {
+					singleLine: {
+						maxItems: 3,
+					},
+				},
+				ImportDeclaration: {
+					singleLine: {
+						maxItems: 3,
+					},
+				},
+				ExportNamedDeclaration: {
+					singleLine: {
+						maxItems: 3,
+					},
+				},
+			},
+		},
 	],
 	'@stylistic/brace-style': [
 		'error',
@@ -330,10 +358,6 @@ export const javascriptRules = {
 	'func-names': [
 		'error',
 		'never',
-	],
-	'@stylistic/function-call-argument-newline': [
-		'error',
-		'consistent',
 	],
 	'@stylistic/indent': [
 		'error',
@@ -455,34 +479,6 @@ export const javascriptRules = {
 	'@stylistic/no-whitespace-before-property': 'error',
 	'@stylistic/no-trailing-spaces': 'error',
 	'no-unneeded-ternary': 'error',
-	'@stylistic/object-curly-spacing': [
-		'error',
-		'never',
-	],
-	'@stylistic/object-curly-newline': [
-		'error',
-		{
-			ObjectExpression: {
-				multiline: true,
-				minProperties: 4,
-				consistent: true,
-			},
-			ObjectPattern: {
-				multiline: true,
-				consistent: true,
-			},
-			ImportDeclaration: {
-				multiline: true,
-				minProperties: 4,
-				consistent: true,
-			},
-			ExportDeclaration: {
-				multiline: true,
-				minProperties: 4,
-				consistent: true,
-			},
-		},
-	],
 	'one-var': [
 		'error',
 		'never',

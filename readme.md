@@ -120,29 +120,6 @@ CSS files (`*.css`) are linted automatically using [`@eslint/css`](https://githu
 
 JSON files (`*.json`, `*.jsonc`, and `*.json5`) are linted automatically using [`@eslint/json`](https://github.com/eslint/json) and the JSON rules of [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn). Files that allow comments and trailing commas, like `tsconfig.json` and `.vscode/*.json`, are parsed as JSONC. `package.json` is also linted with [`eslint-package-json`](https://github.com/sindresorhus/eslint-package-json).
 
-## Custom rules
-
-### xo/import-specifier-newline
-
-When an import spans multiple lines, each specifier must be on its own line. Autofixable.
-
-```js
-// Bad
-import {
-	foo, bar, baz,
-} from 'x';
-
-// Good
-import {
-	foo,
-	bar,
-	baz,
-} from 'x';
-
-// Single-line imports are not affected
-import {foo, bar} from 'x';
-```
-
 ## Included plugins
 
 - [`eslint-plugin-unicorn`](https://github.com/sindresorhus/eslint-plugin-unicorn)

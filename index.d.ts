@@ -1,19 +1,19 @@
 import {type Linter} from 'eslint';
 
-export const tsExtensions: string[];
-export const jsExtensions: string[];
-export const frameworkExtensions: string[];
-export const htmlExtensions: string[];
-export const mdExtensions: string[];
-export const jsonExtensions: string[];
-export const cssExtensions: string[];
-export const allExtensions: string[];
+export const tsExtensions: readonly string[];
+export const jsExtensions: readonly string[];
+export const frameworkExtensions: readonly string[];
+export const htmlExtensions: readonly string[];
+export const mdExtensions: readonly string[];
+export const jsonExtensions: readonly string[];
+export const cssExtensions: readonly string[];
+export const allExtensions: readonly string[];
 
 export const tsFilesGlob: string;
 export const jsFilesGlob: string;
 export const allFilesGlob: string;
 
-export const defaultIgnores: string[];
+export const defaultIgnores: readonly string[];
 
 export const typescriptParser: Linter.Parser | undefined;
 

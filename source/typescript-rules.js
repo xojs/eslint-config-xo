@@ -1,5 +1,3 @@
-import {restrictedImports} from './restricted-imports.js';
-
 export const getNamingConventionRule = ({isTsx}) => ({
 	'@typescript-eslint/naming-convention': [
 		'error',
@@ -55,6 +53,25 @@ export const getNamingConventionRule = ({isTsx}) => ({
 				regex: '[- ]',
 				match: false,
 			},
+		},
+		{
+			// Private members should use `#private` or `private` without a `_` prefix.
+			// Needs modifiers to outrank the general selector above.
+			selector: [
+				'classProperty',
+				'parameterProperty',
+				'classMethod',
+				'accessor',
+			],
+			modifiers: [
+				'private',
+			],
+			format: [
+				'strictCamelCase',
+				isTsx && 'StrictPascalCase',
+			].filter(Boolean),
+			leadingUnderscore: 'forbid',
+			trailingUnderscore: 'allow',
 		},
 		{
 			selector: 'typeLike',
@@ -153,7 +170,6 @@ export const typescriptRules = {
 		'constructor',
 	],
 	'@typescript-eslint/consistent-indexed-object-style': 'error',
-	'brace-style': 'off',
 	'@stylistic/brace-style': [
 		'error',
 		'1tbs',
@@ -161,12 +177,10 @@ export const typescriptRules = {
 			allowSingleLine: false,
 		},
 	],
-	'comma-dangle': 'off',
 	'@stylistic/comma-dangle': [
 		'error',
 		'always-multiline',
 	],
-	'comma-spacing': 'off',
 	'@stylistic/comma-spacing': [
 		'error',
 		{
@@ -228,12 +242,10 @@ export const typescriptRules = {
 	// 	}
 	// ],
 
-	'func-call-spacing': 'off',
 	'@stylistic/function-call-spacing': [
 		'error',
 		'never',
 	],
-	indent: 'off',
 	'@stylistic/indent': [
 		'error',
 		'tab',
@@ -241,9 +253,7 @@ export const typescriptRules = {
 			SwitchCase: 1,
 		},
 	],
-	'keyword-spacing': 'off',
 	'@stylistic/keyword-spacing': 'error',
-	'lines-between-class-members': 'off',
 	'@stylistic/lines-between-class-members': [
 		'error',
 		'always',
@@ -269,16 +279,15 @@ export const typescriptRules = {
 	// We use `unicorn/consistent-class-member-order` for member ordering instead. It's simpler and has an autofix suggestion.
 	'@typescript-eslint/member-ordering': 'off',
 
-	// Disabled for now as it causes too many weird TypeScript issues. I'm not sure whether the problems are caused by bugs in TS or problems in my types.
-	// TODO: Try to re-enable this again in 2026.
-	// '@typescript-eslint/method-signature-style': 'error',
+	// The property style keeps parameter types strictly checked, as the method shorthand is bivariant. It was disabled for a long time as it caused weird TypeScript issues. I'm not sure whether the problems were caused by bugs in TS or problems in my types.
+	'@typescript-eslint/method-signature-style': 'error',
 
 	// We use `@typescript-eslint/naming-convention` in favor of `camelcase`.
 	camelcase: 'off',
 	// Known issues:
 	// - https://github.com/typescript-eslint/typescript-eslint/issues/1485
 	// - https://github.com/typescript-eslint/typescript-eslint/issues/1484
-	// TODO: Prevent `_` prefix on private fields when TypeScript 3.8 is out.
+	// The `private` modifier forbids a `_` prefix, as TypeScript 3.8 added `#private`.
 	...getNamingConventionRule({isTsx: false}),
 	'@typescript-eslint/no-base-to-string': 'error',
 	'no-array-constructor': 'off',
@@ -286,6 +295,7 @@ export const typescriptRules = {
 	'@typescript-eslint/no-array-delete': 'error',
 	'no-dupe-class-members': 'off',
 	'@typescript-eslint/no-dupe-class-members': 'error',
+	'@typescript-eslint/no-confusing-non-null-assertion': 'error',
 	'@typescript-eslint/no-confusing-void-expression': 'error',
 	'@typescript-eslint/no-deprecated': 'error',
 	'@typescript-eslint/no-duplicate-enum-values': 'error',
@@ -300,7 +310,7 @@ export const typescriptRules = {
 	'unicorn/no-invalid-argument-count': 'off',
 	'@typescript-eslint/no-empty-object-type': 'error',
 
-	// TODO: Try to enable this again in 2025.
+	// TODO: Try to enable this again in 2027. In 2026, it still reported 341 cases in `got`.
 	// Disabled for now. This is a great rule. It's just that TypeScript is not good enough yet to not use `any` in many places.
 	// For example: https://github.com/sindresorhus/refined-github/pull/2391#discussion_r318995182
 	// '@typescript-eslint/no-explicit-any': [
@@ -315,7 +325,6 @@ export const typescriptRules = {
 
 	// Disabled because it's buggy. It transforms `...(personalToken ? {Authorization: `token ${personalToken}`} : {})` into `...personalToken ? {Authorization: `token ${personalToken}`} : {}` which is not valid.
 	// https://github.com/typescript-eslint/typescript-eslint/search?q=%22no-extra-parens%22&state=open&type=Issues
-	'no-extra-parens': 'off',
 	// '@typescript-eslint/no-extra-parens': [
 	// 	'error',
 	// 	'all',
@@ -327,10 +336,7 @@ export const typescriptRules = {
 	// 	}
 	// ],
 
-	'no-extra-semi': 'off',
 	'@stylistic/no-extra-semi': 'error',
-	'no-loop-func': 'off',
-	'@typescript-eslint/no-loop-func': 'error',
 	'@typescript-eslint/no-extraneous-class': [
 		'error',
 		{
@@ -389,12 +395,14 @@ export const typescriptRules = {
 			checksVoidReturn: false,
 		},
 	],
+	'@typescript-eslint/no-misused-spread': 'error',
+	'@typescript-eslint/no-mixed-enums': 'error',
 	'@typescript-eslint/no-namespace': 'error',
 	'@typescript-eslint/no-non-null-asserted-nullish-coalescing': 'error',
 	'@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
 
 	// Disabled for now. There are just too many places where you need to use it because of incorrect types, for example, the Node.js types.
-	// TODO: Try to enable this again in 2023.
+	// TODO: Try to enable this again in 2027. In 2026, it still reported 466 cases in `got`.
 	// '@typescript-eslint/no-non-null-assertion': 'error',
 
 	'no-redeclare': 'off',
@@ -406,8 +414,6 @@ export const typescriptRules = {
 			ignoreOnInitialization: true,
 		},
 	],
-	'no-restricted-imports': 'off',
-	'@typescript-eslint/no-restricted-imports': ['error', {paths: [...restrictedImports]}],
 
 	// The rule is buggy and keeps inferring `any` for types that are not `any`. Just a lot of false-positives.
 	// '@typescript-eslint/no-redundant-type-constituents': 'error',
@@ -448,13 +454,14 @@ export const typescriptRules = {
 	// 	}
 	// ],
 
+	'@typescript-eslint/no-unnecessary-parameter-property-assignment': 'error',
 	'@typescript-eslint/no-unnecessary-qualifier': 'error',
 	'@typescript-eslint/no-unnecessary-type-arguments': 'error',
 	'@typescript-eslint/no-unnecessary-type-assertion': 'error',
 	'@typescript-eslint/no-unnecessary-type-constraint': 'error',
 	'@typescript-eslint/no-unnecessary-type-conversion': 'error',
 
-	// TODO: Enable at some point. Currently disabled because it's marked as unstable.
+	// Disabled because it reports intentional patterns, like a type parameter used once for a type-level check or to match an overridden signature.
 	// https://typescript-eslint.io/rules/no-unnecessary-type-parameters/
 	// '@typescript-eslint/no-unnecessary-type-parameters': 'error',
 
@@ -462,10 +469,12 @@ export const typescriptRules = {
 	'@typescript-eslint/no-unsafe-assignment': 'error',
 	'@typescript-eslint/no-unsafe-call': 'error',
 	'@typescript-eslint/no-unsafe-declaration-merging': 'error',
+	'@typescript-eslint/no-unsafe-enum-assignment': 'error',
 	'@typescript-eslint/no-unsafe-enum-comparison': 'error',
 	'@typescript-eslint/no-unsafe-function-type': 'error',
 	'@typescript-eslint/no-unsafe-member-access': 'error',
 	'@typescript-eslint/no-unsafe-return': 'error',
+	'@typescript-eslint/no-unsafe-unary-minus': 'error',
 	// Disabled because it's too naive. It flags intentional, idiomatic type-guard assertions like `(value as Promise<T>)?.then` as unsafe, causing too much noise in type-guard-heavy and low-level code.
 	// '@typescript-eslint/no-unsafe-type-assertion': 'error',
 	'@typescript-eslint/no-useless-empty-export': 'error',
@@ -489,12 +498,6 @@ export const typescriptRules = {
 	'no-useless-constructor': 'off',
 	'@typescript-eslint/no-useless-constructor': 'error',
 	'@typescript-eslint/no-useless-default-assignment': 'error',
-	'object-curly-spacing': 'off',
-	'@stylistic/object-curly-spacing': [
-		'error',
-		'never',
-	],
-	'padding-line-between-statements': 'off',
 	'@stylistic/padding-line-between-statements': [
 		'error',
 		{
@@ -525,7 +528,7 @@ export const typescriptRules = {
 	'@typescript-eslint/prefer-promise-reject-errors': 'error',
 	'@typescript-eslint/prefer-readonly': 'error',
 
-	// TODO: Try to enable this again in 2023.
+	// TODO: Try to enable this again in 2027. In 2026, it still reported 861 cases in `got`, 119 in `ky`, and 39 in `xo`.
 	// Disabled for now as it's too annoying and will cause too much churn. It also has bugs: https://github.com/typescript-eslint/typescript-eslint/search?q=%22prefer-readonly-parameter-types%22+is:issue&state=open&type=issues
 	// '@typescript-eslint/prefer-readonly-parameter-types': [
 	// 	'error',
@@ -539,7 +542,6 @@ export const typescriptRules = {
 	'@typescript-eslint/prefer-string-starts-ends-with': 'error',
 	'@typescript-eslint/promise-function-async': 'error',
 	'@typescript-eslint/related-getter-setter-pairs': 'error',
-	quotes: 'off',
 	'@stylistic/quotes': [
 		'error',
 		'single',
@@ -571,7 +573,6 @@ export const typescriptRules = {
 	// 'require-await': 'off',
 	// '@typescript-eslint/require-await': 'error',
 
-	'space-before-function-paren': 'off',
 	'@stylistic/space-before-function-paren': [
 		'error',
 		{
@@ -580,14 +581,11 @@ export const typescriptRules = {
 			asyncArrow: 'always',
 		},
 	],
-	'space-infix-ops': 'off',
 	'@stylistic/space-infix-ops': 'error',
-	semi: 'off',
 	'@stylistic/semi': [
 		'error',
 		'always',
 	],
-	'space-before-blocks': 'off',
 	'@stylistic/space-before-blocks': [
 		'error',
 		'always',

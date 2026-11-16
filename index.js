@@ -23,7 +23,6 @@ import {getMarkdownConfig} from './source/markdown.js';
 import {getRegexpConfig} from './source/regexp.js';
 import {getJsdocConfigs} from './source/jsdoc.js';
 import noUseExtendNativeRule from './source/rules/no-use-extend-native.js';
-import importSpecifierNewlineRule from './source/rules/import-specifier-newline.js';
 
 // Dynamically import TypeScript-related packages so that `typescript` is not
 // required when users don't have it installed (JavaScript-only projects).
@@ -36,20 +35,16 @@ try {
 	}
 }
 
-// TODO: Drop `cts` in the next major version, as CommonJS is no longer supported.
 export const tsExtensions = [
 	'ts',
 	'tsx',
 	'mts',
-	'cts',
 ];
 
-// TODO: Drop `cjs` in the next major version, as CommonJS is no longer supported.
 export const jsExtensions = [
 	'js',
 	'jsx',
 	'mjs',
-	'cjs',
 ];
 
 export const frameworkExtensions = [
@@ -118,12 +113,6 @@ const pluginNoUseExtendNative = {
 	},
 };
 
-const pluginXo = {
-	rules: {
-		'import-specifier-newline': importSpecifierNewlineRule,
-	},
-};
-
 const missingTypeScriptParser = {
 	parse() {
 		throw new Error('Install `typescript` to lint TypeScript files with eslint-config-xo.');
@@ -138,7 +127,6 @@ const missingTypeScriptConfig = {
 	ignores: [
 		'**/*.d.ts',
 		'**/*.d.mts',
-		'**/*.d.cts',
 	],
 	languageOptions: {
 		parser: missingTypeScriptParser,
@@ -212,6 +200,13 @@ const prettierCompatibleSpecialRules = {
 	'arrow-body-style': 'error',
 };
 
+/**
+Stylistic rules that conflict with Prettier but are not turned off by `eslint-config-prettier` yet.
+*/
+const prettierConflictingRules = {
+	'@stylistic/list-style': 'off',
+};
+
 export function getPrettierConfig({prettier, space, semicolon, files}) {
 	if (!prettier) {
 		return;
@@ -224,6 +219,7 @@ export function getPrettierConfig({prettier, space, semicolon, files}) {
 			...(files && {files}),
 			rules: {
 				...eslintConfigPrettier.rules,
+				...prettierConflictingRules,
 				...prettierCompatibleSpecialRules,
 			},
 		};
@@ -250,6 +246,7 @@ export function getPrettierConfig({prettier, space, semicolon, files}) {
 				},
 			],
 			...eslintConfigPrettier.rules,
+			...prettierConflictingRules,
 			...prettierCompatibleSpecialRules,
 			// XO controls Prettier here (`singleQuote: true`), so single-quote enforcement stays consistent.
 			'@stylistic/quotes': ['error', 'single', {avoidEscape: true}],
@@ -292,7 +289,6 @@ export default function eslintConfigXo({
 			'import-x': pluginImport,
 			'@eslint-community/eslint-comments': pluginComments,
 			'no-use-extend-native': pluginNoUseExtendNative,
-			xo: pluginXo,
 			n: pluginN,
 		},
 		files: [
@@ -364,6 +360,13 @@ export default function eslintConfigXo({
 		plugins: {
 			...pluginPackageJson.configs.recommended.plugins,
 			json,
+		},
+		rules: {
+			...pluginPackageJson.configs.recommended.rules,
+			'package-json/no-exact-peer-dependencies': 'error',
+			'package-json/no-local-dependencies': 'error',
+			'package-json/no-redundant-repository-fields': 'error',
+			'package-json/restrict-fields-when-private': 'error',
 		},
 	};
 

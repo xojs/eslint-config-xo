@@ -71,6 +71,22 @@ test('package.json', async () => {
 	assert.ok(hasRule(errors, 'package-json/no-empty-fields'));
 });
 
+test('package.json - extra rules', async () => {
+	const lint = packageJson => runEslint(`${JSON.stringify(packageJson, undefined, '\t')}\n`, eslintConfigXo(), {filePath: 'package.json'});
+
+	assert.ok(hasRule(await lint({name: 'foo', dependencies: {bar: 'file:../bar'}}), 'package-json/no-local-dependencies'));
+	assert.ok(hasRule(await lint({name: 'foo', peerDependencies: {bar: '1.0.0'}}), 'package-json/no-exact-peer-dependencies'));
+	assert.ok(hasRule(await lint({name: 'foo', repository: 'sindresorhus/foo', homepage: 'https://github.com/sindresorhus/foo#readme'}), 'package-json/no-redundant-repository-fields'));
+	assert.ok(hasRule(await lint({name: 'foo', private: true, publishConfig: {access: 'public'}}), 'package-json/restrict-fields-when-private'));
+});
+
+test('jsdoc - method signature style', async () => {
+	const lint = code => runEslint(code, eslintConfigXo(), {filePath: 'index.js'});
+
+	assert.ok(hasRule(await lint('/**\n@typedef {{foo(value: string): void}} Foo\n*/\n'), 'jsdoc/ts-method-signature-style'));
+	assert.ok(!hasRule(await lint('/**\n@typedef {{foo: (value: string) => void}} Foo\n*/\n'), 'jsdoc/ts-method-signature-style'));
+});
+
 test('common config files are parsed as JSONC', async () => {
 	const config = eslintConfigXo();
 	const source = '{\n\t// Comment\n\t"foo": true,\n}\n';
@@ -469,7 +485,53 @@ test('restricted imports', async () => {
 
 test('restricted imports - typescript', async () => {
 	const errors = await runEslint('import objectAssign from \'object-assign\';\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
-	assert.ok(hasRule(errors, '@typescript-eslint/no-restricted-imports'));
+	assert.ok(hasRule(errors, 'no-restricted-imports'));
+
+	const typeErrors = await runEslint('import type objectAssign from \'object-assign\';\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
+	assert.ok(hasRule(typeErrors, 'no-restricted-imports'));
+});
+
+test('no-loop-func - reports in javascript and typescript', async () => {
+	const code = 'export const functions = [];\nfor (var index = 0; index < 3; index++) {\n\tfunctions.push(() => index);\n}\n';
+	for (const filePath of ['index.js', 'test/fixture.ts']) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(code, eslintConfigXo(), {filePath});
+		assert.ok(hasRule(errors, 'no-loop-func'));
+	}
+});
+
+test('typescript - strict correctness rules', async () => {
+	const lint = code => runEslint(code, eslintConfigXo(), {filePath: 'test/fixture.ts'});
+
+	assert.ok(hasRule(await lint('export enum Foo {\n\tA = 0,\n\tB = \'b\',\n}\n'), '@typescript-eslint/no-mixed-enums'));
+	assert.ok(hasRule(await lint('export const negate = (value: string) => -value;\n'), '@typescript-eslint/no-unsafe-unary-minus'));
+	assert.ok(hasRule(await lint('export const merge = (items: string[]) => ({...items});\n'), '@typescript-eslint/no-misused-spread'));
+	assert.ok(hasRule(await lint('export type Foo = {\n\tbar(value: string): void;\n};\n'), '@typescript-eslint/method-signature-style'));
+	assert.ok(!hasRule(await lint('export type Foo = {\n\tbar: (value: string) => void;\n};\n'), '@typescript-eslint/method-signature-style'));
+});
+
+test('n/prefer-global - timers and crypto use the globals', async () => {
+	const lint = code => runEslint(code, eslintConfigXo(), {filePath: 'index.js'});
+
+	assert.ok(hasRule(await lint('import {setTimeout} from \'node:timers\';\n\nsetTimeout(() => {}, 1);\n'), 'n/prefer-global/timers'));
+	assert.ok(!hasRule(await lint('import {setTimeout} from \'node:timers/promises\';\n\nawait setTimeout(1);\n'), 'n/prefer-global/timers'));
+	assert.ok(hasRule(await lint('import {webcrypto} from \'node:crypto\';\n\nconsole.log(webcrypto);\n'), 'n/prefer-global/crypto'));
+});
+
+test('CommonJS extensions are not linted with XO rules', async () => {
+	for (const filePath of ['index.cjs', 'index.cts']) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint('var foo = 1;\nmodule.exports = foo;\n', eslintConfigXo(), {filePath});
+		assert.ok(!hasRule(errors, 'no-var'));
+	}
+
+	const errors = await runEslint('var foo = 1;\nexport default foo;\n', eslintConfigXo(), {filePath: 'index.js'});
+	assert.ok(hasRule(errors, 'no-var'));
+});
+
+test('no-useless-assignment - reports an initial value that is always overwritten', async () => {
+	const errors = await runEslint('export function foo(a) {\n\tlet value = 0;\n\tvalue = a;\n\treturn value;\n}\n', eslintConfigXo(), {filePath: 'index.js'});
+	assert.ok(hasRule(errors, 'no-useless-assignment'));
 });
 
 test('typescript - UPPER_CASE module-level const is allowed', async () => {
@@ -506,6 +568,22 @@ test('typescript - single-word UPPER_CASE module-level const is allowed', async 
 		{filePath: 'test/fixture.ts'},
 	);
 	assert.ok(!hasRule(errors, '@typescript-eslint/naming-convention'));
+});
+
+test('typescript - private members do not allow a `_` prefix', async () => {
+	const lint = code => runEslint(code, eslintConfigXo(), {filePath: 'test/fixture.ts'});
+
+	for (const member of ['private _foo = 1;', 'private _bar() {\n\t\treturn 1;\n\t}', 'private get _baz() {\n\t\treturn 1;\n\t}', 'constructor(private readonly _qux: number) {}']) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await lint(`export class Foo {\n\t${member}\n}\n`);
+		assert.ok(hasRule(errors, '@typescript-eslint/naming-convention'), member);
+	}
+
+	for (const member of ['private foo = 1;', '#foo = 1;', '_foo = 1;', 'protected _foo = 1;']) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await lint(`export class Foo {\n\t${member}\n}\n`);
+		assert.ok(!hasRule(errors, '@typescript-eslint/naming-convention'), member);
+	}
 });
 
 test('typescript - UPPER_CASE static readonly class property is allowed', async () => {
@@ -717,6 +795,48 @@ test('prettier - does not enforce no-mixed-operators, as Prettier removes the pa
 	assert.ok(hasRule(errors, '@stylistic/no-mixed-operators'));
 });
 
+test('prettier - does not enforce list-style, as Prettier keeps short objects on one line', async () => {
+	const fixture = 'export const foo = {a: 1, b: 2, c: 3, d: 4};\n';
+
+	for (const prettier of ['compat', true]) {
+		// eslint-disable-next-line no-await-in-loop
+		const errors = await runEslint(fixture, eslintConfigXo({prettier}), {filePath: 'index.js'});
+		assert.ok(!hasRule(errors, '@stylistic/list-style'));
+		assert.ok(!hasRule(errors, 'prettier/prettier'));
+	}
+
+	const errors = await runEslint(fixture, eslintConfigXo(), {filePath: 'index.js'});
+	assert.ok(hasRule(errors, '@stylistic/list-style'));
+});
+
+test('list-style - checks brackets and braces but not parameters and arguments', async () => {
+	const lint = code => runEslint(code, eslintConfigXo(), {filePath: 'index.js'});
+
+	assert.ok(hasRule(await lint('export const foo = {\n\ta: 1, b: 2,\n};\n'), '@stylistic/list-style'));
+	assert.ok(hasRule(await lint('export const foo = [ 1 ];\n'), '@stylistic/list-style'));
+	assert.ok(hasRule(await lint('export const foo = { a: 1 };\n'), '@stylistic/list-style'));
+	assert.ok(!hasRule(await lint('export const foo = {a: 1, b: 2, c: 3};\n'), '@stylistic/list-style'));
+	assert.ok(!hasRule(await lint('export const foo = [1, 2, 3, 4, 5];\n'), '@stylistic/list-style'));
+	assert.ok(!hasRule(await lint('export const foo = items => items.flatMap(item => item\n\t.map(x => x),\n);\n'), '@stylistic/list-style'));
+	assert.ok(hasRule(await lint('import {a, b, c, d} from \'./foo.js\';\n\nexport const foo = [a, b, c, d];\n'), '@stylistic/list-style'));
+});
+
+test('list-style - checks TypeScript type bodies and tuple types', async () => {
+	const lint = async code => {
+		const errors = await runEslint(code, eslintConfigXo(), {filePath: 'test/fixture.ts'});
+		return errors.filter(error => ['@stylistic/list-style', '@stylistic/member-delimiter-style'].includes(error.ruleId)).map(error => error.ruleId);
+	};
+
+	assert.deepEqual(await lint('export type Foo = { a: string };\n'), ['@stylistic/list-style', '@stylistic/list-style']);
+	assert.deepEqual(await lint('export interface Foo { a: string }\n'), ['@stylistic/list-style', '@stylistic/list-style']);
+	assert.deepEqual(await lint('export type Foo = {a: string; b: number};\n'), []);
+	assert.deepEqual(await lint('export type Foo = {\n\ta: string;\n\tb: number;\n};\n'), []);
+	const packedTupleErrors = await lint('export type Foo = [\n\t1, 2, 3,\n\t4, 5, 6,\n];\n');
+	assert.ok(packedTupleErrors.includes('@stylistic/list-style'));
+	assert.deepEqual(await lint('export type Foo = [ 1, 2 ];\n'), ['@stylistic/list-style', '@stylistic/list-style']);
+	assert.deepEqual(await lint('export type Foo = [1, 2];\n'), []);
+});
+
 test('prettier - default does not enable Prettier', async () => {
 	const errors = await runEslint('export const foo = {bar: \'baz\'}\n', eslintConfigXo(), {filePath: 'index.js'});
 	assert.ok(!hasRule(errors, 'prettier/prettier'));
@@ -736,8 +856,8 @@ test('no TypeScript install skips TypeScript files and omits the parser export',
 	assert.equal(new Set(noTypeScriptNames).size, noTypeScriptNames.length);
 
 	const baseConfig = noTypeScriptConfig.find(config => config.name === 'xo/base');
-	assert.deepEqual(baseConfig.files, ['**/*.{js,jsx,mjs,cjs,vue,svelte,astro}']);
-	assert.deepEqual(baseConfig.settings['import-x/extensions'], ['js', 'jsx', 'mjs', 'cjs', 'vue', 'svelte', 'astro']);
+	assert.deepEqual(baseConfig.files, ['**/*.{js,jsx,mjs,vue,svelte,astro}']);
+	assert.deepEqual(baseConfig.settings['import-x/extensions'], ['js', 'jsx', 'mjs', 'vue', 'svelte', 'astro']);
 
 	const errors = await runEslint(
 		'const foo: number = 1;\n',
@@ -1064,7 +1184,7 @@ test('jsdoc - does not require jsdoc on functions', async () => {
 test('exported file globs include html and md', () => {
 	assert.ok(allExtensions.includes('html'));
 	assert.ok(allExtensions.includes('md'));
-	assert.equal(allFilesGlob, '**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,svelte,astro,html,md}');
+	assert.equal(allFilesGlob, '**/*.{js,jsx,mjs,ts,tsx,mts,vue,svelte,astro,html,md}');
 });
 
 test('exports json and css extensions separately and ignores lockfiles by default', () => {
@@ -1083,49 +1203,49 @@ test('empty braces do not conflict between curly-newline and empty-brace-spaces'
 	assert.ok(!hasRule(errors, 'unicorn/empty-brace-spaces'));
 });
 
-test('import-specifier-newline - flags specifiers on same line in multi-line import', async () => {
+test('list-style - import flags specifiers on same line in multi-line import', async () => {
 	const errors = await runEslint('import {\n\tfoo, bar,\n} from \'x\';\nvoid foo, bar;\n', eslintConfigXo());
-	assert.ok(hasRule(errors, 'xo/import-specifier-newline'));
+	assert.ok(hasRule(errors, '@stylistic/list-style'));
 });
 
-test('import-specifier-newline - allows single-line imports', async () => {
+test('list-style - import allows single-line imports', async () => {
 	const errors = await runEslint('import {foo, bar} from \'x\';\nvoid foo, bar;\n', eslintConfigXo());
-	assert.ok(!hasRule(errors, 'xo/import-specifier-newline'));
+	assert.ok(!hasRule(errors, '@stylistic/list-style'));
 });
 
-test('import-specifier-newline - allows each specifier on its own line', async () => {
+test('list-style - import allows each specifier on its own line', async () => {
 	const errors = await runEslint('import {\n\tfoo,\n\tbar,\n} from \'x\';\nvoid foo, bar;\n', eslintConfigXo());
-	assert.ok(!hasRule(errors, 'xo/import-specifier-newline'));
+	assert.ok(!hasRule(errors, '@stylistic/list-style'));
 });
 
-test('import-specifier-newline - allows single specifier', async () => {
+test('list-style - import allows single specifier', async () => {
 	const errors = await runEslint('import {\n\tfoo,\n} from \'x\';\nvoid foo;\n', eslintConfigXo());
-	assert.ok(!hasRule(errors, 'xo/import-specifier-newline'));
+	assert.ok(!hasRule(errors, '@stylistic/list-style'));
 });
 
-test('import-specifier-newline - flags multiple violations on same line', async () => {
+test('list-style - import flags multiple violations on same line', async () => {
 	const errors = await runEslint('import {\n\tfoo, bar, baz,\n} from \'x\';\nvoid foo, bar, baz;\n', eslintConfigXo());
-	const violations = errors.filter(error => error.ruleId === 'xo/import-specifier-newline');
+	const violations = errors.filter(error => error.ruleId === '@stylistic/list-style');
 	assert.equal(violations.length, 2);
 });
 
-test('import-specifier-newline - flags only the grouped specifiers', async () => {
+test('list-style - import flags only the grouped specifiers', async () => {
 	const errors = await runEslint('import {\n\tfoo, bar,\n\tbaz,\n} from \'x\';\nvoid foo, bar, baz;\n', eslintConfigXo());
-	const violations = errors.filter(error => error.ruleId === 'xo/import-specifier-newline');
+	const violations = errors.filter(error => error.ruleId === '@stylistic/list-style');
 	assert.equal(violations.length, 1);
 });
 
-test('import-specifier-newline - flags renamed imports on same line', async () => {
+test('list-style - import flags renamed imports on same line', async () => {
 	const errors = await runEslint('import {\n\tfoo as f, bar as b,\n} from \'x\';\nvoid f, b;\n', eslintConfigXo());
-	assert.ok(hasRule(errors, 'xo/import-specifier-newline'));
+	assert.ok(hasRule(errors, '@stylistic/list-style'));
 });
 
-test('import-specifier-newline - flags mixed default and named import', async () => {
+test('list-style - import flags mixed default and named import', async () => {
 	const errors = await runEslint('import def, {\n\tfoo, bar,\n} from \'x\';\nvoid def, foo, bar;\n', eslintConfigXo());
-	assert.ok(hasRule(errors, 'xo/import-specifier-newline'));
+	assert.ok(hasRule(errors, '@stylistic/list-style'));
 });
 
-test('import-specifier-newline - autofix preserves indentation', async () => {
+test('list-style - import autofix preserves indentation', async () => {
 	const eslint = new ESLint({
 		overrideConfigFile: true,
 		overrideConfig: eslintConfigXo(),
@@ -1136,7 +1256,7 @@ test('import-specifier-newline - autofix preserves indentation', async () => {
 	assert.ok(result.output.includes('\tfoo,\n\tbar,'));
 });
 
-test('import-specifier-newline - autofix preserves space indentation', async () => {
+test('list-style - import autofix preserves space indentation', async () => {
 	const eslint = new ESLint({
 		overrideConfigFile: true,
 		overrideConfig: eslintConfigXo({space: true}),
@@ -1147,7 +1267,7 @@ test('import-specifier-newline - autofix preserves space indentation', async () 
 	assert.ok(result.output.includes('  foo,\n  bar,'));
 });
 
-test('import-specifier-newline - autofix splits all three specifiers', async () => {
+test('list-style - import autofix splits all three specifiers', async () => {
 	const eslint = new ESLint({
 		overrideConfigFile: true,
 		overrideConfig: eslintConfigXo(),
@@ -1158,10 +1278,10 @@ test('import-specifier-newline - autofix splits all three specifiers', async () 
 	assert.ok(result.output.includes('\tfoo,\n\tbar,\n\tbaz,'));
 });
 
-test('import-specifier-newline - skips fix when comment exists between specifiers', async () => {
+test('list-style - import skips fix when comment exists between specifiers', async () => {
 	const input = 'import {\n\tfoo, /* comment */ bar,\n} from \'x\';\nvoid foo, bar;\n';
 	const errors = await runEslint(input, eslintConfigXo());
-	assert.ok(hasRule(errors, 'xo/import-specifier-newline'));
+	assert.ok(hasRule(errors, '@stylistic/list-style'));
 
 	const eslint = new ESLint({
 		overrideConfigFile: true,
@@ -1170,18 +1290,18 @@ test('import-specifier-newline - skips fix when comment exists between specifier
 	});
 
 	const [result] = await eslint.lintText(input);
-	assert.ok(hasRule(result.messages, 'xo/import-specifier-newline'));
+	assert.ok(hasRule(result.messages, '@stylistic/list-style'));
 });
 
-test('import-specifier-newline - flags groups on multiple lines', async () => {
+test('list-style - import flags groups on multiple lines', async () => {
 	const errors = await runEslint('import {\n\tfoo, bar,\n\tbaz, qux,\n} from \'x\';\nvoid foo, bar, baz, qux;\n', eslintConfigXo());
-	const violations = errors.filter(error => error.ruleId === 'xo/import-specifier-newline');
+	const violations = errors.filter(error => error.ruleId === '@stylistic/list-style');
 	assert.equal(violations.length, 2);
 });
 
-test('import-specifier-newline - flags type imports in typescript', async () => {
+test('list-style - import flags type imports in typescript', async () => {
 	const errors = await runEslint('import type {\n\tFoo, Bar,\n} from \'x\';\nvoid 0 as unknown as Foo | Bar;\n', eslintConfigXo(), {filePath: 'test/fixture.ts'});
-	assert.ok(hasRule(errors, 'xo/import-specifier-newline'));
+	assert.ok(hasRule(errors, '@stylistic/list-style'));
 });
 
 test('gitignore - ignores paths listed in .gitignore', async t => {

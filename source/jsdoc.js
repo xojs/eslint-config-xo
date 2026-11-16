@@ -160,7 +160,7 @@ export function getJsdocConfigs({files, tsFiles}) {
 				'jsdoc/require-yields-type': 'error',
 
 				// TypeScript-related
-				'jsdoc/ts-method-signature-style': 'off',
+				'jsdoc/ts-method-signature-style': ['error', 'property'],
 				'jsdoc/ts-no-empty-object-type': 'error',
 				'jsdoc/ts-no-unnecessary-template-expression': 'off',
 				'jsdoc/ts-prefer-function-type': 'off',

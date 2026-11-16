@@ -24,10 +24,10 @@ import {ESLint} from 'eslint';
 import eslintConfigXo from '../index.js';
 
 const projectGlobs = [
-	'index.{js,ts,mjs,cjs}',
-	'source/**/*.{js,ts,tsx,mjs,cjs}',
-	'test/**/*.{js,ts,tsx,mjs,cjs}',
-	'*.{js,mjs,cjs}',
+	'index.{js,ts,mjs}',
+	'source/**/*.{js,ts,tsx,mjs}',
+	'test/**/*.{js,ts,tsx,mjs}',
+	'*.{js,mjs}',
 ];
 
 function parseArguments(argv) {

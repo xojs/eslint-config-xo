@@ -3,8 +3,7 @@ import pluginUnicorn from 'eslint-plugin-unicorn';
 export const pluginsRules = {
 	...pluginUnicorn.configs?.recommended?.rules,
 	'no-use-extend-native/no-use-extend-native': 'error',
-	'xo/import-specifier-newline': 'error',
-	// TODO: Restore when it becomes safer: https://github.com/sindresorhus/eslint-plugin-unicorn/issues/681
+	// TODO: Restore when the rule can tell user-facing text from code strings. It reports any string with `'`, `...`, or `->`, like regexes and code examples. https://github.com/sindresorhus/eslint-plugin-unicorn/issues/681
 	// 'unicorn/string-content': [
 	// 	'error',
 	// 	{
@@ -56,8 +55,6 @@ export const pluginsRules = {
 	'unicorn/prefer-import-meta-properties': 'off',
 	// Not in `eslint-plugin-unicorn`'s recommended config. Also enabled for HTML files in `html.js`.
 	'unicorn/no-invalid-file-input-accept': 'error',
-	// TODO: Temporarily disabled as the rule is buggy.
-	'function-call-argument-newline': 'off',
 	'import-x/default': 'error',
 	'import-x/export': 'error',
 	'import-x/extensions': [
@@ -171,9 +168,11 @@ export const pluginsRules = {
 	'n/no-deprecated-api': 'error',
 	'n/prefer-global/buffer': ['error', 'never'],
 	'n/prefer-global/console': ['error', 'always'],
+	'n/prefer-global/crypto': ['error', 'always'],
 	'n/prefer-global/process': ['error', 'never'],
 	'n/prefer-global/text-decoder': ['error', 'always'],
 	'n/prefer-global/text-encoder': ['error', 'always'],
+	'n/prefer-global/timers': ['error', 'always'],
 	'n/prefer-global/url-search-params': ['error', 'always'],
 	'n/prefer-global/url': ['error', 'always'],
 	'n/prefer-process-get-builtin-module': 'error',
@@ -189,7 +188,6 @@ export const pluginsRules = {
 	'@eslint-community/eslint-comments/no-duplicate-disable': 'error',
 	// Disabled as it's already covered by the `unicorn/no-abusive-eslint-disable` rule.
 	// 'eslint-comments/no-unlimited-disable': 'error',
-	'@eslint-community/eslint-comments/no-unused-disable': 'error',
 	'@eslint-community/eslint-comments/no-unused-enable': 'error',
 	'@eslint-community/eslint-comments/require-description': [
 		'error',
